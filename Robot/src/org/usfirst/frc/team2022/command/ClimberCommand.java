@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class ClimberCommand extends Command {
 	ClimberSubsystem climberSubsystem = Robot.climberSubsystem;
-	
 	XboxMap xboxMap = new XboxMap();
 	
 	public ClimberCommand() {
