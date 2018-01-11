@@ -5,11 +5,11 @@ public class XboxMap {
 	
 	//Drive commands
 	public double getSpeedRightWheel(){ 
-		return oi.xbox.GetRightY();
+		return oi.xbox2.GetRightY();
 	}
 	
 	public double getSpeedLeftWheel() {
-		return oi.xbox.GetLeftY();
+		return oi.xbox2.GetLeftY();
 	}
 	
 //	public boolean startAutoBrakerSystem(){
@@ -17,11 +17,11 @@ public class XboxMap {
 //	}
 	
 	public boolean switchySwitch(){
-		return oi.xbox.GetRightBumperValue();
+		return oi.xbox2.GetRightBumperValue();
 	}
 	
 	public boolean startAutoGearAlignment(){
-		if(oi.xbox.getPOV() == 180){
+		if(oi.xbox2.getPOV() == 180){
 			return true;
 		}
 		else{
@@ -57,12 +57,12 @@ public class XboxMap {
 	
 	//Universal stop command
 	public boolean stopSystem() {
-		return oi.xbox.GetYValue();
+		return oi.xbox2.GetYValue();
 	}
 
 	public boolean runAgitator() {
 		// TODO Auto-generated method stub
-		if(oi.xbox.GetRightTriggers() > 0.4){
+		if(oi.xbox2.GetRightTriggers() > 0.4){
 			return true;
 		}
 		else{
@@ -72,7 +72,7 @@ public class XboxMap {
 
 	public boolean moveTowardsGear() {
 		// TODO Auto-generated method stub
-		return oi.xbox.GetAValue();
+		return oi.xbox2.GetAValue();
 //		if(oi.xbox.getPOV() == 0){
 //			return true;
 //		}
@@ -83,6 +83,6 @@ public class XboxMap {
 
 	public boolean moveToShooter() {
 		// TODO Auto-generated method stub
-		return oi.xbox.GetAValue();
+		return oi.xbox2.GetAValue();
 	}
 }
