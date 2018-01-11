@@ -30,7 +30,7 @@ public class DriveCommand extends Command {
 	boolean turtle = false;
 	
     public DriveCommand() {
-        // Use requires() here to declare subsystem dependencies
+        // Use requires() here o declare subsystem dependencies
         // eg. requires(chassis);
     	requires(driveSubsystem);
     }
