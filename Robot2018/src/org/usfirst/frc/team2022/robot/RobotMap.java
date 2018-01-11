@@ -1,19 +1,56 @@
 package org.usfirst.frc.team2022.robot;
 
-/**
- * The RobotMap is a mapping from the ports sensors and actuators are wired into
- * to a variable name. This provides flexibility changing wiring, makes checking
- * the wiring easier and significantly reduces the number of magic numbers
- * floating around.
- */
-public class RobotMap {
-	// For example to map the left and right motors, you could define the
-	// following variables to use with your drivetrain subsystem.
-	// public static int leftMotor = 1;
-	// public static int rightMotor = 2;
+import edu.wpi.first.wpilibj.DigitalSource;
 
-	// If you are using multiple modules, make sure to define both the port
-	// number and the module. For example you with a rangefinder:
-	// public static int rangefinderPort = 1;
-	// public static int rangefinderModule = 1;
+/**
+ * This class is initialized in the Robot class and is referenced
+ * in the subsystem classes. This class holds the variables to port 
+ * numbers for sensors and motors.
+ * 
+ * Standard format for port number variables:
+ * public static final portNumber = 0;
+ */
+
+public class RobotMap {
+	
+	//Motors
+	//Drive motor ports
+	public static final int LEFT_DRIVE_PORT_1 = 4;
+	public static final int LEFT_DRIVE_PORT_2 = 5;
+	public static final int LEFT_DRIVE_PORT_3 = 6;
+	public static final int RIGHT_DRIVE_PORT_1 = 7;
+	public static final int RIGHT_DRIVE_PORT_2 = 8;
+	public static final int RIGHT_DRIVE_PORT_3 = 9;
+	
+	public static final int LIMIT_SWITCH = 0;
+	public static final int GEAR_SWITCH = 1;
+	
+	//Shooter motor ports
+	public static int AGITATOR_MOTOR_PORT = 1;
+	public static int SHOOTER_MOTOR_PORT1 = 2;
+	public static int SHOOTER_MOTOR_PORT2 = 11;
+	
+	//Climber motor ports
+	public static int CLIMBER_MOTOR_PORT = 10;
+	
+	//Sensors
+	//Drive base sensors
+	public static final int GYRO_PORT = 1;
+	public static final int K_ULTRASONIC_PORT = 0;
+
+	//port for servo (gate that opens and closes for balls to go through)
+	public static final int SERVO_MOTOR_PORT = 9;
+
+	// encoder ports for drive base
+	public static int LEFT_ENCODER_PORT_A = 7;
+	public static int LEFT_ENCODER_PORT_B = 6;
+	public static int RIGHT_ENCODER_PORT_A = 9;
+	public static int RIGHT_ENCODER_PORT_B = 8;
+	//LIGHTS
+	public static int SPIKE_1 = 2;
+	public static int SPIKE_2 = 3;
+
+	//Encoder ports for shooter
+//	public static int SHOOTER_ENCODER_A = 0;
+//	public static int SHOOTER_ENCODER_B = 1;
 }
