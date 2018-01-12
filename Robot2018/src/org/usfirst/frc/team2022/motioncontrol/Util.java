@@ -1,6 +1,9 @@
 package org.usfirst.frc.team2022.motioncontrol;
 
 public class Util {
+	
+	static final float conversionFactor = 60;
+	
 	// position in rotations
 	private static double rotPos(double maxV, double distance, double time) {
 		return (1024 * time*time*time * maxV*maxV*maxV * (64 * time*time * maxV*maxV
