@@ -8,6 +8,10 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
+import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.SPI;
+
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -23,7 +27,7 @@ public class DriveSubsystem extends Subsystem {
 
 	private Encoder leftEncoder, rightEncoder;
 
-	private AnalogGyro gyro;
+	private AHRS ahrs;
 	
 	private DigitalInput limitSwitch, gearSwitch;
 	
@@ -50,13 +54,15 @@ public class DriveSubsystem extends Subsystem {
 		rightEncoder = new Encoder(RobotMap.RIGHT_ENCODER_PORT_A, RobotMap.RIGHT_ENCODER_PORT_B, false);
 		
 		//Instantiate Gyro
-		gyro = new AnalogGyro(RobotMap.GYRO_PORT);
-		gyro.calibrate();
+        ahrs = new AHRS(SPI.Port.kMXP); 
+		if (!ahrs.isCalibrating()) {		//Gyro automatically calibrates when given power
+			stop();
+		}
+		
 		//Set Encoder distanceFromTower per pulse
 		
 		rightEncoder.setDistancePerPulse(ConstantsMap.DRIVE_ENCODER_DIST_PER_TICK);
 		leftEncoder.setDistancePerPulse(ConstantsMap.DRIVE_ENCODER_DIST_PER_TICK);
-		
 		
 		limitSwitch = new DigitalInput(RobotMap.LIMIT_SWITCH);
 		gearSwitch = new DigitalInput(RobotMap.GEAR_SWITCH);
@@ -175,16 +181,16 @@ public class DriveSubsystem extends Subsystem {
 	}
 	
 	//Gyro methods
-	public AnalogGyro getGyro(){
-		return gyro;
+	public AHRS getGyro(){
+		return ahrs;
 	}
 	
 	public double getGyroAngle(){
-		return gyro.getAngle(); 
+		return ahrs.getAngle(); 
 	}
 
 	public void resetGyro() {
-		gyro.reset();
+		ahrs.reset();
 	}
 
 	public void stop() {
