@@ -1,7 +1,7 @@
 package org.usfirst.frc.team2022.robot;
 
 import edu.wpi.first.wpilibj.DigitalSource;
-
+import edu.wpi.first.wpilibj.SPI;
 /**
  * This class is initialized in the Robot class and is referenced
  * in the subsystem classes. This class holds the variables to port 
@@ -35,7 +35,6 @@ public class RobotMap {
 	
 	//Sensors
 	//Drive base sensors
-	public static final int GYRO_PORT = 1;
 	public static final int K_ULTRASONIC_PORT = 0;
 
 	//port for servo (gate that opens and closes for balls to go through)
