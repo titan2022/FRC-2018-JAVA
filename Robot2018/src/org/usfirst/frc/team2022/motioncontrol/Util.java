@@ -1,7 +1,7 @@
 package org.usfirst.frc.team2022.motioncontrol;
 
 public class Util {
-	
+	// feet * conversionFactor = rotations
 	static final float conversionFactor = 60;
 	
 	// position in rotations
