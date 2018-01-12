@@ -28,10 +28,9 @@ public class MotionProfile {
 	public TrajectoryPoint[] generateProfile(double distance) {
 		// TODO: handle cases where 128 points aren't enough
 		//       allow for modified interval between points
-		//       fix time
 		//       is the interval between trajectorypoints even 10ms????
 		ArrayList<TrajectoryPoint> ls = new ArrayList<>();
-		int time = 1280; // time in ms
+		int time = (int) ((15 * distance * conversionFactor)/(8 * maxV)); // time in ms
 		for (int t = 0; t <= time; t += 10) {
 			TrajectoryPoint tp = new TrajectoryPoint();
 			tp.position = position(distance, t/1000);
