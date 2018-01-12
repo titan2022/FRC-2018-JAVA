@@ -10,19 +10,24 @@ public class MotionProfile {
 	static final float conversionFactor = 60;
 	
 	double maxV;
-	TalonSRX motor;
+	TalonSRX[] motors;
 	
-	public MotionProfile(TalonSRX motor, double maxV) {
+	public MotionProfile(TalonSRX[] motors, double maxV) {
 		this.maxV = maxV * conversionFactor;
-		this.motor = motor;
+		this.motors = motors;
 	}
 	
 	public void runProfile(double distance) {
 		// TODO: error handling
 		for (TrajectoryPoint tp : generateProfile(distance)) {
-			motor.pushMotionProfileTrajectory(tp);
+			for (TalonSRX motor : motors) {
+				motor.pushMotionProfileTrajectory(tp);
+			}
 		}
-		motor.processMotionProfileBuffer();
+		
+		for (TalonSRX motor : motors) {
+			motor.processMotionProfileBuffer();
+		}
 	}
 	
 	public TrajectoryPoint[] generateProfile(double distance) {
