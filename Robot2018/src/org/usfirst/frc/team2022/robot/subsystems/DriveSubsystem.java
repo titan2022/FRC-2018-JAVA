@@ -55,7 +55,7 @@ public class DriveSubsystem extends Subsystem {
 		
 		//Instantiate Gyro
         ahrs = new AHRS(SPI.Port.kMXP); 
-		if (!gyro.isCalibrating()) {		//Gyro automatically calibrates when given power
+		if (!ahrs.isCalibrating()) {		//Gyro automatically calibrates when given power
 			stop();
 		}
 		
@@ -182,15 +182,15 @@ public class DriveSubsystem extends Subsystem {
 	
 	//Gyro methods
 	public AHRS getGyro(){
-		return gyro;
+		return ahrs;
 	}
 	
 	public double getGyroAngle(){
-		return gyro.getAngle(); 
+		return ahrs.getAngle(); 
 	}
 
 	public void resetGyro() {
-		gyro.reset();
+		ahrs.reset();
 	}
 
 	public void stop() {
