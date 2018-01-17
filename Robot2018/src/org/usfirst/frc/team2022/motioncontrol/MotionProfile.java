@@ -7,7 +7,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 public class MotionProfile {
 	// feet * conversionFactor = rotations
-	static final float conversionFactor = 60;
+	static final float conversionFactor = (float) (3/Math.PI);
 	
 	double maxV;
 	TalonSRX[] motors;

@@ -8,8 +8,11 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.team2022.motioncontrol.MotionProfile;
 import org.usfirst.frc.team2022.robot.commands.DriveCommand;
 import org.usfirst.frc.team2022.robot.subsystems.DriveSubsystem;
+
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -33,9 +36,14 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
+		TalonSRX[] motors = {new TalonSRX(4),new TalonSRX(5),new TalonSRX(6),
+			new TalonSRX(7),new TalonSRX(8),new TalonSRX(9)};
+		MotionProfile mp = new MotionProfile(motors,1/4);
+		mp.runProfile(2);
+		/*
 		chooser.addDefault("Default Auto", new DriveCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
-		SmartDashboard.putData("Auto mode", chooser);
+		SmartDashboard.putData("Auto mode", chooser); */
 	}
 
 	/**
