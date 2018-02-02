@@ -52,4 +52,8 @@ public class CustomPIDController {
 	private void lowPassErr() {
 		modErr = (CustomPIDController.lowPassConstant * lastModErr + err)/(CustomPIDController.lowPassConstant + 1);
 	}
+	
+	private void integral(double timeInterval) {
+		iErr = (modErr + lastModErr) * timeInterval / 2;
+	}
 }
