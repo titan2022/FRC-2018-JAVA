@@ -53,7 +53,11 @@ public class CustomPIDController {
 		modErr = (CustomPIDController.lowPassConstant * lastModErr + err)/(CustomPIDController.lowPassConstant + 1);
 	}
 	
-	private void integral(double timeInterval) {
-		iErr = (modErr + lastModErr) * timeInterval / 2;
+	//calculates the integral for the PID system with the x axis being the encoder click interval and the y axis being the error/distance
+	private void integral(double encoderClickInterval) {
+		iErr = (modErr + lastModErr) * encoderClickInterval / 2;
 	}
+	
+	
+	
 }
