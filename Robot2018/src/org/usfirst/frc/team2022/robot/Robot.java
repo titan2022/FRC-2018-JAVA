@@ -133,7 +133,7 @@ public class Robot extends IterativeRobot {
     //This starts the methods for autonomous
     public void autonomousInit() {
     	try{
-    		if(autoTypeChooser.getSelected().equals("gearOption1")){
+    		/*if(autoTypeChooser.getSelected().equals("gearOption1")){
         		autonomousCommand = new AutoGearCommandGroup(1);
         	}
         	else if(autoTypeChooser.getSelected().equals("gearOption2")){
@@ -150,7 +150,7 @@ public class Robot extends IterativeRobot {
         	}
         	else if(autoTypeChooser.getSelected().equals("vision")){
         		autonomousCommand = new AutoNewShooterVisionCommandGroup();
-        	}
+        	}*/
 //        	else if(autoTypeChooser.getSelected().equals("shooterOption1")){
 //        		autonomousCommand = new AutoShooterLeftCommandGroup();
 //        	}
@@ -164,7 +164,7 @@ public class Robot extends IterativeRobot {
     	catch(Exception ex){
     		System.out.println(ex);
     	}
-    	ultrasonicCommand.start();
+    	//ultrasonicCommand.start();
     	
     	autonomousCommand.start();
     	
