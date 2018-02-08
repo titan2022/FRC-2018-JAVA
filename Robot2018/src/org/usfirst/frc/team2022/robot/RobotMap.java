@@ -29,6 +29,8 @@ public class RobotMap {
 	public static int AGITATOR_MOTOR_PORT = 1;
 	public static int SHOOTER_MOTOR_PORT1 = 2;
 	public static int SHOOTER_MOTOR_PORT2 = 11;
+	public static int SHOOTER_MOTOR_PORT3 = 3;  //FIX
+	public static int SHOOTER_MOTOR_PORT4 = 12;
 	
 	//Climber motor ports
 	public static int CLIMBER_MOTOR_PORT = 10;
@@ -49,6 +51,10 @@ public class RobotMap {
 	public static int SPIKE_1 = 2;
 	public static int SPIKE_2 = 3;
 
+	//Solenoid ports
+	public static int SOLENOID_PORT_1 = 2;  //FIX
+	public static int SOLENOID_PORT_2 = 3;
+	
 	//Encoder ports for shooter
 //	public static int SHOOTER_ENCODER_A = 0;
 //	public static int SHOOTER_ENCODER_B = 1;
