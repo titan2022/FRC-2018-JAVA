@@ -1,7 +1,9 @@
 package org.usfirst.frc.team2022.robot;
 
 import org.usfirst.frc.team2022.robot.commands.DriveCommand;
+import org.usfirst.frc.team2022.robot.commands.GrabberCommand;
 import org.usfirst.frc.team2022.robot.subsystems.DriveSubsystem;
+import org.usfirst.frc.team2022.robot.subsystems.GrabberSubsystem;
 
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
@@ -26,11 +28,14 @@ public class Robot extends IterativeRobot {
 
 	//Instantiate Subsystems
 	public static final DriveSubsystem driveSubsystem = new DriveSubsystem();
+	public static final GrabberSubsystem grabberSubsystem = new GrabberSubsystem();
 	//LIGHTS!!
 //	public static final LightSubsystem lights = new LightSubsystem();
 	
 	//Create References to commands
 	public DriveCommand driveCommand;
+	public GrabberCommand grabberCommand;
+
 //	public LightCommand lightCommand;
 	//Autonomous
 	CommandGroup autonomousCommand = new CommandGroup();
@@ -55,6 +60,7 @@ public class Robot extends IterativeRobot {
     	
     	//Instantiate Commands
     	driveCommand = new DriveCommand();
+    	grabberCommand = new GrabberCommand();
 //    	lightCommand = new LightCommand(0);
     	UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
     	camera.setResolution(480, 360);
