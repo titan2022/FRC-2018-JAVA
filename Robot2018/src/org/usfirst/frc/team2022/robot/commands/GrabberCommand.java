@@ -64,12 +64,12 @@ public class GrabberCommand extends Command{
 //      		autoDriveTurnCommand.start();
 //    	}
     	
-    	if(oi.xbox.getPOV() == 90){ //Joystick up, shoot cube
+    	if(oi.xbox.getPOV() == 90){ 						//Joystick up, shoot cube
     		grabberSubsystem.setLeftSpeed(turtleSpeed);
         	grabberSubsystem.setRightSpeed(turtleSpeed);
         	grabberSubsystem.shootCube();
     	}
-    	else if (oi.xbox.getPOV() == 270){ //Joystick down, accept cube
+    	else if (oi.xbox.getPOV() == 270){ 					//Joystick down, accept cube
     		grabberSubsystem.setLeftSpeed(turtleSpeed);
         	grabberSubsystem.setRightSpeed(turtleSpeed);
         	grabberSubsystem.takeCube();
