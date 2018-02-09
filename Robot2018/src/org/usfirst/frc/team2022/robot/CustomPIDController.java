@@ -5,19 +5,24 @@ public class CustomPIDController {
 	
 	// amount error is "damped" by the lpf
 	// higher = more damping
-	public static final int lowPassConstant = 10;
+	public static final double lowPassConstant = .5;
 	
 	// proportional, integral, derivative, and constant terms respectively
 	private double kp, ki, kd, kf;
 	
 	// error values. `err` is used to compute `modErr`, which is used in the main control loop
-	private double err;
-	private double modErr;
-	private double lastModErr = 0;
+	public double err;
+	public double modErr;
+	private double lastModErr = 1;
 	private double lastLocation = 0;
+	private double tolerance;
+	//private boolean phasingIn = false;
+	//private double toErr;
+	//private double rate;
+	private double accumulation = 0.0;
 	
 	// approximate integral of error
-	private double iErr = 0;
+	public double iErr = 0;
 	
 	// minimum and maximum output
 	private double min;
@@ -25,20 +30,30 @@ public class CustomPIDController {
 	
 	private double setpoint;
 	
-	public CustomPIDController(double kp, double ki, double kd, double kf, double min, double max) {
+	// dt fields
+	private double lastTime;
+	
+	public CustomPIDController(double kp, double ki, double kd, double kf, double tolerance, double min, double max, double phaseRate) {
 		this.kp = kp;
 		this.ki = ki;
 		this.kd = kd;
 		this.kf = kf;
+		this.tolerance = tolerance;
 		this.min = min;
 		this.max = max;
+		this.rate = phaseRate;
 	}
 	
-	public double update(double location) {
-		err = setpoint - location;
-		lowPassErr();
+	public double update(double time,double location) {
+		double currentTime = time;
+		double dt = currentTime-lastTime;
+		getErr(location,dt);
+		lastTime = currentTime;
+		iErr = (modErr + lastModErr) * dt / 2;
 		
-		double rawOutput = ki * iErr + kp * modErr + kd * (modErr - lastModErr);
+		lastLocation = location;
+		
+		double rawOutput = ki * iErr + kp * modErr + kd * (modErr - lastModErr)/dt;
 		double output = rawOutput > max ? max : (rawOutput < min ? min : rawOutput);
 		
 		return output;
@@ -46,18 +61,19 @@ public class CustomPIDController {
 	
 	public void setSetpoint(double setpoint) {
 		this.setpoint = setpoint;
-		err = setpoint - lastLocation;
+		toErr = setpoint - lastLocation;
+		err = 0.0;
+		phasingIn = true;
 	}
 	
-	private void lowPassErr() {
-		modErr = (CustomPIDController.lowPassConstant * lastModErr + err)/(CustomPIDController.lowPassConstant + 1);
+	public boolean isFinished() {
+		return Math.abs(lastLocation - setpoint) <= this.tolerance;
 	}
 	
-	//calculates the integral for the PID system with the x axis being the encoder click interval and the y axis being the error/distance
-	private void integral(double encoderClickInterval) {
-		iErr = (modErr + lastModErr) * encoderClickInterval / 2;
+	private void getErr(double location, double dt) {
+			err = setpoint - lastLocation;
+			//modErr = (CustomPIDController.lowPassConstant * lastModErr + err)/(CustomPIDController.lowPassConstant + 1);
+			modErr = lastModErr + CustomPIDController.lowPassConstant  * accumulation;
+			accumulation += lastModErr;
 	}
-	
-	
-	
 }
