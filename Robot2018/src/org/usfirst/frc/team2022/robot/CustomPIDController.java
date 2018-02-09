@@ -16,9 +16,9 @@ public class CustomPIDController {
 	private double lastModErr = 1;
 	private double lastLocation = 0;
 	private double tolerance;
-	//private boolean phasingIn = false;
-	//private double toErr;
-	//private double rate;
+	private boolean phasingIn = false;
+	private double toErr;
+	private double rate;
 	private double accumulation = 0.0;
 	
 	// approximate integral of error
@@ -65,7 +65,7 @@ public class CustomPIDController {
 		err = 0.0;
 		phasingIn = true;
 	}
-	
+	//Still need to fix this. It only works for error=100 and the constant = .5.
 	public boolean isFinished() {
 		return Math.abs(lastLocation - setpoint) <= this.tolerance;
 	}
