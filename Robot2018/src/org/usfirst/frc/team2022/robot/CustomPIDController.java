@@ -57,9 +57,7 @@ public class CustomPIDController {
 	
 	public void setSetpoint(double setpoint) {
 		this.setpoint = setpoint;
-		toErr = setpoint - lastLocation;
 		err = 0.0;
-		phasingIn = true;
 	}
 	//Still need to fix this. It only works for error=100 and the constant = .5.
 	public boolean isFinished() {
