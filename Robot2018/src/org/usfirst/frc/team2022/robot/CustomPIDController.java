@@ -16,9 +16,6 @@ public class CustomPIDController {
 	private double lastModErr = 1;
 	private double lastLocation = 0;
 	private double tolerance;
-	private boolean phasingIn = false;
-	private double toErr;
-	private double rate;
 	private double accumulation = 0.0;
 	
 	// approximate integral of error
@@ -33,7 +30,7 @@ public class CustomPIDController {
 	// dt fields
 	private double lastTime;
 	
-	public CustomPIDController(double kp, double ki, double kd, double kf, double tolerance, double min, double max, double phaseRate) {
+	public CustomPIDController(double kp, double ki, double kd, double kf, double tolerance, double min, double max) {
 		this.kp = kp;
 		this.ki = ki;
 		this.kd = kd;
@@ -41,7 +38,6 @@ public class CustomPIDController {
 		this.tolerance = tolerance;
 		this.min = min;
 		this.max = max;
-		this.rate = phaseRate;
 	}
 	
 	public double update(double time,double location) {
