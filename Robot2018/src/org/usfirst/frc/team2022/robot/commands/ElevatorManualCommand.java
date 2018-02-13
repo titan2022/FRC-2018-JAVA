@@ -47,7 +47,7 @@ public class ElevatorManualCommand extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return elevator.getEncoderPos() >= elevator.extensionLimit || oi.xbox.getLeftY() == 0;
+        return elevator.getEncoderPos() == 0 || elevator.getEncoderPos() >= elevator.extensionLimit || oi.xbox.getLeftY() == 0;
     }
 
     // Called once after isFinished returns true

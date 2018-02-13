@@ -17,6 +17,7 @@ public class ElevatorMoveToCommand extends Command {
     public ElevatorMoveToCommand(int location) {
         requires(elevator);
         this.location = location;
+        // TODO: find better values for each of these
         pid = new CustomPIDController(1.0,1.0,1.0,0.0, 1.0, -2.0,2.0);
     }
 
