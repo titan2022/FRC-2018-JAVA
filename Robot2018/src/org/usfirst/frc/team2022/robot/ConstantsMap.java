@@ -39,5 +39,9 @@ public class ConstantsMap {
 	public static double KI_SHOOTER_SPEED = 1e-9;
 	public static double KD_SHOOTER_SPEED = 0.01;
 	public static double KF_SHOOTER_SPEED = 0.635;
-
+	
+	//Dimensions
+	public static double BASE_WIDTH = 27.75;
+	public static double BASE_LENGTH = 32.75;
+	
 }
