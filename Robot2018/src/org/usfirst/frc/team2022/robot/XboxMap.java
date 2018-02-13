@@ -5,11 +5,11 @@ public class XboxMap {
 	
 	//Drive commands
 	public double getSpeedRightWheel(){ 
-		return oi.xbox2.getRightY();
+		return oi.xbox.getRightY();
 	}
 	
 	public double getSpeedLeftWheel() {
-		return oi.xbox2.getLeftY();
+		return oi.xbox.getLeftY();
 	}
 	
 //	public boolean startAutoBrakerSystem(){
@@ -17,7 +17,7 @@ public class XboxMap {
 //	}
 	
 	public boolean switchySwitch(){
-		return oi.xbox2.getRightBumperValue();
+		return oi.xbox.getRightBumperValue();
 	}
 	
 	public boolean startAutoGearAlignment(){
@@ -57,12 +57,12 @@ public class XboxMap {
 	
 	//Universal stop command
 	public boolean stopSystem() {
-		return oi.xbox2.getYValue();
+		return oi.xbox.getYValue();
 	}
 
 	public boolean runAgitator() {
 		// TODO Auto-generated method stub
-		if(oi.xbox2.getRightTriggers() > 0.4){
+		if(oi.xbox.getRightTriggers() > 0.4){
 			return true;
 		}
 		else{
