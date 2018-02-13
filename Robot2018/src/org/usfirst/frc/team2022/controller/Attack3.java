@@ -49,7 +49,7 @@ public class Attack3 extends Joystick{
 	 * @param button The button as an integer
 	 * @return JoystickButton
 	 */
-	public JoystickButton GetButton(int button) {
+	public JoystickButton getJoystickButton(int button) {
 		return (new JoystickButton(this, button));
 	}
 	

@@ -53,7 +53,7 @@ public class DriveCommand extends Command {
     		speedRight = 0; 
     	}
     	
-    	if(oi.xbox.GetRightBumperValue() && System.currentTimeMillis() - lastPressed > 200){
+    	if(oi.xbox.getRightBumperValue() && System.currentTimeMillis() - lastPressed > 200){
     		turtle = !turtle;
     		lastPressed = System.currentTimeMillis();
     	}
