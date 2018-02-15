@@ -4,6 +4,7 @@ import org.usfirst.frc.team2022.robot.commands.DriveCommand;
 import org.usfirst.frc.team2022.robot.commands.GrabberCommand;
 import org.usfirst.frc.team2022.robot.commands.ClimberCommand;
 import org.usfirst.frc.team2022.robot.subsystems.DriveSubsystem;
+import org.usfirst.frc.team2022.robot.subsystems.ElevatorSubsystem;
 import org.usfirst.frc.team2022.robot.subsystems.GrabberSubsystem;
 import org.usfirst.frc.team2022.robot.subsystems.ClimberSubsystem;
 
@@ -30,6 +31,7 @@ public class Robot extends IterativeRobot {
 
 	//Instantiate Subsystems
 	public static final DriveSubsystem driveSubsystem = new DriveSubsystem();
+	public static final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
 	public static final GrabberSubsystem grabberSubsystem = new GrabberSubsystem();
 	public static final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
 	//LIGHTS!!

@@ -49,7 +49,7 @@ public class Attack3 extends Joystick{
 	 * @param button The button as an integer
 	 * @return JoystickButton
 	 */
-	public JoystickButton GetButton(int button) {
+	public JoystickButton getJoystickButton(int button) {
 		return (new JoystickButton(this, button));
 	}
 	
@@ -57,32 +57,32 @@ public class Attack3 extends Joystick{
 		return (new JoystickButton(this, button)).get();
 	}
 	
-	public boolean GetTriggerValue() {
-		return (GetRawButton(1));
+	public boolean getTriggerValue() {
+		return (getRawButton(1));
 	}
 	
-	public boolean Get2Value() {
-		return (GetRawButton(2));
+	public boolean get2Value() {
+		return (getRawButton(2));
 	}
 	
-	public boolean Get3Value() {
-		return (GetRawButton(3));
+	public boolean get3Value() {
+		return (getRawButton(3));
 	}
 	
-	public boolean Get4Value() {
-		return (GetRawButton(4));
+	public boolean get4Value() {
+		return (getRawButton(4));
 	}
 	
-	public boolean Get5Value() {
-		return (GetRawButton(5));
+	public boolean get5Value() {
+		return (getRawButton(5));
 	}
 	
-	public boolean GetStartValue() {
-		return (GetRawButton(8));
+	public boolean getStartValue() {
+		return (getRawButton(8));
 	}
 	
-	public boolean GetStopValue() {
-		return (GetRawButton(9));
+	public boolean getStopValue() {
+		return (getRawButton(9));
 	}
 	
 	/**
@@ -97,7 +97,7 @@ public class Attack3 extends Joystick{
 	 * @param axis The axis to get the value of. Range 1-6.
 	 * @return The value of the axis from -1 to 1.
 	 */
-	public float GetRawAxis(int axis) {
+	public float getRawAxis(int axis) {
 		return (float) (super.getRawAxis(axis));
 	}
 	
@@ -108,7 +108,7 @@ public class Attack3 extends Joystick{
 	 * @param
 	 * @return X Button
 	 */
-	public JoystickButton GetTrigger() {
+	public JoystickButton getAttackTrigger() {
 		return (new JoystickButton(this, TRIGGER));
 	}
 	
@@ -119,7 +119,7 @@ public class Attack3 extends Joystick{
 	 * @return
 	 * @return 2 Button
 	 */
-	public JoystickButton GetButton2() {
+	public JoystickButton getButton2() {
 		return (new JoystickButton(this, BUTTON_2));
 	}
 
@@ -130,7 +130,7 @@ public class Attack3 extends Joystick{
 	 * @return
 	 * @return 3 Button
 	 */
-	public JoystickButton GetButton3() {
+	public JoystickButton getButton3() {
 		return (new JoystickButton(this, BUTTON_3));
 	}
 
@@ -141,7 +141,7 @@ public class Attack3 extends Joystick{
 	 * @return
 	 * @return 4 Button
 	 */
-	public JoystickButton GetButton4() {
+	public JoystickButton getButton4() {
 		return (new JoystickButton(this, BUTTON_4));
 	}
 	
@@ -152,7 +152,7 @@ public class Attack3 extends Joystick{
 	 * @return
 	 * @return 5 Button
 	 */
-	public JoystickButton GetButton5() {
+	public JoystickButton getButton5() {
 		return (new JoystickButton(this, BUTTON_5));
 	}
 
@@ -162,7 +162,7 @@ public class Attack3 extends Joystick{
 	 * @param
 	 * @return Start Button
 	 */
-	public JoystickButton GetStartButton() {
+	public JoystickButton getStartButton() {
 		return (new JoystickButton(this, START_BUTTON));
 	}
 	
@@ -172,7 +172,7 @@ public class Attack3 extends Joystick{
 	 * @param
 	 * @return Start Button
 	 */
-	public JoystickButton GetStopButton() {
+	public JoystickButton getStopButton() {
 		return (new JoystickButton(this, STOP_BUTTON));
 	}
 
@@ -188,7 +188,7 @@ public class Attack3 extends Joystick{
 	* @param button The button to get the value of. Range 1-9.
 	* @return The state of the button.
 	*/
-	public boolean GetRawButton(int button) {
+	public boolean getRawButton(int button) {
 	return (super.getRawButton(button));
 	}
 }

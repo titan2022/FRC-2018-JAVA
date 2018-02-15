@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2022.robot.commands;
 
+import org.usfirst.frc.team2022.robot.Attack3Map;
 /*import org.usfirst.frc.team2022.command.autonomous.AutoDriveStraightCommand;
 *import org.usfirst.frc.team2022.command.autonomous.AutoDriveTurnCommand;
 *import org.usfirst.frc.team2022.command.autonomous.VisionTable;
@@ -21,7 +22,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class DriveCommand extends Command {
 	
 	DriveSubsystem driveSubsystem = Robot.driveSubsystem;
-	XboxMap xboxMap = new XboxMap();
+	Attack3Map attackMap = new Attack3Map();
 	OI oi = Robot.oi;
 		
 	boolean brakeState = true;
@@ -41,19 +42,19 @@ public class DriveCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {    	
-    	double speedLeft = xboxMap.getSpeedLeftWheel();   
+    	double speedLeft = attackMap.getSpeedLeftWheel();   
     	
     	if(Math.abs(speedLeft) < 0.1){
     		speedLeft = 0;
     	}
     	
 
-    	double speedRight = xboxMap.getSpeedRightWheel();
+    	double speedRight = attackMap.getSpeedRightWheel();
     	if(Math.abs(speedRight) < 0.1){
     		speedRight = 0; 
     	}
     	
-    	if(oi.xbox.GetRightBumperValue() && System.currentTimeMillis() - lastPressed > 200){
+    	if(oi.xbox.getRightBumperValue() && System.currentTimeMillis() - lastPressed > 200){
     		turtle = !turtle;
     		lastPressed = System.currentTimeMillis();
     	}
@@ -91,20 +92,6 @@ public class DriveCommand extends Command {
     		driveSubsystem.setLeftSpeed(speedLeft);
         	driveSubsystem.setRightSpeed(speedRight);
 
-    	}
-    	
-    	if(xboxMap.moveTowardsGear()){
-//    		Timer.delay(1);
-//      		double pegDistance = VisionTable.getPegDistance();
-//      		AutoDriveStraightCommand autoDriveStraightCommand = new AutoDriveStraightCommand(pegDistance - 5);
-//      		autoDriveStraightCommand.start();
-    		//double distance = VisionTable.getUltrasonicDistance();
-    		//AutoDriveStraightCommand autoDriveStraightCommand = new AutoDriveStraightCommand(distance-11.7);
-      		//autoDriveStraightCommand.start();
-    	}
-    	
-    	if(xboxMap.stopSystem()){
- 		
     	}
     	
     	//Brake
