@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
+// I don't think this drives straight but ok
 public class AutoDriveStraightCommand extends Command{
 	private boolean finished = false;
 	private double inchesToDrive = 0;

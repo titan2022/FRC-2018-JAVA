@@ -1,13 +1,12 @@
 package org.usfirst.frc.team2022.robot.commands.autonomous;
 
 import org.usfirst.frc.team2022.robot.ConstantsMap;
+import org.usfirst.frc.team2022.robot.CustomPIDController;
 import org.usfirst.frc.team2022.robot.OI;
 import org.usfirst.frc.team2022.robot.Robot;
 import org.usfirst.frc.team2022.robot.XboxMap;
 import org.usfirst.frc.team2022.robot.subsystems.DriveSubsystem; 
 
-import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -22,7 +21,7 @@ public class AutoDriveTurnCommand extends Command{
 	OI oi = Robot.oi;
 	XboxMap xboxMap = new XboxMap();
 	
-	PIDController pidController;
+	CustomPIDController pid;
 	
 	public AutoDriveTurnCommand(boolean degreeToTurn){
 		// Use requires() here to declare subsystem dependencies
@@ -36,11 +35,9 @@ public class AutoDriveTurnCommand extends Command{
     		degreeNum = -90;
     	}
     	
-    	pidController = new PIDController(ConstantsMap.KP_DRIVE_TURN, ConstantsMap.KI_DRIVE_TURN, ConstantsMap.KD_DRIVE_TURN, ConstantsMap.KF_DRIVE_TURN, null, null);
-    	pidController.setInputRange(-180, 180);
-    	pidController.setAbsoluteTolerance(1);
-    	pidController.setOutputRange(-ConstantsMap.KSPEED_DRIVE_TURN, ConstantsMap.KSPEED_DRIVE_TURN);
-    	pidController.setSetpoint(degreeNum);
+    	pid = new CustomPIDController(ConstantsMap.KP_DRIVE_TURN, ConstantsMap.KI_DRIVE_TURN, ConstantsMap.KD_DRIVE_TURN,
+    			ConstantsMap.KF_DRIVE_TURN,1,-ConstantsMap.KSPEED_DRIVE_TURN, ConstantsMap.KSPEED_DRIVE_TURN);
+    	pid.setSetpoint(degreeNum);
     	
     	driveSubsystem.resetGyro();
     	driveSubsystem.enableBrake();
@@ -58,7 +55,7 @@ public class AutoDriveTurnCommand extends Command{
     
     protected void execute() {
     	
-    	double newSpeed = pidController.getOutput(driveSubsystem.getGyroAngle()); //Implement LoPass
+    	double newSpeed = pid.update(driveSubsystem.getGyroAngle());
 //    	double newSpeed = 0.2;
 		if (degreeNum == -90)	{
     		driveSubsystem.setLeftSpeed(-0.2);
