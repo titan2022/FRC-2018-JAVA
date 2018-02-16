@@ -97,9 +97,6 @@ public class Attack3 extends Joystick{
 	 * @param axis The axis to get the value of. Range 1-6.
 	 * @return The value of the axis from -1 to 1.
 	 */
-	public float getRawAxis(int axis) {
-		return (float) (super.getRawAxis(axis));
-	}
 	
 	////////////////Get Raw Button Methods to be used by Command/Subsystem Interface
 	/**

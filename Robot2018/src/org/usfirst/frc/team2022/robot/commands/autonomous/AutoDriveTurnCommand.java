@@ -36,7 +36,7 @@ public class AutoDriveTurnCommand extends Command{
     	}
     	
     	pid = new CustomPIDController(ConstantsMap.KP_DRIVE_TURN, ConstantsMap.KI_DRIVE_TURN, ConstantsMap.KD_DRIVE_TURN,
-    			ConstantsMap.KF_DRIVE_TURN,1,-ConstantsMap.KSPEED_DRIVE_TURN, ConstantsMap.KSPEED_DRIVE_TURN);
+    			ConstantsMap.KF_DRIVE_TURN,1,-ConstantsMap.TURN_MAX_SPEED, ConstantsMap.TURN_MAX_SPEED);
     	pid.setSetpoint(degreeNum);
     	
     	driveSubsystem.resetGyro();
@@ -58,23 +58,16 @@ public class AutoDriveTurnCommand extends Command{
     	double newSpeed = pid.update(driveSubsystem.getGyroAngle());
 //    	double newSpeed = 0.2;
 		if (degreeNum == -90)	{
-    		driveSubsystem.setLeftSpeed(-0.2);
-			driveSubsystem.setRightSpeed(0.2);
+    		driveSubsystem.tankDrive(-newSpeed,newSpeed);
 		}
 		if (degreeNum == 90)	{
-    		driveSubsystem.setLeftSpeed(0.2);
-			driveSubsystem.setRightSpeed(-0.2);
+			driveSubsystem.tankDrive(newSpeed,-newSpeed);
 		}
-		if(xboxMap.stopSystem() || Math.abs(Math.abs(degreeNum) - Math.abs(driveSubsystem.getGyroAngle())) < 1){
-			finished = true;
-    		end();
-    	}
-		
     }
 	
 	// Make this return true when this Command no longer needs to run execute()
     public boolean isFinished() {
-        return finished;
+        return pid.isFinished();
     }
 
     // Called once after isFinished returns true

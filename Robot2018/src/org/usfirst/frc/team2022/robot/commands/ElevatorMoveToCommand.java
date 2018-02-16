@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2022.robot.commands;
 
+import org.usfirst.frc.team2022.robot.ConstantsMap;
 import org.usfirst.frc.team2022.robot.CustomPIDController;
 import org.usfirst.frc.team2022.robot.Robot;
 import org.usfirst.frc.team2022.robot.subsystems.ElevatorSubsystem;
@@ -17,8 +18,8 @@ public class ElevatorMoveToCommand extends Command {
     public ElevatorMoveToCommand(int location) {
         requires(elevator);
         this.location = location;
-        // TODO: find better values for each of these
-        pid = new CustomPIDController(1.0,1.0,1.0,0.0, 1.0, -2.0,2.0);
+        pid = new CustomPIDController(ConstantsMap.KP_ELEVATOR,ConstantsMap.KI_ELEVATOR,ConstantsMap.KD_ELEVATOR,ConstantsMap.KF_ELEVATOR,
+        		ConstantsMap.ELEVATOR_ERR_TOLERANCE, -ConstantsMap.ELEVATOR_MAX_SPEED,ConstantsMap.ELEVATOR_MAX_SPEED);
     }
 
     // Called just before this Command runs the first time
@@ -27,7 +28,7 @@ public class ElevatorMoveToCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	elevator.setElevatorSpeed(pid.update(System.nanoTime(), elevator.getEncoderPos()));
+    	elevator.setElevatorSpeed(pid.update(elevator.getEncoderPos()));
     }
 
     // Make this return true when this Command no longer needs to run execute()

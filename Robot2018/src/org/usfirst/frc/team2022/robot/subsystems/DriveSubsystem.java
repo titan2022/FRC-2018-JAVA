@@ -61,8 +61,8 @@ public class DriveSubsystem extends Subsystem {
 		
 		//Set Encoder distanceFromTower per pulse
 		
-		rightEncoder.setDistancePerPulse(ConstantsMap.DRIVE_ENCODER_DIST_PER_TICK);
-		leftEncoder.setDistancePerPulse(ConstantsMap.DRIVE_ENCODER_DIST_PER_TICK);
+		rightEncoder.setDistancePerPulse(ConstantsMap.DRIVE_ENCODER_INCHES_PER_TICK);
+		leftEncoder.setDistancePerPulse(ConstantsMap.DRIVE_ENCODER_INCHES_PER_TICK);
 		
 		limitSwitch = new DigitalInput(RobotMap.LIMIT_SWITCH);
 		gearSwitch = new DigitalInput(RobotMap.GEAR_SWITCH);

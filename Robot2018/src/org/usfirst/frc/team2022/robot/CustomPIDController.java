@@ -38,11 +38,13 @@ public class CustomPIDController {
 		this.tolerance = tolerance;
 		this.min = min;
 		this.max = max;
+		this.lastTime = System.nanoTime();
 	}
 	
-	public double update(double time,double location) {
-		double currentTime = time;
-		double dt = currentTime-lastTime;
+	public double update(double location) {
+		double currentTime = System.nanoTime();
+		double dt = currentTime - lastTime;
+		
 		getErr(location,dt);
 		lastTime = currentTime;
 		iErr = (modErr + lastModErr) * dt / 2;
@@ -58,6 +60,7 @@ public class CustomPIDController {
 	public void setSetpoint(double setpoint) {
 		this.setpoint = setpoint;
 		err = 0.0;
+		lastTime = System.nanoTime();
 	}
 	//Still need to fix this. It only works for error=100 and the constant = .5.
 	public boolean isFinished() {

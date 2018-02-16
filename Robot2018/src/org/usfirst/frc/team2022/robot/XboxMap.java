@@ -72,7 +72,7 @@ public class XboxMap {
 
 	public boolean moveTowardsGear() {
 		// TODO Auto-generated method stub
-		return oi.xbox2.getAValue();
+		return oi.xbox.getAValue();
 //		if(oi.xbox.getPOV() == 0){
 //			return true;
 //		}
@@ -83,6 +83,6 @@ public class XboxMap {
 
 	public boolean moveToShooter() {
 		// TODO Auto-generated method stub
-		return oi.xbox2.getAValue();
+		return oi.xbox.getAValue();
 	}
 }
