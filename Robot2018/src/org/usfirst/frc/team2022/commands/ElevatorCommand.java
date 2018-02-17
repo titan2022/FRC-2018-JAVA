@@ -28,7 +28,7 @@ public class ElevatorCommand extends Command{
     	}
 		if(frontElevatorSwitch){
     		frontElevatorMotorSpeed *= -1;
-    		elevatorSubsystem.setFrontElevator(frontElevatorMotorSpeed);
+    		elevatorSubsystem.setFrontElevatorSpeed(frontElevatorMotorSpeed);
     	}
 		
 		//Back Elevator
@@ -42,15 +42,15 @@ public class ElevatorCommand extends Command{
     	if(Math.abs(backElevatorMotorSpeed) < 0.1){
     		backElevatorMotorSpeed = 0;
     	}
-    	elevatorSubsystem.setBackElevator(backElevatorMotorSpeed);
+    	elevatorSubsystem.setBackElevatorSpeed(backElevatorMotorSpeed);
     	
-    	
-    	
-    	
-    	
-    	SmartDashboard.putNumber("Front Encoder Distance: ", elevatorSubsystem.getFrontEncoderDistance());
-    	SmartDashboard.putNumber("Back Encoder Distance: ", elevatorSubsystem.getBackEncoderDistance());
+    	dispayData();
    	}
+	
+	protected void dispayData(){
+		SmartDashboard.putNumber("Front Encoder Distance: ", elevatorSubsystem.getFrontEncoderDistance());
+    	SmartDashboard.putNumber("Back Encoder Distance: ", elevatorSubsystem.getBackEncoderDistance());
+	}
 	
     protected boolean isFinished() {
         return false;

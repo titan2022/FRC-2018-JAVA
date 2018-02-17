@@ -1,7 +1,5 @@
 package org.usfirst.frc.team2022.robot;
 
-import edu.wpi.first.wpilibj.DigitalSource;
-
 /**
  * This class is initialized in the Robot class and is referenced
  * in the subsystem classes. This class holds the variables to port 

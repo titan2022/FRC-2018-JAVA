@@ -7,8 +7,7 @@ import org.usfirst.frc.team2022.subsystems.ElevatorSubsystem;
 import org.usfirst.frc.team2022.subsystems.DriveSubsystem;
 import org.usfirst.frc.team2022.subsystems.GrabberSubsystem;
 
-import edu.wpi.cscore.UsbCamera;
-import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -31,8 +30,6 @@ public class Robot extends IterativeRobot {
 	public static final GrabberSubsystem grabberSubsystem = new GrabberSubsystem();
 	public static final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
 
-//	public static final LightSubsystem lights = new LightSubsystem();
-	
 	//Create References to commands
 	public DriveCommand driveCommand;
 	public GrabberCommand grabberCommand;
@@ -42,6 +39,12 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 	public XboxMap xboxMap = new XboxMap();
 	public Attack3Map attack3Map = new Attack3Map();
+	
+	public double position;
+	
+	//Autonomous
+	CommandGroup autonomousCommand = new CommandGroup();
+	SendableChooser<String> autoTypeChooser;
 	
 	//Initialization code ran when you turn on the robot
     public void robotInit() {    	
@@ -53,32 +56,73 @@ public class Robot extends IterativeRobot {
     	driveCommand = new DriveCommand();
     	grabberCommand = new GrabberCommand();
     	elevatorCommand = new ElevatorCommand();
-//    	lightCommand = new LightCommand(0);
     	
+    	autoTypeChooser = new SendableChooser<String>();
+    	autoTypeChooser.addDefault("Left Position", "left"); 
+    	autoTypeChooser.addObject("Center Postion", "center"); 
+    	autoTypeChooser.addObject("Right Position", "right");
     }
     
     
     //This starts the methods for autonomous
     public void autonomousInit() {
-//    	try{
-//    		
-//    	}
-//    	catch(Exception ex){
-//    		System.out.println(ex);
-//    	}
-    	autonomousCommand.start();
+    	String gameData;
+    	gameData = DriverStation.getInstance().getGameSpecificMessage();
     	
+    	try{
+	    	//Left
+	    	if(autoTypeChooser.getSelected().equals("left")){
+	    		if(gameData.charAt(0) == 'L'){
+	    			// left switch
+	    		}
+	    		if(gameData.charAt(0) != 'L' && gameData.charAt(1) == 'L'){
+	    			//left scale
+	    		}
+	    		if(gameData.charAt(0) != 'L' && gameData.charAt(1) != 'L'){
+	    			//cross line
+	    		}
+	    	}
+	    	//Center
+	    	else if(autoTypeChooser.getSelected().equals("center")){
+	    		if(gameData.charAt(0) == 'L'){
+	    			//left switch
+	    		}
+	    		else{
+	    			//right switch
+	    		}
+	    	}
+	    	//Right
+	    	else if(autoTypeChooser.getSelected().equals("right")){
+	    		if(gameData.charAt(0) == 'R'){
+	    			//right switch
+	    		}
+	    		if(gameData.charAt(3) != 'R' && gameData.charAt(2) == 'R'){
+	    			//right scale
+	    		}
+	    		if(gameData.charAt(0) != 'R' && gameData.charAt(1) != 'R'){
+	    			//cross line
+	    		}
+	    	}
+    	}
+    	catch(Exception ex){
+    		System.out.println(ex);
+    	}
+    	
+//		autonomousCommand.start();
     }
     
     //This starts the methods for teleop and stops methods for autonomous
 	public void teleopInit() {
     	driveCommand.start();
-//    	lightCommand.start();
+    	grabberCommand.start();
+    	elevatorCommand.start();
     }
     
     //This stops the methods for autonomous
 	public void disabledInit() {
 		driveCommand.cancel();
+		grabberCommand.cancel();
+    	elevatorCommand.cancel();
 	}
     
 	//Methods below this line do not need to be edited/////////////////////////////////////////////////////////////////////////
