@@ -5,43 +5,43 @@ public class XboxMap {
 	
 
 	public boolean startAutoBrakerSystem(){
-		return oi.xbox.GetRightBumperValue();
+		return oi.xbox.getRightBumperValue();
 
 	}
 	
 	public boolean controlDriverGear() {
-		return oi.xbox.GetLeftBumperValue();
+		return oi.xbox.getLeftBumperValue();
 	}
 	
 	//Grabber commands 
 	public boolean controlOutterMotors(){
-		return oi.xbox.GetAValue();
+		return oi.xbox.getAValue();
 	}
 	
 
 	public boolean controlInnerMotors(){
-		return oi.xbox.GetBValue();
+		return oi.xbox.getBValue();
 
 	}
 	
 
 	public boolean controlPiston(){
-		return oi.xbox.GetXValue();
+		return oi.xbox.getXValue();
 
 	}
 
 
 	//Elevator commands
 	public boolean controlFrontElevator(){
-		return oi.xbox.GetYValue();
+		return oi.xbox.getYValue();
 	}
 	public double controlBackElevatorGoUp(){
-		return oi.xbox.GetLeftTriggers();
+		return oi.xbox.getLeftTriggers();
 
 	}
 
 	public double controlBackElevatorGoDown(){
-		return oi.xbox.GetRightTriggers();
+		return oi.xbox.getRightTriggers();
 
 	}
 	

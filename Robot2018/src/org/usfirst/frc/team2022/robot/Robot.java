@@ -31,7 +31,7 @@ public class Robot extends IterativeRobot {
 	public static final DriveSubsystem driveSubsystem = new DriveSubsystem();
 	public static final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
 	public static final GrabberSubsystem grabberSubsystem = new GrabberSubsystem();
-	public static final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
+	
 
 //	public static final LightSubsystem lights = new LightSubsystem();
 	
