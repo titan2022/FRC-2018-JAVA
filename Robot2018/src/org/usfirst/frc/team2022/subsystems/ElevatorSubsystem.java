@@ -24,6 +24,9 @@ public class ElevatorSubsystem extends Subsystem {
 		frontElevatorMotor = new WPI_TalonSRX(RobotMap.FRONT_ELEVATOR_PORT);
 		backElevatorMotor = new WPI_TalonSRX(RobotMap.BACK_ELEVATOR_PORT);
 		
+		frontElevatorMotor.setInverted(true);
+		backElevatorMotor.setInverted(true);
+		
 		frontEncoder = new Encoder(RobotMap.FRONT_ENCODER_PORT_A, RobotMap.FRONT_ENCODER_PORT_B, false);
 		backEncoder = new Encoder(RobotMap.BACK_ENCODER_PORT_A, RobotMap.BACK_ENCODER_PORT_B, false);
 		
@@ -36,11 +39,11 @@ public class ElevatorSubsystem extends Subsystem {
     	setDefaultCommand(new ElevatorCommand());
     }
 	
-	public void setFrontElevator(double speed) {
+	public void setFrontElevatorSpeed(double speed) {
 		frontElevatorMotor.set(speed);
 	}
 	
-	public void setBackElevator(double speed) {
+	public void setBackElevatorSpeed(double speed) {
 		backElevatorMotor.set(speed);
 	}
 	
