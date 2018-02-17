@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2022.robot;
 
+
 import org.usfirst.frc.team2022.commands.ElevatorCommand;
 import org.usfirst.frc.team2022.commands.DriveCommand;
 import org.usfirst.frc.team2022.commands.GrabberCommand;
@@ -28,6 +29,7 @@ public class Robot extends IterativeRobot {
 
 	//Instantiate Subsystems
 	public static final DriveSubsystem driveSubsystem = new DriveSubsystem();
+	public static final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
 	public static final GrabberSubsystem grabberSubsystem = new GrabberSubsystem();
 	public static final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
 
@@ -106,7 +108,7 @@ public class Robot extends IterativeRobot {
      * This function is called periodically during test mode
      */
     public void testPeriodic() {
-    	LiveWindow.run();
+    	//LiveWindow.run();
     }
 
 

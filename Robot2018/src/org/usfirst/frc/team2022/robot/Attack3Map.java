@@ -5,12 +5,15 @@ public class Attack3Map {
 	
 	//Drive commands
 	public double getSpeedRightWheel(){ 
+
 		return oi.attack3_R.getYAxis();
+
 	}
 	
 	public double getSpeedLeftWheel() {
+
 		return oi.attack3_L.getYAxis();
 	}
 	
-	
+
 }

@@ -40,8 +40,8 @@ public class Xbox extends Joystick{
 	 * @param
 	 * @return The value of the axis from -1 to 1.
 	 */
-	public double GetLeftX() {
-		return (GetRawAxis(LEFT_XAXIS));
+	public double getLeftX() {
+		return (getRawAxis(LEFT_XAXIS));
 	}
 
 	/**
@@ -51,8 +51,8 @@ public class Xbox extends Joystick{
 	 * @param
 	 * @return The value of the axis from -1 to 1.
 	 */
-	public double GetLeftY() {
-		return (1 * GetRawAxis(LEFT_YAXIS));
+	public double getLeftY() {
+		return (1 * getRawAxis(LEFT_YAXIS));
 		//Multiply output by -1 because GetAxis() returns the axis backwards.
 	}
 
@@ -63,8 +63,8 @@ public class Xbox extends Joystick{
 	 * @param
 	 * @return The value of the axis from -1 to 1.
 	 */
-	public double GetRightX() {
-		return (GetRawAxis(RIGHT_XAXIS));
+	public double getRightX() {
+		return (getRawAxis(RIGHT_XAXIS));
 	}
 
 	/**
@@ -73,8 +73,8 @@ public class Xbox extends Joystick{
 	 *
 	 * @return The value of the axis from -1 to 1.
 	 */
-	public double GetRightY() {
-		return (-1 * GetRawAxis(RIGHT_YAXIS));
+	public double getRightY() {
+		return (-1 * getRawAxis(RIGHT_YAXIS));
 	}
 
 	/**
@@ -84,12 +84,12 @@ public class Xbox extends Joystick{
 	 * @param
 	 * @return The value corresponding to the triggers.
 	 */
-	public double GetRightTriggers() {
-		return (GetRawAxis(TRIGGERS_RIGHT));
+	public double getRightTriggers() {
+		return (getRawAxis(TRIGGERS_RIGHT));
 	}
 	
-	public double GetLeftTriggers() {
-		return (GetRawAxis(TRIGGERS_LEFT));
+	public double getLeftTriggers() {
+		return (getRawAxis(TRIGGERS_LEFT));
 	}
 
 	/**
@@ -98,8 +98,8 @@ public class Xbox extends Joystick{
 	 * @param
 	 * @return The current state of the button
 	 */
-	public boolean GetAValue() {
-		return (GetRawButton(1));
+	public boolean getAValue() {
+		return (getRawButton(1));
 	}
 
 	/**
@@ -108,8 +108,8 @@ public class Xbox extends Joystick{
 	 * @param
 	 * @return The current state of the button
 	 */
-	public boolean GetBValue() {
-		return (GetRawButton(2));
+	public boolean getBValue() {
+		return (getRawButton(2));
 	}
 
 	/**
@@ -118,8 +118,8 @@ public class Xbox extends Joystick{
 	 * @param
 	 * @return The current state of the button
 	 */
-	public boolean GetXValue() {
-		return (GetRawButton(3));
+	public boolean getXValue() {
+		return (getRawButton(3));
 	}
 
 	/**
@@ -128,8 +128,8 @@ public class Xbox extends Joystick{
 	 * @param
 	 * @return The current state of the button
 	 */
-	public boolean GetYValue() {
-		return (GetRawButton(4));
+	public boolean getYValue() {
+		return (getRawButton(4));
 	}
 
 	/**
@@ -138,8 +138,8 @@ public class Xbox extends Joystick{
 	 * @param
 	 * @return The current state of the button
 	 */
-	public boolean GetLeftBumperValue() {
-		return (GetRawButton(5));
+	public boolean getLeftBumperValue() {
+		return (getRawButton(5));
 	}
 
 	/**
@@ -148,8 +148,8 @@ public class Xbox extends Joystick{
 	 * @param
 	 * @return The current state of the button
 	 */
-	public boolean GetRightBumperValue() {
-		return (GetRawButton(6));
+	public boolean getRightBumperValue() {
+		return (getRawButton(6));
 	}
 
 	/**
@@ -158,8 +158,8 @@ public class Xbox extends Joystick{
 	 * @param
 	 * @return The current state of the button
 	 */
-	public boolean GetBackValue() {
-		return (GetRawButton(7));
+	public boolean getBackValue() {
+		return (getRawButton(7));
 	}
 
 	/**
@@ -168,8 +168,8 @@ public class Xbox extends Joystick{
 	 * @param
 	 * @return The current state of the button
 	 */
-	public boolean GetStartValue() {
-		return (GetRawButton(8));
+	public boolean getStartValue() {
+		return (getRawButton(8));
 	}
 
 	/**
@@ -178,14 +178,14 @@ public class Xbox extends Joystick{
 	 * @param reflectCircle Choose whether to reflect over the Y axis.
 	 * @return The angle of the left joystick.
 	 */
-	public double GetLeftAngle(boolean reflectCircle) {
-		float yAxis = (float) (-1 * GetLeftY());
+	public double getLeftAngle(boolean reflectCircle) {
+		float yAxis = (float) (-1 * getLeftY());
 		float xAxis;
 
 		if (reflectCircle) {
-			xAxis = (float) GetLeftX();
+			xAxis = (float) getLeftX();
 		} else {
-			xAxis = (float) (-1 * GetLeftX());
+			xAxis = (float) (-1 * getLeftX());
 		}
 
 		double angle = 0;
@@ -225,14 +225,14 @@ public class Xbox extends Joystick{
 	 * @param reflectCircle Choose whether to reflect over the Y axis.
 	 * @return The angle of the right joystick.
 	 */
-	public double GetRightAngle(boolean reflectCircle) {
-		float yAxis = (float) (-1 * GetRightY());
+	public double getRightAngle(boolean reflectCircle) {
+		float yAxis = (float) (-1 * getRightY());
 		float xAxis;
 
 		if (reflectCircle) {
-			xAxis = (float) GetRightX();
+			xAxis = (float) getRightX();
 		} else {
-			xAxis = (float) (-1 * GetRightX());
+			xAxis = (float) (-1 * getRightX());
 		}
 
 		double angle = 0;
@@ -272,8 +272,8 @@ public class Xbox extends Joystick{
 	 * @param
 	 * @return The magnitude of the left joystick.
 	 */
-	public double GetLeftMagnitude() {
-		return (Limit(Math.sqrt(Math.pow(GetLeftX(), (2)) + Math.pow(GetLeftY(), (2)))));
+	public double getLeftMagnitude() {
+		return (limit(Math.sqrt(Math.pow(getLeftX(), (2)) + Math.pow(getLeftY(), (2)))));
 	}
 
 	/**
@@ -282,8 +282,8 @@ public class Xbox extends Joystick{
 	 * @param
 	 * @return The magnitude of the right joystick.
 	 */
-	public double GetRightMagnitude() {
-		return (Limit(Math.sqrt(Math.pow(GetRightX(), (2)) + Math.pow(GetRightY(), (2)))));
+	public double getRightMagnitude() {
+		return (limit(Math.sqrt(Math.pow(getRightX(), (2)) + Math.pow(getRightY(), (2)))));
 	}
 
 	////////////////Get Raw Button Methods to be used by Command/Subsystem Interface
@@ -294,7 +294,7 @@ public class Xbox extends Joystick{
 	 * @return
 	 * @return A Button
 	 */
-	public JoystickButton GetAButton() {
+	public JoystickButton getAButton() {
 		return (new JoystickButton(this, ABUTTON));
 	}
 
@@ -305,7 +305,7 @@ public class Xbox extends Joystick{
 	 * @return
 	 * @return B Button
 	 */
-	public JoystickButton GetBButton() {
+	public JoystickButton getBButton() {
 		return (new JoystickButton(this, BBUTTON));
 	}
 
@@ -315,7 +315,7 @@ public class Xbox extends Joystick{
 	 * @param
 	 * @return X Button
 	 */
-	public JoystickButton GetXButton() {
+	public JoystickButton getXButton() {
 		return (new JoystickButton(this, XBUTTON));
 	}
 
@@ -325,7 +325,7 @@ public class Xbox extends Joystick{
 	 * @param
 	 * @return Y Button
 	 */
-	public JoystickButton GetYButton() {
+	public JoystickButton getYButton() {
 		return (new JoystickButton(this, YBUTTON));
 	}
 
@@ -335,7 +335,7 @@ public class Xbox extends Joystick{
 	 * @param
 	 * @return Back Button
 	 */
-	public JoystickButton GetBackButton() {
+	public JoystickButton getBackButton() {
 		return (new JoystickButton(this, BACK_BUTTON));
 	}
 
@@ -345,7 +345,7 @@ public class Xbox extends Joystick{
 	 * @param
 	 * @return Start Button
 	 */
-	public JoystickButton GetStartButton() {
+	public JoystickButton getStartButton() {
 		return (new JoystickButton(this, START_BUTTON));
 	}
 
@@ -355,7 +355,7 @@ public class Xbox extends Joystick{
 	 * @param
 	 * @return Left Bumper
 	 */
-	public JoystickButton GetLeftBumper() {
+	public JoystickButton getLeftBumper() {
 		return (new JoystickButton(this, LEFT_BUMPER));
 	}
 
@@ -365,7 +365,7 @@ public class Xbox extends Joystick{
 	 * @param
 	 * @return Right Bumper
 	 */
-	public JoystickButton GetRightBumper() {
+	public JoystickButton getRightBumper() {
 		return (new JoystickButton(this, RIGHT_BUMPER));
 	}
 
@@ -380,7 +380,7 @@ public class Xbox extends Joystick{
 	 * @param button The button to get the value of. Range 1-10.
 	 * @return The state of the button.
 	 */
-	public boolean GetRawButton(int button) {
+	public boolean getRawButton(int button) {
 		return (super.getRawButton(button));
 	}
 
@@ -396,8 +396,8 @@ public class Xbox extends Joystick{
 	 * @param axis The axis to get the value of. Range 1-6.
 	 * @return The value of the axis from -1 to 1.
 	 */
-	public float GetRawAxis(int axis) {
-		return (float) (super.getRawAxis(axis));
+	public double getRawAxis(int axis) {
+		return super.getRawAxis(axis);
 	}
 
 	/**
@@ -406,7 +406,7 @@ public class Xbox extends Joystick{
 	 * @param num The value to normalize.
 	 * @return The normalized value.
 	 */
-	public double Limit(double num) {
+	public double limit(double num) {
 		if (num > 1) {
 			num = 1;
 		} else if (num < -1) {
