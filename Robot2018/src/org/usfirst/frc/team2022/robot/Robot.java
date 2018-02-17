@@ -1,12 +1,12 @@
 package org.usfirst.frc.team2022.robot;
 
-import org.usfirst.frc.team2022.robot.commands.DriveCommand;
-import org.usfirst.frc.team2022.robot.commands.GrabberCommand;
-import org.usfirst.frc.team2022.robot.commands.ClimberCommand;
-import org.usfirst.frc.team2022.robot.subsystems.DriveSubsystem;
-import org.usfirst.frc.team2022.robot.subsystems.ElevatorSubsystem;
-import org.usfirst.frc.team2022.robot.subsystems.GrabberSubsystem;
-import org.usfirst.frc.team2022.robot.subsystems.ClimberSubsystem;
+
+import org.usfirst.frc.team2022.commands.ElevatorCommand;
+import org.usfirst.frc.team2022.commands.DriveCommand;
+import org.usfirst.frc.team2022.commands.GrabberCommand;
+import org.usfirst.frc.team2022.subsystems.ElevatorSubsystem;
+import org.usfirst.frc.team2022.subsystems.DriveSubsystem;
+import org.usfirst.frc.team2022.subsystems.GrabberSubsystem;
 
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
@@ -26,39 +26,26 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
-	
-
 
 	//Instantiate Subsystems
 	public static final DriveSubsystem driveSubsystem = new DriveSubsystem();
 	public static final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
 	public static final GrabberSubsystem grabberSubsystem = new GrabberSubsystem();
-	public static final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
-	//LIGHTS!!
+	public static final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
+
 //	public static final LightSubsystem lights = new LightSubsystem();
 	
 	//Create References to commands
 	public DriveCommand driveCommand;
 	public GrabberCommand grabberCommand;
-	public ClimberCommand climberCommand;
-
-//	public LightCommand lightCommand;
-	//Autonomous
-	CommandGroup autonomousCommand = new CommandGroup();
-	SendableChooser<String> autoTypeChooser;
-	SendableChooser<String> autoShooterChooser;
-	SendableChooser<String> autoGearChooser;
-	double position;
-	double gear;
-	
+	public ElevatorCommand elevatorCommand;
 	
 	//Create reference to OI
 	public static OI oi;
 	public XboxMap xboxMap = new XboxMap();
-	
+	public Attack3Map attack3Map = new Attack3Map();
 	
 	//Initialization code ran when you turn on the robot
-
     public void robotInit() {    	
 
     	//Instantiate OI
@@ -67,145 +54,31 @@ public class Robot extends IterativeRobot {
     	//Instantiate Commands
     	driveCommand = new DriveCommand();
     	grabberCommand = new GrabberCommand();
-    	climberCommand = new ClimberCommand();
+    	elevatorCommand = new ElevatorCommand();
 //    	lightCommand = new LightCommand(0);
-    	UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-    	camera.setResolution(480, 360);
-    	camera.setFPS(30);
-    	
-    	//Create thread for streaming cameras
-//    	Thread t = new Thread(new Runnable(){
-//    		public void run(){
-//    			boolean allowCam1 = false;
-//        		
-//        		UsbCamera camera1 = CameraServer.getInstance().startAutomaticCapture(0);
-//                camera1.setResolution(640, 480);
-//                camera1.setFPS(15);
-//                UsbCamera camera2 = CameraServer.getInstance().startAutomaticCapture(1);
-//                camera2.setResolution(640, 480);
-//                camera2.setFPS(15);
-//                
-//                CvSink cvSink1 = CameraServer.getInstance().getVideo(camera1);
-//                CvSink cvSink2 = CameraServer.getInstance().getVideo(camera2);
-//                CvSource outputStream = CameraServer.getInstance().putVideo("Switcher", 640, 480);
-//                
-//                Mat image = new Mat();
-//                
-//                while(!Thread.interrupted()) {
-//                	
-//                	if(oi.xbox.GetStartValue()) {
-//                		allowCam1 = !allowCam1;
-//                	}
-//                	
-//                    if(allowCam1){
-//                      cvSink2.setEnabled(false);
-//                      cvSink1.setEnabled(true);
-//                      cvSink1.grabFrame(image);
-//                    } else{
-//                      cvSink1.setEnabled(false);
-//                      cvSink2.setEnabled(true);
-//                      cvSink2.grabFrame(image);     
-//                    }
-//                    
-//                    outputStream.putFrame(image);
-//                }
-//                
-//    		}
-//    	});
-//    	t.start();
-
-		
-    	autoTypeChooser = new SendableChooser<String>();
-    	autoTypeChooser.addDefault("Position Gear 2 (Middle)", "gearOption2"); 
-    	autoTypeChooser.addObject("Position Gear 1 (Right)", "gearOption1"); 
-    	autoTypeChooser.addObject("Position Gear 3 (Left)", "gearOption3");
-    	autoTypeChooser.addObject("Shooter (Blue Side)", "blue");
-    	autoTypeChooser.addObject("Shooter (Red Side)", "red");
-    	autoTypeChooser.addObject("Vision Shooter", "vision");
-
-//    	autoTypeChooser.addObject("Left starting position", "shooterOption1"); 
-//    	autoTypeChooser.addObject("Center starting position", "shooterOption2"); 
-//    	autoTypeChooser.addObject("Right starting position", "shooterOption3"); 
-    	SmartDashboard.putData("Autonomous Mode", autoTypeChooser);
-//    	
-//    	autoGearChooser = new SendableChooser<String>();
-//    	autoGearChooser.addDefault("Position Gear 1 (Right)", "gearOption1"); 
-//    	autoGearChooser.addObject("Position Gear 2 (Middle)", "gearOption2"); 
-//    	autoGearChooser.addObject("Position Gear 3 (Left)", "gearOption3"); 
-//    	SmartDashboard.putData("Auto Gear Positions", autoGearChooser);
-//    	
-//    	autoShooterChooser = new SendableChooser<String>();
-//    	autoShooterChooser.addDefault("Left starting position", "shooterOption1"); 
-//    	autoShooterChooser.addObject("Center starting position", "shooterOption2"); 
-//    	autoShooterChooser.addObject("Right starting position", "shooterOption3"); 
-//    	SmartDashboard.putData("Auto Field Position", autoShooterChooser);  	
     	
     }
     
     
     //This starts the methods for autonomous
     public void autonomousInit() {
-    	try{
-    		/*if(autoTypeChooser.getSelected().equals("gearOption1")){
-        		autonomousCommand = new AutoGearCommandGroup(1);
-        	}
-        	else if(autoTypeChooser.getSelected().equals("gearOption2")){
-        		autonomousCommand = new AutoGearCommandGroup(2);
-        	}
-        	else if(autoTypeChooser.getSelected().equals("gearOption3")){
-        		autonomousCommand = new AutoGearCommandGroup(3);
-        	}
-        	else if(autoTypeChooser.getSelected().equals("blue")){
-        		autonomousCommand = new AutoNewShooterCommandGroup("Blue");
-        	}
-        	else if(autoTypeChooser.getSelected().equals("red")){
-        		autonomousCommand = new AutoNewShooterCommandGroup("Red");
-        	}
-        	else if(autoTypeChooser.getSelected().equals("vision")){
-        		autonomousCommand = new AutoNewShooterVisionCommandGroup();
-        	}*/
-//        	else if(autoTypeChooser.getSelected().equals("shooterOption1")){
-//        		autonomousCommand = new AutoShooterLeftCommandGroup();
-//        	}
-//        	else if(autoTypeChooser.getSelected().equals("shooterOption2")){
-//        		autonomousCommand = new AutoShooterCenterCommandGroup();
-//        	}
-//        	else if(autoTypeChooser.getSelected().equals("shooterOption3")){
-//        		autonomousCommand = new AutoShooterRightCommandGroup();
-//        	}
-    	}
-    	catch(Exception ex){
-    		System.out.println(ex);
-    	}
-    	//ultrasonicCommand.start();
-    	
+//    	try{
+//    		
+//    	}
+//    	catch(Exception ex){
+//    		System.out.println(ex);
+//    	}
     	autonomousCommand.start();
     	
-//    	else if(autoTypeChooser.getSelected().equals("Shooter")){
-//    		if(autoShooterChooser.getSelected().equals("shooterOption1")){
-//    			autonomousCommand = new AutoShooterLeftCommandGroup();
-//    		}
-//    		else if(autoShooterChooser.getSelected().equals("shooterOption2")){
-//    			autonomousCommand = new AutoShooterCenterCommandGroup();
-//    		}
-//    		else if(autoShooterChooser.getSelected().equals("shooterOption3")){
-//    			autonomousCommand = new AutoShooterRightCommandGroup();
-//    		}
-//    	}
-//    	else if(autoTypeChooser.getSelected().equals("Straight")){
-//    		autonomousCommand = new CommandGroup();
-//    	}
     }
     
     //This starts the methods for teleop and stops methods for autonomous
-    @Override
 	public void teleopInit() {
     	driveCommand.start();
 //    	lightCommand.start();
     }
     
     //This stops the methods for autonomous
-	@Override
 	public void disabledInit() {
 		driveCommand.cancel();
 	}

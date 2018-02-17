@@ -7,16 +7,27 @@ package org.usfirst.frc.team2022.robot;
 public class ConstantsMap {
 	//Robot dimensions
 	public static final double ROBOT_LENGTH_INCHES = 36.5; 
+	public static final double ROBOT_WIDTH_INCHES = 0; 
+	public static final double ROBOT_WHEEL_RADIUS_INCHES = 4; 
 
-	//Encoders
-	public static final double DRIVE_ENCODER_INCHES_PER_TICK = ((4* Math.PI)/(360));
-	public static final double ELEVATOR_ENCODER_INCHES_PER_TICK = 1.0;
 
-	//Distance and speeds
-	public static final double GRABBER_SPEED = 3310;
-	public static final double ELEVATOR_MAX_SPEED = 10;
-	public static final double DRIVE_MAX_SPEED = 10;
-	public static final double TURN_MAX_SPEED = 10;
+	//Grabber Speeds
+	public static final double OUTTER_GRABBER_SPEED = 0.3;
+	public static final double INNER_GRABBER_SPEED = 0.3;
+	
+	//Drive encoders
+	public static final double DRIVE_ENCODER_DIST_PER_TICK = ((ROBOT_WHEEL_RADIUS_INCHES * Math.PI)/(360));
+	
+	public static final double DRIVE_SPEED_REDUCER_MULTIPLIER = 0.3;
+
+
+	//Radius Elevator
+	public static final double FRONTWHEEL_RADIUS_INCHES = 0;
+	public static final double BACKWHEEL_RADIUS_INCHES = 0;
+	//Elevator encoders
+	public static final double FRONTELEVATOR_ENCODER_DIST_PER_TICK = ((FRONTWHEEL_RADIUS_INCHES * Math.PI)/(360));
+	public static final double BACKELEVATOR_ENCODER_DIST_PER_TICK = ((BACKWHEEL_RADIUS_INCHES * Math.PI)/(360));
+	
 
 	//PID Values
 	public static double KP_DRIVE_SPEED = 1.0;

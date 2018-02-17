@@ -3,86 +3,51 @@ package org.usfirst.frc.team2022.robot;
 public class XboxMap {
 	OI oi = Robot.oi;
 	
-	//Drive commands
-	public double getSpeedRightWheel(){ 
-		return oi.xbox.getRightY();
+
+	public boolean startAutoBrakerSystem(){
+		return oi.xbox.GetRightBumperValue();
+
 	}
 	
-	public double getSpeedLeftWheel() {
-		return oi.xbox.getLeftY();
+	public boolean controlDriverGear() {
+		return oi.xbox.GetLeftBumperValue();
 	}
 	
-//	public boolean startAutoBrakerSystem(){
-//		return oi.xbox.GetRightBumperValue();
-//	}
-	
-	public boolean switchySwitch(){
-		return oi.xbox.getRightBumperValue();
+	//Grabber commands 
+	public boolean controlOutterMotors(){
+		return oi.xbox.GetAValue();
 	}
 	
-	public boolean startAutoGearAlignment(){
-		if(oi.xbox.getPOV() == 180){
-			return true;
-		}
-		else{
-			return false;
-		}
+
+	public boolean controlInnerMotors(){
+		return oi.xbox.GetBValue();
+
 	}
 	
-	
-	//Shooter commands	
-	public boolean alignShooter(){
-		return oi.xbox.getBValue();
-	}
-	
-	public boolean startManualShooterCommand(){
-		return oi.xbox.getXValue();
+
+	public boolean controlPiston(){
+		return oi.xbox.GetXValue();
+
 	}
 
-//	public boolean openGate() {
-//		return oi.xbox.GetBackValue();
-//	}
-	
-	//Climber commands
-	public double getManualClimberSpeed(){
-		return oi.xbox.getLeftTriggers();
+
+	//Elevator commands
+	public boolean controlFrontElevator(){
+		return oi.xbox.GetYValue();
 	}
-	
-	
-	//Camera command
-	public boolean switchCamera(){
-		return oi.xbox.getStartValue();
+	public double controlBackElevatorGoUp(){
+		return oi.xbox.GetLeftTriggers();
+
 	}
-	
+
+	public double controlBackElevatorGoDown(){
+		return oi.xbox.GetRightTriggers();
+
+	}
 	
 	//Universal stop command
 	public boolean stopSystem() {
 		return oi.xbox.getYValue();
 	}
 
-	public boolean runAgitator() {
-		// TODO Auto-generated method stub
-		if(oi.xbox.getRightTriggers() > 0.4){
-			return true;
-		}
-		else{
-			return false;
-		}
-	}
-
-	public boolean moveTowardsGear() {
-		// TODO Auto-generated method stub
-		return oi.xbox.getAValue();
-//		if(oi.xbox.getPOV() == 0){
-//			return true;
-//		}
-//		else{
-//			return false;
-//		}
-	}
-
-	public boolean moveToShooter() {
-		// TODO Auto-generated method stub
-		return oi.xbox.getAValue();
-	}
 }

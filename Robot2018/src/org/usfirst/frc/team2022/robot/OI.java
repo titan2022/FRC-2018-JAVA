@@ -12,10 +12,14 @@ public class OI {
 	public double attackThrottleSensitivity=.1;
 	//Controllers
 	public Xbox xbox;
-	public Attack3 attack3Left, attack3Right;
+
+	public Attack3 attack3_L, attack3_R;
+
 	public OI(){
 		xbox = new Xbox(0);
-		attack3Left = new Attack3(0);
-		attack3Right = new Attack3(1);
+
+		attack3_L = new Attack3(1);
+		attack3_R = new Attack3(2);
+
 	}
 }
