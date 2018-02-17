@@ -12,12 +12,12 @@ package org.usfirst.frc.team2022.robot;
 public class RobotMap {
 	
 	//Drivebase Motor Ports 
-	public static final int LEFT_DRIVE_PORT_1 = 4;
-	public static final int LEFT_DRIVE_PORT_2 = 5;
-	public static final int LEFT_DRIVE_PORT_3 = 6;
-	public static final int RIGHT_DRIVE_PORT_1 = 7;
-	public static final int RIGHT_DRIVE_PORT_2 = 8;
-	public static final int RIGHT_DRIVE_PORT_3 = 9;
+	public static final int LEFT_DRIVE_PORT_1 = 2;
+	public static final int LEFT_DRIVE_PORT_2 = 4;
+	public static final int LEFT_DRIVE_PORT_3 = 3;
+	public static final int RIGHT_DRIVE_PORT_1 = 8;
+	public static final int RIGHT_DRIVE_PORT_2 = 9;
+	public static final int RIGHT_DRIVE_PORT_3 = 10;
 	
 	//Grabber Motor Ports
 	public static final int OUTTERLEFT_GRABBER_PORT = 0;

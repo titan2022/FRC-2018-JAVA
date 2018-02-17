@@ -55,12 +55,12 @@ public class DriveCommand extends Command {
     		pistonSwitch = !pistonSwitch;
     		lastPressed = System.currentTimeMillis();
     	}
-    	if(pistonSwitch){
-    		driveSubsystem.solinoidForward();
-    	}
-    	else{
-    		driveSubsystem.solinoidReverse();
-    	}
+//    	if(pistonSwitch){
+//    		driveSubsystem.solinoidForward();
+//    	}
+//    	else{
+//    		driveSubsystem.solinoidReverse();
+//    	}
     	
     	//Auto Brake Mode
     	if(xboxMap.startAutoBrakerSystem() && (System.currentTimeMillis() - lastPressed) > 200){  
@@ -81,10 +81,10 @@ public class DriveCommand extends Command {
     }
 
     protected void displayData(){
-    	SmartDashboard.putNumber("Right Encoder Distance: ", driveSubsystem.getRightEncoderDistance());
-    	SmartDashboard.putNumber("Left Encoder Distance: ", driveSubsystem.getLeftEncoderDistance());
-    	SmartDashboard.putNumber("Right Encoder: ", driveSubsystem.getRightEncoderCount());
-    	SmartDashboard.putNumber("Left Encoder: ", driveSubsystem.getLeftEncoderCount());
+//    	SmartDashboard.putNumber("Right Encoder Distance: ", driveSubsystem.getRightEncoderDistance());
+//    	SmartDashboard.putNumber("Left Encoder Distance: ", driveSubsystem.getLeftEncoderDistance());
+//    	SmartDashboard.putNumber("Right Encoder: ", driveSubsystem.getRightEncoderCount());
+//    	SmartDashboard.putNumber("Left Encoder: ", driveSubsystem.getLeftEncoderCount());
     	SmartDashboard.putNumber("Gyro Angle: ", driveSubsystem.getGyroAngle());
     	SmartDashboard.putBoolean("Piston Position: ", getBrakeState());
     }

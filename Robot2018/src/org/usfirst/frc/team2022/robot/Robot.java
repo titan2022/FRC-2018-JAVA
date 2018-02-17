@@ -1,12 +1,11 @@
 package org.usfirst.frc.team2022.robot;
 
 
-import org.usfirst.frc.team2022.commands.ElevatorCommand;
 import org.usfirst.frc.team2022.commands.DriveCommand;
-import org.usfirst.frc.team2022.commands.GrabberCommand;
-import org.usfirst.frc.team2022.subsystems.ElevatorSubsystem;
+//import org.usfirst.frc.team2022.commands.GrabberCommand;
+//import org.usfirst.frc.team2022.subsystems.ElevatorSubsystem;
 import org.usfirst.frc.team2022.subsystems.DriveSubsystem;
-import org.usfirst.frc.team2022.subsystems.GrabberSubsystem;
+//import org.usfirst.frc.team2022.subsystems.GrabberSubsystem;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -28,14 +27,14 @@ public class Robot extends IterativeRobot {
 
 	//Instantiate Subsystems
 	public static final DriveSubsystem driveSubsystem = new DriveSubsystem();
-	public static final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
-	public static final GrabberSubsystem grabberSubsystem = new GrabberSubsystem();
+	//public static final ElevatorSubsystem frontElevatorSubsystem = new ElevatorSubsystem(true, 10);
+	//public static final ElevatorSubsystem backElevatorSubsystem = new ElevatorSubsystem(false, 10);
+	//public static final GrabberSubsystem grabberSubsystem = new GrabberSubsystem();
 	
 
 	//Create References to commands
 	public DriveCommand driveCommand;
-	public GrabberCommand grabberCommand;
-	public ElevatorCommand elevatorCommand;
+	//public GrabberCommand grabberCommand;
 	
 	//Create reference to OI
 	public static OI oi;
@@ -56,8 +55,7 @@ public class Robot extends IterativeRobot {
     	
     	//Instantiate Commands
     	driveCommand = new DriveCommand();
-    	grabberCommand = new GrabberCommand();
-    	elevatorCommand = new ElevatorCommand();
+    	//grabberCommand = new GrabberCommand();
     	
     	autoTypeChooser = new SendableChooser<String>();
     	autoTypeChooser.addDefault("Left Position", "left"); 
@@ -116,15 +114,13 @@ public class Robot extends IterativeRobot {
     //This starts the methods for teleop and stops methods for autonomous
 	public void teleopInit() {
     	driveCommand.start();
-    	grabberCommand.start();
-    	elevatorCommand.start();
+    	//grabberCommand.start();
     }
     
     //This stops the methods for autonomous
 	public void disabledInit() {
 		driveCommand.cancel();
-		grabberCommand.cancel();
-    	elevatorCommand.cancel();
+		//grabberCommand.cancel();
 	}
     
 	//Methods below this line do not need to be edited/////////////////////////////////////////////////////////////////////////

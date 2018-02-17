@@ -14,6 +14,4 @@ public class Attack3Map {
 
 		return oi.attack3_L.getYAxis();
 	}
-	
-
 }
