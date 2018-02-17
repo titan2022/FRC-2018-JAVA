@@ -1,7 +1,7 @@
 package org.usfirst.frc.team2022.robot;
 
 import edu.wpi.first.wpilibj.DigitalSource;
-import edu.wpi.first.wpilibj.SPI;
+
 /**
  * This class is initialized in the Robot class and is referenced
  * in the subsystem classes. This class holds the variables to port 
@@ -13,8 +13,7 @@ import edu.wpi.first.wpilibj.SPI;
 
 public class RobotMap {
 	
-	//Motors
-	//Drive motor ports
+	//Drivebase Motor Ports 
 	public static final int LEFT_DRIVE_PORT_1 = 4;
 	public static final int LEFT_DRIVE_PORT_2 = 5;
 	public static final int LEFT_DRIVE_PORT_3 = 6;
@@ -22,40 +21,35 @@ public class RobotMap {
 	public static final int RIGHT_DRIVE_PORT_2 = 8;
 	public static final int RIGHT_DRIVE_PORT_3 = 9;
 	
-	public static final int LIMIT_SWITCH = 0;
-	public static final int GEAR_SWITCH = 1;
+	//Grabber Motor Ports
+	public static final int OUTTERLEFT_GRABBER_PORT = 0;
+	public static final int OUTTERRIGHT_GRABBER_PORT = 0;
+	public static final int INNERLEFT_GRABBER_PORT = 0;
+	public static final int INNERRIGHT_GRABBER_PORT = 0;
 	
-	//Shooter motor ports
-	public static int AGITATOR_MOTOR_PORT = 1;
-	public static int SHOOTER_MOTOR_PORT1 = 2;
-	public static int SHOOTER_MOTOR_PORT2 = 11;
-	public static int SHOOTER_MOTOR_PORT3 = 3;  //FIX
-	public static int SHOOTER_MOTOR_PORT4 = 12;
+	//Elevator Motor Ports
+	public static final int FRONT_ELEVATOR_PORT = 0;
+	public static final int BACK_ELEVATOR_PORT = 0;
 	
-	//Climber motor ports
-	public static int CLIMBER_MOTOR_PORT = 10;
+	//Limit switch ports
+	public static final int BOX_SWITCH = 0;
 	
-	//Sensors
-	//Drive base sensors
-	public static final int K_ULTRASONIC_PORT = 0;
-
-	//port for servo (gate that opens and closes for balls to go through)
-	public static final int SERVO_MOTOR_PORT = 9;
-
-	// encoder ports for drive base
-	public static int LEFT_ENCODER_PORT_A = 7;
-	public static int LEFT_ENCODER_PORT_B = 6;
-	public static int RIGHT_ENCODER_PORT_A = 9;
-	public static int RIGHT_ENCODER_PORT_B = 8;
-	//LIGHTS
-	public static int SPIKE_1 = 2;
-	public static int SPIKE_2 = 3;
-
-	//Solenoid ports
-	public static int SOLENOID_PORT_1 = 2;  //FIX
-	public static int SOLENOID_PORT_2 = 3;
+	//Encoder ports for drive base
+	public static final int LEFT_ENCODER_PORT_A = 7;
+	public static final int LEFT_ENCODER_PORT_B = 6;
+	public static final int RIGHT_ENCODER_PORT_A = 9;
+	public static final int RIGHT_ENCODER_PORT_B = 8;
 	
-	//Encoder ports for shooter
-//	public static int SHOOTER_ENCODER_A = 0;
-//	public static int SHOOTER_ENCODER_B = 1;
+	//Encoder ports for Elevator
+	public static final int FRONT_ENCODER_PORT_A = 0;
+	public static final int FRONT_ENCODER_PORT_B = 0;
+	public static final int BACK_ENCODER_PORT_A = 0;
+	public static final int BACK_ENCODER_PORT_B = 0;
+	
+	//Grabber Solenoid ports
+	public static final int SOLENOID_PORT_1 = 0; 
+	public static final int SOLENOID_PORT_2 = 0;
+	public static final int SOLENOID_PORT_3 = 0;
+	public static final int SOLENOID_PORT_4 = 0;
+	
 }

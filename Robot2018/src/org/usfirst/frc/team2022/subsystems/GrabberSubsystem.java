@@ -1,150 +1,87 @@
-package org.usfirst.frc.team2022.robot.subsystems;
+package org.usfirst.frc.team2022.subsystems;
 
-import org.usfirst.frc.team2022.robot.commands.GrabberCommand;
-import org.usfirst.frc.team2022.robot.ConstantsMap;
+import org.usfirst.frc.team2022.commands.GrabberCommand;
 import org.usfirst.frc.team2022.robot.RobotMap;
 
-import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
-import edu.wpi.first.wpilibj.AnalogGyro;
-import com.kauailabs.navx.frc.AHRS;
-import edu.wpi.first.wpilibj.SPI;
 
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.Solenoid;
-/**
-*
-*/
-public class GrabberSubsystem extends Subsystem {
-	// Put methods for controlling this subsystem
-    // here. Call these from Commands.
-	private static final NeutralMode NeutralMode = null;
-	
-	private WPI_TalonSRX left1,left2,right1,right2;
-	
-	private DigitalInput limitSwitch, gearSwitch;
-	private DoubleSolenoid solenoid;
-	
-	private boolean isShooting;
-	
-//	private boolean switchUrMom = false;
 
-	/**
-	 * 
-	 */
+public class GrabberSubsystem extends Subsystem {
+	
+	private WPI_TalonSRX outterLeft, outterRight, innerLeft, innerRight;
+	
+	private DigitalInput boxSwitch;
+	private DoubleSolenoid solenoid, solenoid2;
+	
 	public GrabberSubsystem() {
 		//Instantiate motors		
-		left1 = new WPI_TalonSRX(RobotMap.SHOOTER_MOTOR_PORT1);
-		left2 = new WPI_TalonSRX(RobotMap.SHOOTER_MOTOR_PORT2);
-		right1 = new WPI_TalonSRX(RobotMap.SHOOTER_MOTOR_PORT3);		
-		right2 = new WPI_TalonSRX(RobotMap.SHOOTER_MOTOR_PORT4);		
+		outterLeft = new WPI_TalonSRX(RobotMap.OUTTERLEFT_GRABBER_PORT);
+		outterRight = new WPI_TalonSRX(RobotMap.OUTTERRIGHT_GRABBER_PORT);
 		
-		right1.setInverted(true); //Setup
-		right2.setInverted(true);
-		isShooting = false;		  //Receiving at start
+		innerLeft = new WPI_TalonSRX(RobotMap.INNERLEFT_GRABBER_PORT);		
+		innerRight = new WPI_TalonSRX(RobotMap.INNERRIGHT_GRABBER_PORT);		
 		
-		solenoid = new DoubleSolenoid(1,2);				//change ports
-		solenoid.set(DoubleSolenoid.Value.kOff);
-		//solenoid.set(DoubleSolenoid.Value.kForward);
-		//solenoid.set(DoubleSolenoid.Value.kReverse);
+		outterLeft.setInverted(true);
+		outterRight.setInverted(true);
+		innerLeft.setInverted(true);
+		innerRight.setInverted(true);
+		
+		solenoid = new DoubleSolenoid(RobotMap.SOLENOID_PORT_1, RobotMap.SOLENOID_PORT_2);
+		solenoid2 = new DoubleSolenoid(RobotMap.SOLENOID_PORT_3, RobotMap.SOLENOID_PORT_4);
+		
+		boxSwitch = new DigitalInput(RobotMap.BOX_SWITCH);
 	}
 	
     public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
     	setDefaultCommand(new GrabberCommand());
     }
-    
-    public boolean getLimitSwitch(){
-    	return limitSwitch.get();
+
+    public boolean getBoxSwitch(){
+    	return boxSwitch.get();
     }
 
-    //Determines if it is shooting
-    public void invertWheels() {
-    	right1.setInverted(true);
-    	right2.setInverted(true);
-   		left1.setInverted(true);
-   		left2.setInverted(true);
-		if (isShooting) {
-			isShooting = false;
-		}
-		else {
-			isShooting = true;
-		}
-    }
-    
-    public void shootCube() {
-    	if (!isShooting) {
-    		invertWheels();
-    	}
-    }
-    
-    public void takeCube() {
-    	if (isShooting) {
-    		invertWheels();
-    	}
-    }
-    
-	// Setter methods for each side.
-	public void setLeftSpeed(double speed) {
-//		if(switchUrMom == false) {
-			left1.set(speed);
-			left2.set(speed);
-//		} else {
-//			right1.set(-speed);
-//			right2.set(-speed);
-//		}		
+	public void setOutterGrabberSpeed(double speed) {
+		outterLeft.set(speed);
+		outterRight.set(-speed);
 	}	
-	public void setRightSpeed (double speed) {
-//		if(switchUrMom) {
-			right1.set(speed);
-			right2.set(speed);		
-//		} else {
-//			left1.set(-speed);
-//			left2.set(-speed);
-//		}
+	
+	public void setInnerGrabberSpeed (double speed) {
+		innerLeft.set(speed);
+		innerRight.set(-speed);
 	}
 	
-//	public void switchTheSwitchySwitch () {
-//		switchUrMom = !switchUrMom;
-//	}
+	public void stopOutterGrabber(){
+		outterLeft.set(0);
+		outterRight.set(0);
+	}
 	
-	// Getter method for each side.
-	public double getLeftSpeed() {		
-		return left1.getSelectedSensorVelocity(0);
-	}	
-	public double getRightSpeed() {		
-		return right1.getSelectedSensorVelocity(0);		
+	public void stopInnerGrabber(){
+		innerLeft.set(0);
+		innerRight.set(0);
 	}
 	
 	public void solinoidForward(){
 		solenoid.set(DoubleSolenoid.Value.kForward);
+		solenoid2.set(DoubleSolenoid.Value.kForward);
 	}
 	
-	public void enableStop(){
-		left1.setNeutralMode(NeutralMode.Brake);
-		left2.setNeutralMode(NeutralMode.Brake);
-		right1.setNeutralMode(NeutralMode.Brake);
-		right2.setNeutralMode(NeutralMode.Brake);		
-	}
-	public void disableStop(){
-		left1.setNeutralMode(NeutralMode.Coast);
-		left2.setNeutralMode(NeutralMode.Coast);
-		right1.setNeutralMode(NeutralMode.Coast);
-		right2.setNeutralMode(NeutralMode.Coast);
+	public void solinoidReverse(){
+		solenoid.set(DoubleSolenoid.Value.kReverse);
+		solenoid2.set(DoubleSolenoid.Value.kReverse);
 	}
 	
-	public void stop() {
-		left1.set(0);
-		left2.set(0);
-		right1.set(0);
-		right2.set(0);
+	public void stopPiston() {
 		solenoid.set(DoubleSolenoid.Value.kOff);
+		solenoid2.set(DoubleSolenoid.Value.kOff);
+	}
+	
+	public void stop(){
+		stopOutterGrabber();
+		stopInnerGrabber();
+		stopPiston();
 	}
 }

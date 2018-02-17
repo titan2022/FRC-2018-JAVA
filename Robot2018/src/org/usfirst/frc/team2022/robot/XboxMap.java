@@ -3,86 +3,40 @@ package org.usfirst.frc.team2022.robot;
 public class XboxMap {
 	OI oi = Robot.oi;
 	
-	//Drive commands
-	public double getSpeedRightWheel(){ 
-		return oi.xbox.GetRightY();
-	}
-	
-	public double getSpeedLeftWheel() {
-		return oi.xbox.GetLeftY();
-	}
-	
-//	public boolean startAutoBrakerSystem(){
-//		return oi.xbox.GetRightBumperValue();
-//	}
-	
-	public boolean switchySwitch(){
+	public boolean startAutoBrakerSystem(){
 		return oi.xbox.GetRightBumperValue();
 	}
 	
-	public boolean startAutoGearAlignment(){
-		if(oi.xbox.getPOV() == 180){
-			return true;
-		}
-		else{
-			return false;
-		}
+	public boolean controlDriverGear() {
+		return oi.xbox.GetLeftBumperValue();
 	}
 	
+	//Grabber commands 
+	public boolean controlOutterMotors(){
+		return oi.xbox.GetAValue();
+	}
 	
-	//Shooter commands	
-	public boolean alignShooter(){
+	public boolean controlInnerMotors(){
 		return oi.xbox.GetBValue();
 	}
 	
-	public boolean startManualShooterCommand(){
+	public boolean controlPiston(){
 		return oi.xbox.GetXValue();
 	}
-
-//	public boolean openGate() {
-//		return oi.xbox.GetBackValue();
-//	}
 	
-	//Climber commands
-	public double getManualClimberSpeed(){
+	//Elevator commands
+	public boolean controlFrontElevator(){
+		return oi.xbox.GetYValue();
+	}
+	public double controlBackElevatorGoUp(){
 		return oi.xbox.GetLeftTriggers();
 	}
-	
-	
-	//Camera command
-	public boolean switchCamera(){
-		return oi.xbox.GetStartValue();
+	public double controlBackElevatorGoDown(){
+		return oi.xbox.GetRightTriggers();
 	}
-	
 	
 	//Universal stop command
 	public boolean stopSystem() {
 		return oi.xbox.GetYValue();
-	}
-
-	public boolean runAgitator() {
-		// TODO Auto-generated method stub
-		if(oi.xbox.GetRightTriggers() > 0.4){
-			return true;
-		}
-		else{
-			return false;
-		}
-	}
-
-	public boolean moveTowardsGear() {
-		// TODO Auto-generated method stub
-		return oi.xbox.GetAValue();
-//		if(oi.xbox.getPOV() == 0){
-//			return true;
-//		}
-//		else{
-//			return false;
-//		}
-	}
-
-	public boolean moveToShooter() {
-		// TODO Auto-generated method stub
-		return oi.xbox.GetAValue();
 	}
 }

@@ -1,6 +1,6 @@
-package org.usfirst.frc.team2022.robot.subsystems;
+package org.usfirst.frc.team2022.subsystems;
 
-import org.usfirst.frc.team2022.robot.commands.ClimberCommand;
+import org.usfirst.frc.team2022.commands.ElevatorCommand;
 import org.usfirst.frc.team2022.robot.ConstantsMap;
 import org.usfirst.frc.team2022.robot.RobotMap;
 
@@ -12,48 +12,95 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class ClimberSubsystem extends Subsystem {
+public class ElevatorSubsystem extends Subsystem {
 	
 	private static final NeutralMode NeutralMode = null;
 	
-	private WPI_TalonSRX climberMotor;
+	private WPI_TalonSRX frontElevatorMotor, backElevatorMotor;
 	
-	private boolean isAttatched;		//Determines if the climber functioned correctly
-	private boolean movingDown;
+	private Encoder backEncoder, frontEncoder;
 	
-	public ClimberSubsystem() {
-		//Instantiate motors
-		climberMotor = new WPI_TalonSRX(RobotMap.CLIMBER_MOTOR_PORT);
+	public ElevatorSubsystem() {
+		frontElevatorMotor = new WPI_TalonSRX(RobotMap.FRONT_ELEVATOR_PORT);
+		backElevatorMotor = new WPI_TalonSRX(RobotMap.BACK_ELEVATOR_PORT);
 		
-		isAttatched = false;
-		movingDown = false;
+		frontEncoder = new Encoder(RobotMap.FRONT_ENCODER_PORT_A, RobotMap.FRONT_ENCODER_PORT_B, false);
+		backEncoder = new Encoder(RobotMap.BACK_ENCODER_PORT_A, RobotMap.BACK_ENCODER_PORT_B, false);
+		
+		//Set encoder distance per pulse
+		frontEncoder.setDistancePerPulse(ConstantsMap.DRIVE_ENCODER_DIST_PER_TICK);
+		backEncoder.setDistancePerPulse(ConstantsMap.DRIVE_ENCODER_DIST_PER_TICK);
 	}
 	
 	public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
-    	setDefaultCommand(new ClimberCommand());
+    	setDefaultCommand(new ElevatorCommand());
     }
 	
-	public void setClimberSpeed(double speed) {
-		climberMotor.set(speed);
+	public void setFrontElevator(double speed) {
+		frontElevatorMotor.set(speed);
 	}
 	
-	public void stopClimber(){
-		climberMotor.set(0);
+	public void setBackElevator(double speed) {
+		backElevatorMotor.set(speed);
+	}
+	
+	public void stopFrontElevator(){
+		frontElevatorMotor.set(0);
+	}
+	
+	public void stopBackElevator(){
+		backElevatorMotor.set(0);
 	}
 	
 	public void enableStop(){
-		climberMotor.setNeutralMode(NeutralMode.Brake);	
+		frontElevatorMotor.setNeutralMode(NeutralMode.Brake);	
+		backElevatorMotor.setNeutralMode(NeutralMode.Brake);
 	}
 	public void disableStop(){
-		climberMotor.setNeutralMode(NeutralMode.Coast);
+		frontElevatorMotor.setNeutralMode(NeutralMode.Coast);	
+		backElevatorMotor.setNeutralMode(NeutralMode.Coast);
 	}
 	
+	//Get Encoders
+	public Encoder getFrontEncoder(){
+		return frontEncoder;
+	}
+	public Encoder getBackEncoder(){
+		return backEncoder;
+	}
+	
+	//Get Encoder Distances
+	public double getFrontEncoderDistance(){
+		return frontEncoder.getDistance();
+	}	
+	public double getBackEncoderDistance(){
+		return backEncoder.getDistance();
+	}
+	
+	//Get Encoder counts
+	public int getFrontEncoderCount(){
+		return frontEncoder.get();
+	}	
+	public int getBackEncoderCount(){
+		return backEncoder.get();
+	}
+	
+	//Get Encoder Rates
+	public double getFrontEncoderRate(){
+		return frontEncoder.getRate();
+	}	
+	public double getBackEncoderRate(){
+		return backEncoder.getRate();
+	}
+	
+	//reset encoders
+	public void resetEncoders(){
+		frontEncoder.reset();
+		backEncoder.reset();
+	}
 	public void stop() {
-		climberMotor.set(0);
-		isAttatched = false;
-		movingDown = false;
+		stopFrontElevator();
+		stopBackElevator();
 	}
 	
 }

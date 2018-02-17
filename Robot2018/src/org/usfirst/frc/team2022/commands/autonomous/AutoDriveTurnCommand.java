@@ -1,10 +1,10 @@
-package org.usfirst.frc.team2022.robot.commands.autonomous;
+package org.usfirst.frc.team2022.commands.autonomous;
 
 import org.usfirst.frc.team2022.robot.ConstantsMap;
 import org.usfirst.frc.team2022.robot.OI;
 import org.usfirst.frc.team2022.robot.Robot;
 import org.usfirst.frc.team2022.robot.XboxMap;
-import org.usfirst.frc.team2022.robot.subsystems.DriveSubsystem; 
+import org.usfirst.frc.team2022.subsystems.DriveSubsystem;
 
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;

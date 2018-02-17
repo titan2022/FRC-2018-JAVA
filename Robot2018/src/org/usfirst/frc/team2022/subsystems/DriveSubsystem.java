@@ -1,6 +1,6 @@
-package org.usfirst.frc.team2022.robot.subsystems;
+package org.usfirst.frc.team2022.subsystems;
 
-import org.usfirst.frc.team2022.robot.commands.DriveCommand;
+import org.usfirst.frc.team2022.commands.DriveCommand;
 import org.usfirst.frc.team2022.robot.ConstantsMap;
 import org.usfirst.frc.team2022.robot.RobotMap;
 
@@ -13,25 +13,21 @@ import edu.wpi.first.wpilibj.SPI;
 
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  *
  */
+@SuppressWarnings("unused")
 public class DriveSubsystem extends Subsystem {
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
 	private static final NeutralMode NeutralMode = null;
 	
 	private WPI_TalonSRX left1,left2,left3,right1,right2, right3;
-
+	private DoubleSolenoid solenoid, solenoid2;
 	private Encoder leftEncoder, rightEncoder;
 
 	private AHRS ahrs;
-	
-	private DigitalInput limitSwitch, gearSwitch;
-	
-//	private boolean switchUrMom = false;
 
 	public DriveSubsystem() {
 		//Instantiate motors		
@@ -42,6 +38,7 @@ public class DriveSubsystem extends Subsystem {
 		right2 = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_PORT_2);
 		right3 = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_PORT_3);
 		
+		//Invert Motors
 		left1.setInverted(true);
 		left2.setInverted(true);
 		left3.setInverted(true);
@@ -53,67 +50,42 @@ public class DriveSubsystem extends Subsystem {
 		leftEncoder = new Encoder(RobotMap.LEFT_ENCODER_PORT_A, RobotMap.LEFT_ENCODER_PORT_B, false);
 		rightEncoder = new Encoder(RobotMap.RIGHT_ENCODER_PORT_A, RobotMap.RIGHT_ENCODER_PORT_B, false);
 		
-		//Instantiate Gyro
+		//Instantiate Pistons
+		solenoid = new DoubleSolenoid(RobotMap.SOLENOID_PORT_1, RobotMap.SOLENOID_PORT_2);
+		solenoid2 = new DoubleSolenoid(RobotMap.SOLENOID_PORT_3, RobotMap.SOLENOID_PORT_4);
+		
+		//Instantiate Gyro | Gyro automatically calibrates when given power
         ahrs = new AHRS(SPI.Port.kMXP); 
-		if (!ahrs.isCalibrating()) {		//Gyro automatically calibrates when given power
+		if (!ahrs.isCalibrating()) {	
 			stop();
 		}
 		
-		//Set Encoder distanceFromTower per pulse
-		
-		rightEncoder.setDistancePerPulse(ConstantsMap.DRIVE_ENCODER_DIST_PER_TICK);
+		//Set encoder distance per pulse
 		leftEncoder.setDistancePerPulse(ConstantsMap.DRIVE_ENCODER_DIST_PER_TICK);
-		
-		limitSwitch = new DigitalInput(RobotMap.LIMIT_SWITCH);
-		gearSwitch = new DigitalInput(RobotMap.GEAR_SWITCH);
+		rightEncoder.setDistancePerPulse(ConstantsMap.DRIVE_ENCODER_DIST_PER_TICK);
 	}
 	
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
     	setDefaultCommand(new DriveCommand());
     }
-    
-    public boolean getLimitSwitch(){
-    	return limitSwitch.get();
-    }
-    
-    public boolean getGearSwitch(){
-    	return !gearSwitch.get();
-    }
-
-	// Setter methods for each side.
+   
 	public void setLeftSpeed(double speed) {
-//		if(switchUrMom == false) {
 			left1.set(speed);
 			left2.set(speed);
 			left3.set(speed);
-//		} else {
-//			right1.set(-speed);
-//			right2.set(-speed);
-//			right3.set(-speed);
-//		}		
 	}	
+	
 	public void setRightSpeed (double speed) {
-//		if(switchUrMom) {
 			right1.set(speed);
 			right2.set(speed);		
 			right3.set(speed);
-//		} else {
-//			left1.set(-speed);
-//			left2.set(-speed);
-//			left3.set(-speed);
-//		}
 	}
 	
-//	public void switchTheSwitchySwitch () {
-//		switchUrMom = !switchUrMom;
-//	}
-	
-	// Getter method for each side.
 	public double getLeftSpeed() {		
 		return left1.getSelectedSensorVelocity(0);
 	}	
+	
 	public double getRightSpeed() {		
 		return right1.getSelectedSensorVelocity(0);		
 	}
@@ -132,6 +104,7 @@ public class DriveSubsystem extends Subsystem {
 		right3.setNeutralMode(NeutralMode.Brake);
 		
 	}
+	
 	public void disableBrake(){
 		left1.setNeutralMode(NeutralMode.Coast);
 		left2.setNeutralMode(NeutralMode.Coast);
@@ -141,11 +114,25 @@ public class DriveSubsystem extends Subsystem {
 		right3.setNeutralMode(NeutralMode.Coast);
 	}
 	
+	public void solinoidForward(){
+		solenoid.set(DoubleSolenoid.Value.kForward);
+		solenoid2.set(DoubleSolenoid.Value.kForward);
+	}
 	
-	//Get Encoder 
+	public void solinoidReverse(){
+		solenoid.set(DoubleSolenoid.Value.kReverse);
+		solenoid2.set(DoubleSolenoid.Value.kReverse);
+	}
+	
+	public void stopPiston() {
+		solenoid.set(DoubleSolenoid.Value.kOff);
+		solenoid2.set(DoubleSolenoid.Value.kOff);
+	}
+	
 	public Encoder getRightEncoder(){
 		return rightEncoder;
 	}
+	
 	public Encoder getLeftEncoder(){
 		return leftEncoder;
 	}
@@ -176,11 +163,10 @@ public class DriveSubsystem extends Subsystem {
 	
 	//reset encoders
 	public void resetEncoders(){
-		rightEncoder.reset();
 		leftEncoder.reset();
+		rightEncoder.reset();
 	}
 	
-	//Gyro methods
 	public AHRS getGyro(){
 		return ahrs;
 	}

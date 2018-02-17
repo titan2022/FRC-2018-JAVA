@@ -1,22 +1,31 @@
 package org.usfirst.frc.team2022.robot;
 
-import edu.wpi.first.wpilibj.networktables.NetworkTable;
-
 /*
  * Easy place to access variables that need to be easily changed
  */
 
 public class ConstantsMap {
-//	NetworkTable sd = NetworkTable.getTable("Rate");
 	//Robot dimensions
 	public static final double ROBOT_LENGTH_INCHES = 36.5; 
+	public static final double ROBOT_WIDTH_INCHES = 0; 
+	public static final double ROBOT_WHEEL_RADIUS_INCHES = 4; 
 
+	//Grabber Speeds
+	public static final double OUTTER_GRABBER_SPEED = 0.3;
+	public static final double INNER_GRABBER_SPEED = 0.3;
+	
 	//Drive encoders
-	public static final double DRIVE_ENCODER_DIST_PER_TICK = ((4* Math.PI)/(360));
+	public static final double DRIVE_ENCODER_DIST_PER_TICK = ((ROBOT_WHEEL_RADIUS_INCHES * Math.PI)/(360));
+	
+	public static final double DRIVE_SPEED_REDUCER_MULTIPLIER = 0.3;
 
-	//Distance and speeds
-	public static final double GRABBER_SPEED = 3310;
-
+	//Radius Elevator
+	public static final double FRONTWHEEL_RADIUS_INCHES = 0;
+	public static final double BACKWHEEL_RADIUS_INCHES = 0;
+	//Elevator encoders
+	public static final double FRONTELEVATOR_ENCODER_DIST_PER_TICK = ((FRONTWHEEL_RADIUS_INCHES * Math.PI)/(360));
+	public static final double BACKELEVATOR_ENCODER_DIST_PER_TICK = ((BACKWHEEL_RADIUS_INCHES * Math.PI)/(360));
+	
 	//PID Values
 	public static double KP_DRIVE_ANGLE = 0.1;
 	public static double KI_DRIVE_ANGLE = 0;

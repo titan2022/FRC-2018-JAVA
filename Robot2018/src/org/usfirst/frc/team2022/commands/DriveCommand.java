@@ -1,19 +1,12 @@
-package org.usfirst.frc.team2022.robot.commands;
-
-/*import org.usfirst.frc.team2022.command.autonomous.AutoDriveStraightCommand;
-*import org.usfirst.frc.team2022.command.autonomous.AutoDriveTurnCommand;
-*import org.usfirst.frc.team2022.command.autonomous.VisionTable;
-*/
+package org.usfirst.frc.team2022.commands;
+import org.usfirst.frc.team2022.robot.Attack3Map;
+import org.usfirst.frc.team2022.robot.ConstantsMap;
 import org.usfirst.frc.team2022.robot.OI;
 import org.usfirst.frc.team2022.robot.Robot;
 import org.usfirst.frc.team2022.robot.XboxMap;
-import org.usfirst.frc.team2022.robot.subsystems.DriveSubsystem;
-
-import edu.wpi.first.wpilibj.Timer;
+import org.usfirst.frc.team2022.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 
 /**
  *
@@ -22,16 +15,18 @@ public class DriveCommand extends Command {
 	
 	DriveSubsystem driveSubsystem = Robot.driveSubsystem;
 	XboxMap xboxMap = new XboxMap();
+	Attack3Map attack3Map = new Attack3Map();
 	OI oi = Robot.oi;
 		
 	boolean brakeState = true;
 	long lastPressed = 0;
-	double turtleSpeed = 0.3;
+	
 	boolean turtle = false;
+	double turtleSpeed = ConstantsMap.DRIVE_SPEED_REDUCER_MULTIPLIER;
+	
+	private boolean pistonSwitch = false;
 	
     public DriveCommand() {
-        // Use requires() here o declare subsystem dependencies
-        // eg. requires(chassis);
     	requires(driveSubsystem);
     }
     
@@ -40,101 +35,67 @@ public class DriveCommand extends Command {
     }
 
     // Called repeatedly when this Command is scheduled to run
-    protected void execute() {    	
-    	double speedLeft = xboxMap.getSpeedLeftWheel();   
-    	
+    protected void execute() {   
+    	//Normal Driving
+    	double speedLeft = attack3Map.getSpeedLeftWheel();   
     	if(Math.abs(speedLeft) < 0.1){
     		speedLeft = 0;
     	}
     	
-
-    	double speedRight = xboxMap.getSpeedRightWheel();
+    	double speedRight = attack3Map.getSpeedRightWheel();
     	if(Math.abs(speedRight) < 0.1){
     		speedRight = 0; 
     	}
     	
-    	if(oi.xbox.GetRightBumperValue() && System.currentTimeMillis() - lastPressed > 200){
-    		turtle = !turtle;
+    	driveSubsystem.setLeftSpeed(speedLeft);
+    	driveSubsystem.setRightSpeed(speedRight);
+    	
+    	//DualShiftGearMode
+    	if(xboxMap.controlDriverGear() && System.currentTimeMillis() - lastPressed > 200){
+    		pistonSwitch = !pistonSwitch;
     		lastPressed = System.currentTimeMillis();
     	}
-    	
-    	SmartDashboard.putBoolean("Gear Collected", driveSubsystem.getGearSwitch());
-    	SmartDashboard.putBoolean("Limit Switch", driveSubsystem.getLimitSwitch());
-
-//    	if(xboxMap.switchySwitch()) {
-//    		driveSubsystem.switchTheSwitchySwitch();
-//    	}
-    	
-    	//Autonomous gear
-//    	if(xboxMap.startAutoGearAlignment()){
-//    		Timer.delay(1);
-//    		
-//        	double pegAngle = VisionTable.getPegAngle();
-//      		AutoDriveTurnCommand autoDriveTurnCommand = new AutoDriveTurnCommand(pegAngle-6);
-//      		autoDriveTurnCommand.start();
-//    	}
-    	
-    	if(oi.xbox.getPOV() == 0){
-    		driveSubsystem.setLeftSpeed(-turtleSpeed);
-        	driveSubsystem.setRightSpeed(turtleSpeed);
-    	}
-    	else if (oi.xbox.getPOV() == 180){
-    		driveSubsystem.setLeftSpeed(turtleSpeed);
-        	driveSubsystem.setRightSpeed(-turtleSpeed);
-    	}
-    	else if(turtle){
-    		driveSubsystem.setLeftSpeed(speedLeft * turtleSpeed);
-        	driveSubsystem.setRightSpeed(speedRight * turtleSpeed);
-
+    	if(pistonSwitch){
+    		driveSubsystem.solinoidForward();
     	}
     	else{
-    		driveSubsystem.setLeftSpeed(speedLeft);
-        	driveSubsystem.setRightSpeed(speedRight);
+    		driveSubsystem.solinoidReverse();
+    	}
+    	
+    	//Auto Brake Mode
+    	if(xboxMap.startAutoBrakerSystem() && (System.currentTimeMillis() - lastPressed) > 200){  
+    		
+    		brakeState = !brakeState;
+    		lastPressed = System.currentTimeMillis();
+    	}
+    	if(brakeState){
+			driveSubsystem.enableBrake();
+		}
+		else if(!brakeState){
+			driveSubsystem.disableBrake();
+		}
+    	
+    	//Putting Data up
+    	displayData();
 
-    	}
-    	
-    	if(xboxMap.moveTowardsGear()){
-//    		Timer.delay(1);
-//      		double pegDistance = VisionTable.getPegDistance();
-//      		AutoDriveStraightCommand autoDriveStraightCommand = new AutoDriveStraightCommand(pegDistance - 5);
-//      		autoDriveStraightCommand.start();
-    		//double distance = VisionTable.getUltrasonicDistance();
-    		//AutoDriveStraightCommand autoDriveStraightCommand = new AutoDriveStraightCommand(distance-11.7);
-      		//autoDriveStraightCommand.start();
-    	}
-    	
-    	if(xboxMap.stopSystem()){
- 		
-    	}
-    	
-    	//Brake
-//    	if(brakeState){
-//			driveSubsystem.enableBrake();
-//		}
-//		else if(!brakeState){
-//			driveSubsystem.disableBrake();
-//		}
-    	
-//    	if(xboxMap.startAutoBrakerSystem() && (System.currentTimeMillis()-lastPressed)>200){  
-//    		
-//    		brakeState = !brakeState;
-//    		lastPressed = System.currentTimeMillis();
-//    	}
-    	    	    	
-    	SmartDashboard.putNumber("Right Encoder Distance", driveSubsystem.getRightEncoderDistance());
-    	SmartDashboard.putNumber("Left Encoder Distance", driveSubsystem.getLeftEncoderDistance());
-    	SmartDashboard.putNumber("Right Encoder", driveSubsystem.getRightEncoderCount());
-    	SmartDashboard.putNumber("Left Encoder", driveSubsystem.getLeftEncoderCount());
-    	SmartDashboard.putNumber("Gyro Angle", driveSubsystem.getGyroAngle());
-    	
     }
 
+    protected void displayData(){
+    	SmartDashboard.putNumber("Right Encoder Distance: ", driveSubsystem.getRightEncoderDistance());
+    	SmartDashboard.putNumber("Left Encoder Distance: ", driveSubsystem.getLeftEncoderDistance());
+    	SmartDashboard.putNumber("Right Encoder: ", driveSubsystem.getRightEncoderCount());
+    	SmartDashboard.putNumber("Left Encoder: ", driveSubsystem.getLeftEncoderCount());
+    	SmartDashboard.putNumber("Gyro Angle: ", driveSubsystem.getGyroAngle());
+    	SmartDashboard.putBoolean("Piston Position: ", getBrakeState());
+    }
     // Make this return true when this Command no longer needs to run execute()
-    
     protected boolean isFinished() {
         return false;
     }
 
+    protected boolean getBrakeState(){
+    	return brakeState;
+    }
     // Called once after isFinished returns true
     protected void end() {
     	driveSubsystem.stop();
