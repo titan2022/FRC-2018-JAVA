@@ -3,10 +3,9 @@ package org.usfirst.frc.team2022.robot;
 public class XboxMap {
 	OI oi = Robot.oi;
 	
-
+	//Drive commands
 	public boolean startAutoBrakerSystem(){
 		return oi.xbox.getRightBumperValue();
-
 	}
 	
 	public boolean controlDriverGear() {
@@ -14,40 +13,25 @@ public class XboxMap {
 	}
 	
 	//Grabber commands 
-	public boolean controlOutterMotors(){
+	public boolean controlUpperGrabberOut(){
 		return oi.xbox.getAValue();
 	}
 	
-
-	public boolean controlInnerMotors(){
-		return oi.xbox.getBValue();
-
+	public double controlUpperGrabberIn(){
+		return oi.xbox.getRightTriggers();
 	}
-	
-
-	public boolean controlPiston(){
-		return oi.xbox.getXValue();
-
-	}
-
 
 	//Elevator commands
-	public boolean controlFrontElevator(){
-		return oi.xbox.getYValue();
-	}
-	public double controlBackElevatorGoUp(){
-		return oi.xbox.getLeftTriggers();
-
-	}
-
-	public double controlBackElevatorGoDown(){
-		return oi.xbox.getRightTriggers();
-
+	public double controlFrontElevator(){
+		return oi.xbox.getRightY();
 	}
 	
+	public boolean startAutoElevatorBrakerSystem() {
+		return oi.xbox.getStartValue();
+	}
+
 	//Universal stop command
 	public boolean stopSystem() {
 		return oi.xbox.getYValue();
 	}
-
 }

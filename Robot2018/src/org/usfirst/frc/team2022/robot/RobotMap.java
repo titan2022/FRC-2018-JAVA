@@ -20,23 +20,22 @@ public class RobotMap {
 	public static final int RIGHT_DRIVE_PORT_3 = 10;
 	
 	//Grabber Motor Ports
-	public static final int OUTTERLEFT_GRABBER_PORT = 0;
-	public static final int OUTTERRIGHT_GRABBER_PORT = 0;
-	public static final int INNERLEFT_GRABBER_PORT = 0;
-	public static final int INNERRIGHT_GRABBER_PORT = 0;
+	public static final int INNERLEFT_GRABBER_PORT = 5;
+	public static final int INNERRIGHT_GRABBER_PORT = 11;
 	
 	//Elevator Motor Ports
-	public static final int FRONT_ELEVATOR_PORT = 0;
+	public static final int FRONT_ELEVATOR_PORT = 7;
 	public static final int BACK_ELEVATOR_PORT = 0;
 	
 	//Limit switch ports
 	public static final int BOX_SWITCH = 0;
+	public static final int ELEVATOR_SWITCH = 0;
 	
 	//Encoder ports for drive base
-	public static final int LEFT_ENCODER_PORT_A = 7;
-	public static final int LEFT_ENCODER_PORT_B = 6;
-	public static final int RIGHT_ENCODER_PORT_A = 9;
-	public static final int RIGHT_ENCODER_PORT_B = 8;
+	public static final int LEFT_ENCODER_PORT_A = 0;
+	public static final int LEFT_ENCODER_PORT_B = 1;
+	public static final int RIGHT_ENCODER_PORT_A = 2;
+	public static final int RIGHT_ENCODER_PORT_B = 3;
 	
 	//Encoder ports for Elevator
 	public static final int FRONT_ENCODER_PORT_A = 0;
@@ -44,10 +43,7 @@ public class RobotMap {
 	public static final int BACK_ENCODER_PORT_A = 0;
 	public static final int BACK_ENCODER_PORT_B = 0;
 	
-	//Grabber Solenoid ports
+	//Solenoid ports
 	public static final int SOLENOID_PORT_1 = 0; 
 	public static final int SOLENOID_PORT_2 = 0;
-	public static final int SOLENOID_PORT_3 = 0;
-	public static final int SOLENOID_PORT_4 = 0;
-	
 }

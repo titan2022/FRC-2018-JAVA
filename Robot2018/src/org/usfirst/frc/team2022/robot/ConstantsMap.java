@@ -10,7 +10,6 @@ public class ConstantsMap {
 	public static final double ROBOT_WIDTH_INCHES = 0; 
 	public static final double ROBOT_WHEEL_RADIUS_INCHES = 4; 
 
-
 	//Grabber Speeds
 	public static final double OUTTER_GRABBER_SPEED = 0.3;
 	public static final double INNER_GRABBER_SPEED = 0.3;
@@ -19,10 +18,10 @@ public class ConstantsMap {
 	public static final double DRIVE_ENCODER_DIST_PER_TICK = ((ROBOT_WHEEL_RADIUS_INCHES * Math.PI)/(360));
 	public static final double DRIVE_SPEED_REDUCER_MULTIPLIER = 0.3;
 
-
 	//Radius Elevator
 	public static final double FRONTWHEEL_RADIUS_INCHES = 0;
 	public static final double BACKWHEEL_RADIUS_INCHES = 0;
+	
 	//Elevator encoders
 	public static final double FRONTELEVATOR_ENCODER_DIST_PER_TICK = ((FRONTWHEEL_RADIUS_INCHES * Math.PI)/(360));
 	public static final double BACKELEVATOR_ENCODER_DIST_PER_TICK = ((BACKWHEEL_RADIUS_INCHES * Math.PI)/(360));

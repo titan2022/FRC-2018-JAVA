@@ -18,13 +18,8 @@ public class DriveCommand extends Command {
 	Attack3Map attack3Map = new Attack3Map();
 	OI oi = Robot.oi;
 		
-	boolean brakeState = true;
+	boolean brakeState = false;
 	long lastPressed = 0;
-	
-	boolean turtle = false;
-	double turtleSpeed = ConstantsMap.DRIVE_SPEED_REDUCER_MULTIPLIER;
-	
-	private boolean pistonSwitch = false;
 	
     public DriveCommand() {
     	requires(driveSubsystem);
@@ -38,33 +33,20 @@ public class DriveCommand extends Command {
     protected void execute() {   
     	//Normal Driving
     	double speedLeft = attack3Map.getSpeedLeftWheel();   
-    	if(Math.abs(speedLeft) < 0.1){
+    	if(Math.abs(speedLeft) < 0.05){
     		speedLeft = 0;
     	}
     	
     	double speedRight = attack3Map.getSpeedRightWheel();
-    	if(Math.abs(speedRight) < 0.1){
+    	if(Math.abs(speedRight) < 0.05){
     		speedRight = 0; 
     	}
     	
     	driveSubsystem.setLeftSpeed(speedLeft);
     	driveSubsystem.setRightSpeed(speedRight);
-    	
-    	//DualShiftGearMode
-    	if(xboxMap.controlDriverGear() && System.currentTimeMillis() - lastPressed > 200){
-    		pistonSwitch = !pistonSwitch;
-    		lastPressed = System.currentTimeMillis();
-    	}
-//    	if(pistonSwitch){
-//    		driveSubsystem.solinoidForward();
-//    	}
-//    	else{
-//    		driveSubsystem.solinoidReverse();
-//    	}
-    	
+
     	//Auto Brake Mode
-    	if(xboxMap.startAutoBrakerSystem() && (System.currentTimeMillis() - lastPressed) > 200){  
-    		
+    	if(attack3Map.startAutoBrakerSystem() && (System.currentTimeMillis() - lastPressed) > 200){  
     		brakeState = !brakeState;
     		lastPressed = System.currentTimeMillis();
     	}
@@ -81,13 +63,14 @@ public class DriveCommand extends Command {
     }
 
     protected void displayData(){
-//    	SmartDashboard.putNumber("Right Encoder Distance: ", driveSubsystem.getRightEncoderDistance());
-//    	SmartDashboard.putNumber("Left Encoder Distance: ", driveSubsystem.getLeftEncoderDistance());
-//    	SmartDashboard.putNumber("Right Encoder: ", driveSubsystem.getRightEncoderCount());
-//    	SmartDashboard.putNumber("Left Encoder: ", driveSubsystem.getLeftEncoderCount());
-    	SmartDashboard.putNumber("Gyro Angle: ", driveSubsystem.getGyroAngle());
-    	SmartDashboard.putBoolean("Piston Position: ", getBrakeState());
+    	SmartDashboard.putNumber("Right Encoder: ", driveSubsystem.getRightEncoderCount());
+    	SmartDashboard.putNumber("Left Encoder: ", driveSubsystem.getLeftEncoderCount());
+    	SmartDashboard.putNumber("Right Encoder Distance: ", driveSubsystem.getRightEncoderDistance());
+    	SmartDashboard.putNumber("Left Encoder Distance: ", driveSubsystem.getLeftEncoderDistance());
+ //   	SmartDashboard.putNumber("Gyro Angle: ", driveSubsystem.getGyroAngle());
+    	SmartDashboard.putBoolean("AutoBrake", brakeState);
     }
+    
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         return false;

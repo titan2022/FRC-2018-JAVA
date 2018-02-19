@@ -8,12 +8,11 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
-import com.kauailabs.navx.frc.AHRS;
+//import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
 
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 /**
@@ -24,10 +23,9 @@ public class DriveSubsystem extends Subsystem {
 	private static final NeutralMode NeutralMode = null;
 	
 	private WPI_TalonSRX left1,left2,left3,right1,right2, right3;
-	private DoubleSolenoid solenoid, solenoid2;
 	private Encoder leftEncoder, rightEncoder;
 
-	private AHRS ahrs;
+//	private AHRS ahrs;
 
 	public DriveSubsystem() {
 		//Instantiate motors		
@@ -47,23 +45,18 @@ public class DriveSubsystem extends Subsystem {
 		right3.setInverted(true);
 
 		//Instantiate Encoders
-//		leftEncoder = new Encoder(RobotMap.LEFT_ENCODER_PORT_A, RobotMap.LEFT_ENCODER_PORT_B, false);
-//		rightEncoder = new Encoder(RobotMap.RIGHT_ENCODER_PORT_A, RobotMap.RIGHT_ENCODER_PORT_B, false);
-//		
-		/*
-		//Instantiate Pistons
-		solenoid = new DoubleSolenoid(RobotMap.SOLENOID_PORT_1, RobotMap.SOLENOID_PORT_2);
-		solenoid2 = new DoubleSolenoid(RobotMap.SOLENOID_PORT_3, RobotMap.SOLENOID_PORT_4); */
+		leftEncoder = new Encoder(RobotMap.LEFT_ENCODER_PORT_A, RobotMap.LEFT_ENCODER_PORT_B, false);
+		rightEncoder = new Encoder(RobotMap.RIGHT_ENCODER_PORT_A, RobotMap.RIGHT_ENCODER_PORT_B, false);
 		
 		//Instantiate Gyro | Gyro automatically calibrates when given power
-        ahrs = new AHRS(SPI.Port.kMXP); 
-		if (!ahrs.isCalibrating()) {	
-			stop();
-		}
-		
+//        ahrs = new AHRS(SPI.Port.kMXP); 
+//		if (!ahrs.isCalibrating()) {	
+//			stop();
+//		}
+
 //		//Set encoder distance per pulse
-//		leftEncoder.setDistancePerPulse(ConstantsMap.DRIVE_ENCODER_DIST_PER_TICK);
-//		rightEncoder.setDistancePerPulse(ConstantsMap.DRIVE_ENCODER_DIST_PER_TICK);
+		leftEncoder.setDistancePerPulse(ConstantsMap.DRIVE_ENCODER_DIST_PER_TICK);
+		rightEncoder.setDistancePerPulse(ConstantsMap.DRIVE_ENCODER_DIST_PER_TICK);
 	}
 	
     public void initDefaultCommand() {
@@ -114,71 +107,56 @@ public class DriveSubsystem extends Subsystem {
 		right2.setNeutralMode(NeutralMode.Coast);
 		right3.setNeutralMode(NeutralMode.Coast);
 	}
-	 /*
-	public void solinoidForward(){
-		solenoid.set(DoubleSolenoid.Value.kForward);
-		solenoid2.set(DoubleSolenoid.Value.kForward);
+	 
+	public Encoder getRightEncoder(){
+		return rightEncoder;
 	}
 	
-	public void solinoidReverse(){
-		solenoid.set(DoubleSolenoid.Value.kReverse);
-		solenoid2.set(DoubleSolenoid.Value.kReverse);
+	public Encoder getLeftEncoder(){
+		return leftEncoder;
 	}
 	
-	public void stopPiston() {
-		solenoid.set(DoubleSolenoid.Value.kOff);
-		solenoid2.set(DoubleSolenoid.Value.kOff);
-	}
-	 */
-//	public Encoder getRightEncoder(){
-//		return rightEncoder;
-//	}
-//	
-//	public Encoder getLeftEncoder(){
-//		return leftEncoder;
-//	}
-//	
-//	//Get Encoder Distances
-//	public double getRightEncoderDistance(){
-//		return rightEncoder.getDistance();
-//	}	
-//	public double getLeftEncoderDistance(){
-//		return leftEncoder.getDistance();
-//	}
-//	
-//	//Get Encoder counts
-//	public int getLeftEncoderCount(){
-//		return leftEncoder.get();
-//	}	
-//	public int getRightEncoderCount(){
-//		return rightEncoder.get();
-//	}
-//	
-//	//Get Encoder Rates
-//	public double getRightEncoderRate(){
-//		return rightEncoder.getRate();
-//	}	
-//	public double getLeftEncoderRate(){
-//		return leftEncoder.getRate();
-//	}
-//	
-//	//reset encoders
-//	public void resetEncoders(){
-//		leftEncoder.reset();
-//		rightEncoder.reset();
-//	}
-	
-	public AHRS getGyro(){
-		return ahrs;
+	//Get Encoder Distances
+	public double getRightEncoderDistance(){
+		return rightEncoder.getDistance();
+	}	
+	public double getLeftEncoderDistance(){
+		return leftEncoder.getDistance();
 	}
 	
-	public double getGyroAngle(){
-		return ahrs.getAngle(); 
+	//Get Encoder counts
+	public int getLeftEncoderCount(){
+		return leftEncoder.get();
+	}	
+	public int getRightEncoderCount(){
+		return rightEncoder.get();
 	}
-
-	public void resetGyro() {
-		ahrs.reset();
+	
+	//Get Encoder Rates
+	public double getRightEncoderRate(){
+		return rightEncoder.getRate();
+	}	
+	public double getLeftEncoderRate(){
+		return leftEncoder.getRate();
 	}
+	
+	//reset encoders
+	public void resetEncoders(){
+		leftEncoder.reset();
+		rightEncoder.reset();
+	}
+	
+//	public AHRS getGyro(){
+//		return ahrs;
+//	}
+//	
+//	public double getGyroAngle(){
+//		return ahrs.getAngle(); 
+//	}
+//
+//	public void resetGyro() {
+//		ahrs.reset();
+//	}
 
 	public void stop() {
 		left1.set(0);

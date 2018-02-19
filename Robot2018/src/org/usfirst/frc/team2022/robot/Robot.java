@@ -2,19 +2,18 @@ package org.usfirst.frc.team2022.robot;
 
 
 import org.usfirst.frc.team2022.commands.DriveCommand;
-//import org.usfirst.frc.team2022.commands.GrabberCommand;
-//import org.usfirst.frc.team2022.subsystems.ElevatorSubsystem;
+import org.usfirst.frc.team2022.commands.ElevatorManualCommand;
+import org.usfirst.frc.team2022.commands.autonomous.groups.AutoCrossLineCommandGroup;
+import org.usfirst.frc.team2022.commands.GrabberCommand;
 import org.usfirst.frc.team2022.subsystems.DriveSubsystem;
-//import org.usfirst.frc.team2022.subsystems.GrabberSubsystem;
+import org.usfirst.frc.team2022.subsystems.ElevatorSubsystem;
+import org.usfirst.frc.team2022.subsystems.GrabberSubsystem;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -27,14 +26,13 @@ public class Robot extends IterativeRobot {
 
 	//Instantiate Subsystems
 	public static final DriveSubsystem driveSubsystem = new DriveSubsystem();
-	//public static final ElevatorSubsystem frontElevatorSubsystem = new ElevatorSubsystem(true, 10);
-	//public static final ElevatorSubsystem backElevatorSubsystem = new ElevatorSubsystem(false, 10);
-	//public static final GrabberSubsystem grabberSubsystem = new GrabberSubsystem();
-	
+	public static final GrabberSubsystem grabberSubsystem = new GrabberSubsystem(RobotMap.INNERLEFT_GRABBER_PORT, RobotMap.INNERRIGHT_GRABBER_PORT);
+	public static final ElevatorSubsystem frontElevatorSubsystem = new ElevatorSubsystem(RobotMap.FRONT_ELEVATOR_PORT);
 
 	//Create References to commands
 	public DriveCommand driveCommand;
-	//public GrabberCommand grabberCommand;
+	public GrabberCommand grabberCommand;
+	public ElevatorManualCommand elevatorCommand;
 	
 	//Create reference to OI
 	public static OI oi;
@@ -55,7 +53,8 @@ public class Robot extends IterativeRobot {
     	
     	//Instantiate Commands
     	driveCommand = new DriveCommand();
-    	//grabberCommand = new GrabberCommand();
+    	grabberCommand = new GrabberCommand();
+    	elevatorCommand = new ElevatorManualCommand();
     	
     	autoTypeChooser = new SendableChooser<String>();
     	autoTypeChooser.addDefault("Left Position", "left"); 
@@ -70,57 +69,60 @@ public class Robot extends IterativeRobot {
     	gameData = DriverStation.getInstance().getGameSpecificMessage();
     	
     	try{
-	    	//Left
-	    	if(autoTypeChooser.getSelected().equals("left")){
-	    		if(gameData.charAt(0) == 'L'){
-	    			// left switch
-	    		}
-	    		if(gameData.charAt(0) != 'L' && gameData.charAt(1) == 'L'){
-	    			//left scale
-	    		}
-	    		if(gameData.charAt(0) != 'L' && gameData.charAt(1) != 'L'){
-	    			//cross line
-	    		}
-	    	}
-	    	//Center
-	    	else if(autoTypeChooser.getSelected().equals("center")){
-	    		if(gameData.charAt(0) == 'L'){
-	    			//left switch
-	    		}
-	    		else{
-	    			//right switch
-	    		}
-	    	}
-	    	//Right
-	    	else if(autoTypeChooser.getSelected().equals("right")){
-	    		if(gameData.charAt(0) == 'R'){
-	    			//right switch
-	    		}
-	    		if(gameData.charAt(3) != 'R' && gameData.charAt(2) == 'R'){
-	    			//right scale
-	    		}
-	    		if(gameData.charAt(0) != 'R' && gameData.charAt(1) != 'R'){
-	    			//cross line
-	    		}
-	    	}
+    	autonomousCommand = new AutoCrossLineCommandGroup();
+//	    	//Left
+//	    	if(autoTypeChooser.getSelected().equals("left")){
+//	    		if(gameData.charAt(0) == 'L'){
+//	    			// left switch
+//	    		}
+//	    		if(gameData.charAt(0) != 'L' && gameData.charAt(1) == 'L'){
+//	    			//left scale
+//	    		}
+//	    		if(gameData.charAt(0) != 'L' && gameData.charAt(1) != 'L'){
+//	    			//cross line
+//	    		}
+//	    	}
+//	    	//Center
+//	    	else if(autoTypeChooser.getSelected().equals("center")){
+//	    		if(gameData.charAt(0) == 'L'){
+//	    			//left switch
+//	    		}
+//	    		else{
+//	    			//right switch
+//	    		}
+//	    	}
+//	    	//Right
+//	    	else if(autoTypeChooser.getSelected().equals("right")){
+//	    		if(gameData.charAt(0) == 'R'){
+//	    			//right switch
+//	    		}
+//	    		if(gameData.charAt(0) != 'R' && gameData.charAt(1) == 'R'){
+//	    			//right scale
+//	    		}
+//	    		if(gameData.charAt(0) != 'R' && gameData.charAt(1) != 'R'){
+//	    			//cross line
+//	    		}
+//	    	}
     	}
     	catch(Exception ex){
     		System.out.println(ex);
     	}
     	
-//		autonomousCommand.start();
+		autonomousCommand.start();
     }
     
     //This starts the methods for teleop and stops methods for autonomous
 	public void teleopInit() {
     	driveCommand.start();
-    	//grabberCommand.start();
+    	grabberCommand.start();
+    	elevatorCommand.start();
     }
     
     //This stops the methods for autonomous
 	public void disabledInit() {
 		driveCommand.cancel();
-		//grabberCommand.cancel();
+		grabberCommand.cancel();
+		elevatorCommand.cancel();
 	}
     
 	//Methods below this line do not need to be edited/////////////////////////////////////////////////////////////////////////
