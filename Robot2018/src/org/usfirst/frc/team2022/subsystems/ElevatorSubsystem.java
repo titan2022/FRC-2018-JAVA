@@ -2,6 +2,7 @@ package org.usfirst.frc.team2022.subsystems;
 
 import org.usfirst.frc.team2022.commands.ElevatorManualCommand;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -15,6 +16,7 @@ public class ElevatorSubsystem extends Subsystem {
 	public ElevatorSubsystem(int motorPort1) {
 		elevatorMotor = new WPI_TalonSRX(motorPort1);
 		elevatorMotor.setInverted(true);
+		elevatorMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 	}
 	
 	public void initDefaultCommand() {
