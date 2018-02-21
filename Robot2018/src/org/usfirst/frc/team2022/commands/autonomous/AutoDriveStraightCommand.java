@@ -23,8 +23,10 @@ public class AutoDriveStraightCommand extends Command{
 	DriveSubsystem driveSubsystem = Robot.driveSubsystem;
 	OI oi = Robot.oi;
 	boolean limitSwitch = false;
+
 	
 	public AutoDriveStraightCommand (double inchesToDrive){
+
 		requires(driveSubsystem);
 		this.ticksToDrive = inchesToDrive / ConstantsMap.DRIVE_ENCODER_DIST_PER_TICK;
 		driveSubsystem.resetEncoders();
@@ -38,30 +40,42 @@ public class AutoDriveStraightCommand extends Command{
 	}
 	
 	public AutoDriveStraightCommand(){
+	
+		System.out.print("Hello2");
     	requires(driveSubsystem);
     	ticksToDrive = fieldSize / ConstantsMap.DRIVE_ENCODER_DIST_PER_TICK;
     	limitSwitch = true;
-    	driveSubsystem.resetEncoders();
+    	
+    	
     	//driveSubsystem.resetGyro();
-    	rpid = new CustomPIDController(ConstantsMap.KP_DRIVE_SPEED,ConstantsMap.KI_DRIVE_SPEED,ConstantsMap.KD_DRIVE_SPEED,ConstantsMap.KF_DRIVE_SPEED,
-        		ConstantsMap.DRIVE_ERR_TOLERANCE, -ConstantsMap.DRIVE_MAX_SPEED,ConstantsMap.DRIVE_MAX_SPEED);
-		rpid.setSetpoint(ticksToDrive);
-		lpid = new CustomPIDController(ConstantsMap.KP_DRIVE_SPEED,ConstantsMap.KI_DRIVE_SPEED,ConstantsMap.KD_DRIVE_SPEED,ConstantsMap.KF_DRIVE_SPEED,
-        		ConstantsMap.DRIVE_ERR_TOLERANCE, -ConstantsMap.DRIVE_MAX_SPEED,ConstantsMap.DRIVE_MAX_SPEED);
-		lpid.setSetpoint(ticksToDrive);
+    	
+		
     }
 	
 	// Called just before this Command runs the first time
     protected void initialize() {
-    	
+    	System.out.println("auto Init");
+    	double p = SmartDashboard.getNumber("p",2);
+		double i = SmartDashboard.getNumber("i",0);
+		double d = SmartDashboard.getNumber("d",0);
+		double f = SmartDashboard.getNumber("f",0);
+		System.out.println(p + " " + i + " " + d + " " + f);
     	driveSubsystem.enableBrake();
     	
     	//Reset gyro to 0
     	//driveSubsystem.resetGyro();
+    	System.out.println("before" + driveSubsystem.getLeftEncoderCount());
     	driveSubsystem.resetEncoders();
+    	System.out.println("after" + driveSubsystem.getLeftEncoderCount());
+    	rpid = new CustomPIDController(p,i,d,f, ConstantsMap.DRIVE_ERR_TOLERANCE, -ConstantsMap.DRIVE_MAX_SPEED,ConstantsMap.DRIVE_MAX_SPEED);
+		rpid.setSetpoint(ticksToDrive);
+		lpid = new CustomPIDController(p,i,d,f,
+        		ConstantsMap.DRIVE_ERR_TOLERANCE, -ConstantsMap.DRIVE_MAX_SPEED,ConstantsMap.DRIVE_MAX_SPEED);
+		lpid.setSetpoint(ticksToDrive);
     }
     
     protected void execute() {
+    	//System.out.println("exec");
     	driveSubsystem.tankDrive(-lpid.update(driveSubsystem.getLeftEncoderDistance()),-rpid.update(driveSubsystem.getRightEncoderDistance()));
     	displayData();
     }
@@ -73,12 +87,15 @@ public class AutoDriveStraightCommand extends Command{
     	SmartDashboard.putNumber("Right Encoder Count: ", driveSubsystem.getRightEncoderCount());
     	SmartDashboard.putNumber("Right Encoder Distance: ", driveSubsystem.getRightEncoderDistance());
     	SmartDashboard.putNumber("Right Encoder Rate: ", driveSubsystem.getRightEncoderRate());
+    	SmartDashboard.putString("test","hello world");
+
  //   	SmartDashboard.putNumber("Gyro Angle: ", driveSubsystem.getGyroAngle());
     }
     
 	// Make this return true when this Command no longer needs to run execute()
     public boolean isFinished() {
-        return lpid.isFinished() && rpid.isFinished();
+    	return false;
+        //return lpid.isFinished() && rpid.isFinished();
     }
 
     // Called once after isFinished returns true
@@ -89,6 +106,7 @@ public class AutoDriveStraightCommand extends Command{
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	//System.out.prin
     	end();
     }
 

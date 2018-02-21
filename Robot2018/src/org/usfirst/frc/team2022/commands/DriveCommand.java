@@ -27,18 +27,19 @@ public class DriveCommand extends Command {
     
     // Called just before this Command runs the first time
     protected void initialize() {
+    	System.out.println("Drive init");
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {   
     	//Normal Driving
     	double speedLeft = attack3Map.getSpeedLeftWheel();   
-    	if(Math.abs(speedLeft) < 0.3){
+    	if(Math.abs(speedLeft) < 0.1){
     		speedLeft = 0;
     	}
     	
     	double speedRight = attack3Map.getSpeedRightWheel();
-    	if(Math.abs(speedRight) < 0.3){
+    	if(Math.abs(speedRight) < 0.1){
     		speedRight = 0; 
     	}
     	

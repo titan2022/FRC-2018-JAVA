@@ -50,7 +50,7 @@ public class Robot extends IterativeRobot {
 
     	//Instantiate OI
     	oi = new OI();
-    	
+    	System.out.println("Start");
     	//Instantiate Commands
     	driveCommand = new DriveCommand();
     	grabberCommand = new GrabberCommand();
@@ -67,7 +67,8 @@ public class Robot extends IterativeRobot {
     public void autonomousInit() {
     	String gameData;
     	gameData = DriverStation.getInstance().getGameSpecificMessage();
-    	
+    	System.out.println("Auto");
+
     	try{
     	autonomousCommand = new AutoCrossLineCommandGroup();
 //	    	//Left

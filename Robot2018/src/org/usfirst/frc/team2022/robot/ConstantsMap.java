@@ -28,7 +28,7 @@ public class ConstantsMap {
 	
 
 	//PID Values
-	public static double KP_DRIVE_SPEED = 2.0;
+	public static double KP_DRIVE_SPEED = 10.0;
 	public static double KI_DRIVE_SPEED = 0;
 	public static double KD_DRIVE_SPEED = 0.0;
 	public static double KF_DRIVE_SPEED = 0;
