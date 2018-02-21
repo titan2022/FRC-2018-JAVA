@@ -27,17 +27,17 @@ public class GrabberCommand extends Command{
 	
     	double speed;
     	
-    	if(xboxMap.controlUpperGrabberOut() && System.currentTimeMillis() - lastPressed > 200){
-    		innerSwitch = !innerSwitch;
-    		lastPressed = System.currentTimeMillis();
-    	}
-    	
-    	if(innerSwitch){
-    		speed = -1;
-    		grabberSubsystem.setMotorSpeed(speed);
-    	}
-    	
-    	speed = xboxMap.controlUpperGrabberIn(); 
+//    	if(xboxMap.controlUpperGrabberOut() && System.currentTimeMillis() - lastPressed > 200){
+//    		innerSwitch = !innerSwitch;
+//    		lastPressed = System.currentTimeMillis();
+//    	}
+//    	
+//    	if(innerSwitch){
+//    		speed = -1;
+//    		grabberSubsystem.setMotorSpeed(speed);
+//    	}
+//    	
+    	speed = xboxMap.controlUpperGrabberOut() - xboxMap.controlUpperGrabberIn(); 
     	
     	grabberSubsystem.setMotorSpeed(speed);
     	

@@ -118,7 +118,7 @@ public class DriveSubsystem extends Subsystem {
 	
 	//Get Encoder Distances
 	public double getRightEncoderDistance(){
-		return rightEncoder.getDistance();
+		return rightEncoder.getDistance() * -1;
 	}	
 	public double getLeftEncoderDistance(){
 		return leftEncoder.getDistance();
@@ -129,7 +129,7 @@ public class DriveSubsystem extends Subsystem {
 		return leftEncoder.get();
 	}	
 	public int getRightEncoderCount(){
-		return rightEncoder.get();
+		return rightEncoder.get() * -1;
 	}
 	
 	//Get Encoder Rates

@@ -33,12 +33,12 @@ public class DriveCommand extends Command {
     protected void execute() {   
     	//Normal Driving
     	double speedLeft = attack3Map.getSpeedLeftWheel();   
-    	if(Math.abs(speedLeft) < 0.05){
+    	if(Math.abs(speedLeft) < 0.3){
     		speedLeft = 0;
     	}
     	
     	double speedRight = attack3Map.getSpeedRightWheel();
-    	if(Math.abs(speedRight) < 0.05){
+    	if(Math.abs(speedRight) < 0.3){
     		speedRight = 0; 
     	}
     	
@@ -63,10 +63,12 @@ public class DriveCommand extends Command {
     }
 
     protected void displayData(){
-    	SmartDashboard.putNumber("Right Encoder: ", driveSubsystem.getRightEncoderCount());
-    	SmartDashboard.putNumber("Left Encoder: ", driveSubsystem.getLeftEncoderCount());
-    	SmartDashboard.putNumber("Right Encoder Distance: ", driveSubsystem.getRightEncoderDistance());
+    	SmartDashboard.putNumber("Left Encoder Count: ", driveSubsystem.getLeftEncoderCount());
     	SmartDashboard.putNumber("Left Encoder Distance: ", driveSubsystem.getLeftEncoderDistance());
+    	SmartDashboard.putNumber("Left Encoder Rate: ", driveSubsystem.getLeftEncoderRate());
+    	SmartDashboard.putNumber("Right Encoder Count: ", driveSubsystem.getRightEncoderCount());
+    	SmartDashboard.putNumber("Right Encoder Distance: ", driveSubsystem.getRightEncoderDistance());
+    	SmartDashboard.putNumber("Right Encoder Rate: ", driveSubsystem.getRightEncoderRate());
  //   	SmartDashboard.putNumber("Gyro Angle: ", driveSubsystem.getGyroAngle());
     	SmartDashboard.putBoolean("AutoBrake", brakeState);
     }

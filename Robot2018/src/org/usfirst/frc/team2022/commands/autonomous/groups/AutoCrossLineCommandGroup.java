@@ -9,6 +9,6 @@ public class AutoCrossLineCommandGroup extends CommandGroup{
 
 	public AutoCrossLineCommandGroup(){
 		Timer.delay(1);
-		addSequential(new AutoDriveStraightCommand(100));
+		addSequential(new AutoDriveStraightCommand(30));
 	}
 }
