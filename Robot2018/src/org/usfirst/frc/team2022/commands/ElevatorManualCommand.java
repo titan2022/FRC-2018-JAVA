@@ -30,7 +30,7 @@ public class ElevatorManualCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	double speed = xboxMap.controlFrontElevator();
-    	
+    	displayData();
     	elevatorSubsystem.setElevatorSpeed(speed);
     	
     	//Auto Brake Mode
@@ -48,6 +48,7 @@ public class ElevatorManualCommand extends Command {
     	if(xboxMap.stopSystem()){
     		end();
     	}
+    	
     }
     
     protected void displayData(){

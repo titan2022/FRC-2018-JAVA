@@ -17,6 +17,7 @@ public class ElevatorSubsystem extends Subsystem {
 		elevatorMotor = new WPI_TalonSRX(motorPort1);
 		elevatorMotor.setInverted(true);
 		elevatorMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+		
 	}
 	
 	public void initDefaultCommand() {
@@ -43,11 +44,11 @@ public class ElevatorSubsystem extends Subsystem {
 	}
 	
     public double getEncoderDistance(){
-    	return elevatorMotor.getSensorCollection().getQuadraturePosition();
+    	return elevatorMotor.getSelectedSensorPosition(0);
     }
     
     public double getEncoderVelocity(){
-    	return elevatorMotor.getSensorCollection().getQuadratureVelocity();
+    	return elevatorMotor.getSelectedSensorVelocity(0);
     }
     
     public void resetEncoderPosition(){
