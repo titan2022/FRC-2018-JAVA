@@ -48,12 +48,18 @@ public class ElevatorManualCommand extends Command {
     	if(xboxMap.stopSystem()){
     		end();
     	}
+    	
+    	SmartDashboard.putNumber("Encoder Distance: ", elevatorSubsystem.getEncoderDistance());
+    	SmartDashboard.putNumber("Encoder Velocity: ", elevatorSubsystem.getEncoderVelocity());
+    	SmartDashboard.putBoolean("Elevator Auto Brake: ", brakeState);
+    	SmartDashboard.putNumber("Elevator Speed: ", speed);
     }
     
     protected void displayData(){
     	SmartDashboard.putNumber("Encoder Distance: ", elevatorSubsystem.getEncoderDistance());
     	SmartDashboard.putNumber("Encoder Velocity: ", elevatorSubsystem.getEncoderVelocity());
     	SmartDashboard.putBoolean("Elevator Auto Brake: ", brakeState);
+    	//SmartDashboard.putNumber("Elevator Speed: ", elevatorSubsystem.getSpeed());
     }
 
     // Make this return true when this Command no longer needs to run execute()

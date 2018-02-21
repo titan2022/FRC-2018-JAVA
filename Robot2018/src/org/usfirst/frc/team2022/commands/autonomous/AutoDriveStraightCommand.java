@@ -7,6 +7,7 @@ import org.usfirst.frc.team2022.robot.Robot;
 import org.usfirst.frc.team2022.subsystems.DriveSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 // I don't think this drives straight but ok
@@ -61,9 +62,20 @@ public class AutoDriveStraightCommand extends Command{
     }
     
     protected void execute() {
-    	driveSubsystem.tankDrive(lpid.update(driveSubsystem.getLeftEncoderDistance()),rpid.update(driveSubsystem.getRightEncoderDistance()));
+    	driveSubsystem.tankDrive(-lpid.update(driveSubsystem.getLeftEncoderDistance()),-rpid.update(driveSubsystem.getRightEncoderDistance()));
+    	displayData();
     }
 	
+    protected void displayData(){
+    	SmartDashboard.putNumber("Left Encoder Count: ", driveSubsystem.getLeftEncoderCount());
+    	SmartDashboard.putNumber("Left Encoder Distance: ", driveSubsystem.getLeftEncoderDistance());
+    	SmartDashboard.putNumber("Left Encoder Rate: ", driveSubsystem.getLeftEncoderRate());
+    	SmartDashboard.putNumber("Right Encoder Count: ", driveSubsystem.getRightEncoderCount());
+    	SmartDashboard.putNumber("Right Encoder Distance: ", driveSubsystem.getRightEncoderDistance());
+    	SmartDashboard.putNumber("Right Encoder Rate: ", driveSubsystem.getRightEncoderRate());
+ //   	SmartDashboard.putNumber("Gyro Angle: ", driveSubsystem.getGyroAngle());
+    }
+    
 	// Make this return true when this Command no longer needs to run execute()
     public boolean isFinished() {
         return lpid.isFinished() && rpid.isFinished();

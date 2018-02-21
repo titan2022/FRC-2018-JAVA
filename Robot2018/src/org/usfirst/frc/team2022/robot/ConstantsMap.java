@@ -15,7 +15,7 @@ public class ConstantsMap {
 	public static final double INNER_GRABBER_SPEED = 0.3;
 	
 	//Drive encoders
-	public static final double DRIVE_ENCODER_DIST_PER_TICK = ((ROBOT_WHEEL_RADIUS_INCHES * Math.PI)/(360));
+	public static final double DRIVE_ENCODER_DIST_PER_TICK = ((ROBOT_WHEEL_RADIUS_INCHES * Math.PI)/(128));
 	public static final double DRIVE_SPEED_REDUCER_MULTIPLIER = 0.3;
 
 	//Radius Elevator
@@ -23,14 +23,14 @@ public class ConstantsMap {
 	public static final double BACKWHEEL_RADIUS_INCHES = 0;
 	
 	//Elevator encoders
-	public static final double FRONTELEVATOR_ENCODER_DIST_PER_TICK = ((FRONTWHEEL_RADIUS_INCHES * Math.PI)/(360));
-	public static final double BACKELEVATOR_ENCODER_DIST_PER_TICK = ((BACKWHEEL_RADIUS_INCHES * Math.PI)/(360));
+	public static final double FRONTELEVATOR_ENCODER_DIST_PER_TICK = ((FRONTWHEEL_RADIUS_INCHES * Math.PI)/(128));
+	public static final double BACKELEVATOR_ENCODER_DIST_PER_TICK = ((BACKWHEEL_RADIUS_INCHES * Math.PI)/(128));
 	
 
 	//PID Values
-	public static double KP_DRIVE_SPEED = 1.0;
+	public static double KP_DRIVE_SPEED = 2.0;
 	public static double KI_DRIVE_SPEED = 0;
-	public static double KD_DRIVE_SPEED = 4.5;
+	public static double KD_DRIVE_SPEED = 0.0;
 	public static double KF_DRIVE_SPEED = 0;
 	public static double DRIVE_ERR_TOLERANCE = 1.0;
 	public static double DRIVE_MAX_SPEED = 0.5;

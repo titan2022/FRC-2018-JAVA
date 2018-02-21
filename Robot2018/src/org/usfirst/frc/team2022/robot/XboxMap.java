@@ -13,12 +13,12 @@ public class XboxMap {
 	}
 	
 	//Grabber commands 
-	public boolean controlUpperGrabberOut(){
-		return oi.xbox.getAValue();
+	public double controlUpperGrabberOut(){
+		return oi.xbox.getRightTriggers();
 	}
 	
 	public double controlUpperGrabberIn(){
-		return oi.xbox.getRightTriggers();
+		return oi.xbox.getLeftTriggers();
 	}
 
 	//Elevator commands

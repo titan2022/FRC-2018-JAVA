@@ -31,17 +31,11 @@ public class RobotMap {
 	public static final int BOX_SWITCH = 0;
 	public static final int ELEVATOR_SWITCH = 0;
 	
-	//Encoder ports for drive base
+	//Encoder ports for drive base (looking at it from the back)
 	public static final int LEFT_ENCODER_PORT_A = 0;
 	public static final int LEFT_ENCODER_PORT_B = 1;
 	public static final int RIGHT_ENCODER_PORT_A = 2;
 	public static final int RIGHT_ENCODER_PORT_B = 3;
-	
-	//Encoder ports for Elevator
-	public static final int FRONT_ENCODER_PORT_A = 0;
-	public static final int FRONT_ENCODER_PORT_B = 0;
-	public static final int BACK_ENCODER_PORT_A = 0;
-	public static final int BACK_ENCODER_PORT_B = 0;
 	
 	//Solenoid ports
 	public static final int SOLENOID_PORT_1 = 0; 
