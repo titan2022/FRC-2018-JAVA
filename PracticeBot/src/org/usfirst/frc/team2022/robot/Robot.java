@@ -7,11 +7,13 @@
 
 package org.usfirst.frc.team2022.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import org.usfirst.frc.team2022.commands.autonomous.groups.AutoCrossLineCommandGroup;
 import org.usfirst.frc.team2022.robot.commands.DriveCommand;
 import org.usfirst.frc.team2022.robot.subsystems.DriveSubsystem;
 
@@ -23,12 +25,12 @@ import org.usfirst.frc.team2022.robot.subsystems.DriveSubsystem;
  * project.
  */
 public class Robot extends TimedRobot {
-	public static final DriveSubsystem kExampleSubsystem
-			= new DriveSubsystem();
 	public static OI oi;
-
-	Command m_autonomousCommand;
-	SendableChooser<Command> m_chooser = new SendableChooser<>();
+	public static final DriveSubsystem driveSubsystem = new DriveSubsystem();
+	public DriveCommand driveCommand;
+	
+	CommandGroup autonomousCommand;
+	SendableChooser<String> autoTypeChooser;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -37,9 +39,14 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
-		m_chooser.addDefault("Default Auto", new DriveCommand());
-		// chooser.addObject("My Auto", new MyAutoCommand());
-		SmartDashboard.putData("Auto mode", m_chooser);
+		
+		
+		
+		driveCommand = new DriveCommand();
+		autoTypeChooser = new SendableChooser<String>();
+    	autoTypeChooser.addDefault("Left Position", "left"); 
+    	autoTypeChooser.addObject("Center Postion", "center"); 
+    	autoTypeChooser.addObject("Right Position", "right");
 	}
 
 	/**
@@ -70,20 +77,21 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		m_autonomousCommand = m_chooser.getSelected();
+    	String gameData = DriverStation.getInstance().getGameSpecificMessage();
+    	System.out.println("Auto");
 
-		/*
-		 * String autoSelected = SmartDashboard.getString("Auto Selector",
-		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-		 * = new MyAutoCommand(); break; case "Default Auto": default:
-		 * autonomousCommand = new ExampleCommand(); break; }
-		 */
+    	try{
+    		autonomousCommand = new AutoCrossLineCommandGroup();
 
-		// schedule the autonomous command (example)
-		if (m_autonomousCommand != null) {
-			m_autonomousCommand.start();
-		}
-	}
+    	}
+    	catch(Exception ex){
+    		System.out.println("Error: " + ex);
+    	}
+    	
+			autonomousCommand.start();
+			
+    }
+	
 
 	/**
 	 * This function is called periodically during autonomous.
@@ -95,13 +103,7 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void teleopInit() {
-		// This makes sure that the autonomous stops running when
-		// teleop starts running. If you want the autonomous to
-		// continue until interrupted by another command, remove
-		// this line or comment it out.
-		if (m_autonomousCommand != null) {
-			m_autonomousCommand.cancel();
-		}
+		driveCommand.start();
 	}
 
 	/**

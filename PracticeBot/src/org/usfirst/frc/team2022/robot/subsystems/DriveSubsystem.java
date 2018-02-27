@@ -26,7 +26,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  *
  */
-@SuppressWarnings("unused")
+
 public class DriveSubsystem extends Subsystem {
 	private static final NeutralMode NeutralMode = null;
 	
@@ -48,13 +48,13 @@ public class DriveSubsystem extends Subsystem {
 		left1.setInverted(true);
 		left2.setInverted(true);
 		left3.setInverted(true);
-		right1.setInverted(true);
+	/*	right1.setInverted(true);
 		right2.setInverted(true);
-		right3.setInverted(true);
+		right3.setInverted(true)*/;
 
 		//Instantiate Encoders
-		leftEncoder = new Encoder(RobotMap.LEFT_ENCODER_PORT_A, RobotMap.LEFT_ENCODER_PORT_B, false);
-		rightEncoder = new Encoder(RobotMap.RIGHT_ENCODER_PORT_A, RobotMap.RIGHT_ENCODER_PORT_B, false);
+		//leftEncoder = new Encoder(RobotMap.LEFT_ENCODER_PORT_A, RobotMap.LEFT_ENCODER_PORT_B, false);
+		//rightEncoder = new Encoder(RobotMap.RIGHT_ENCODER_PORT_A, RobotMap.RIGHT_ENCODER_PORT_B, false);
 		
 		//Instantiate Gyro | Gyro automatically calibrates when given power
 //        ahrs = new AHRS(SPI.Port.kMXP); 
@@ -63,8 +63,8 @@ public class DriveSubsystem extends Subsystem {
 //		}
 
 //		//Set encoder distance per pulse
-		leftEncoder.setDistancePerPulse(ConstantsMap.DRIVE_ENCODER_DIST_PER_TICK);
-		rightEncoder.setDistancePerPulse(ConstantsMap.DRIVE_ENCODER_DIST_PER_TICK);
+		//leftEncoder.setDistancePerPulse(ConstantsMap.DRIVE_ENCODER_DIST_PER_TICK);
+		//rightEncoder.setDistancePerPulse(ConstantsMap.DRIVE_ENCODER_DIST_PER_TICK);
 	}
 	
     public void initDefaultCommand() {

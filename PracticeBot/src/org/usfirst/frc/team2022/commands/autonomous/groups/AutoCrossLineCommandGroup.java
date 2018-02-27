@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutoCrossLineCommandGroup extends CommandGroup{
 
 	public AutoCrossLineCommandGroup(){
+		System.out.println("AutoLineGroup");
 		Timer.delay(1);
 		addSequential(new AutoDriveStraightCommand(30));
 	}

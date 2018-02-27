@@ -14,23 +14,14 @@ package org.usfirst.frc.team2022.robot;
  * floating around.
  */
 public class RobotMap {
-	// For example to map the left and right motors, you could define the
-	// following variables to use with your drivetrain subsystem.
-	// public static int leftMotor = 1;
-	// public static int rightMotor = 2;
 
-	// If you are using multiple modules, make sure to define both the port
-	// number and the module. For example you with a rangefinder:
-	// public static int rangefinderPort = 1;
-	// public static int rangefinderModule = 1;
-	
 	//Drivebase Motor Ports 
-	public static final int LEFT_DRIVE_PORT_1 = 2;
-	public static final int LEFT_DRIVE_PORT_2 = 4;
-	public static final int LEFT_DRIVE_PORT_3 = 3;
-	public static final int RIGHT_DRIVE_PORT_1 = 8;
-	public static final int RIGHT_DRIVE_PORT_2 = 9;
-	public static final int RIGHT_DRIVE_PORT_3 = 10;
+	public static final int LEFT_DRIVE_PORT_1 = 4;
+	public static final int LEFT_DRIVE_PORT_2 = 5;
+	public static final int LEFT_DRIVE_PORT_3 = 6;
+	public static final int RIGHT_DRIVE_PORT_1 = 7;
+	public static final int RIGHT_DRIVE_PORT_2 = 8;
+	public static final int RIGHT_DRIVE_PORT_3 = 9;
 	
 	//Encoder ports for drive base
 	public static final int LEFT_ENCODER_PORT_A = 0;

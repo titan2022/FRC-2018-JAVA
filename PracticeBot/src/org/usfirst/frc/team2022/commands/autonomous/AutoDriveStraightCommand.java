@@ -4,7 +4,7 @@ import org.usfirst.frc.team2022.robot.ConstantsMap;
 import org.usfirst.frc.team2022.robot.CustomPIDController;
 import org.usfirst.frc.team2022.robot.OI;
 import org.usfirst.frc.team2022.robot.Robot;
-import org.usfirst.frc.team2022.subsystems.DriveSubsystem;
+import org.usfirst.frc.team2022.robot.subsystems.DriveSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -40,8 +40,6 @@ public class AutoDriveStraightCommand extends Command{
 	}
 	
 	public AutoDriveStraightCommand(){
-	
-		System.out.print("Hello2");
     	requires(driveSubsystem);
     	ticksToDrive = fieldSize / ConstantsMap.DRIVE_ENCODER_DIST_PER_TICK;
     	limitSwitch = true;
