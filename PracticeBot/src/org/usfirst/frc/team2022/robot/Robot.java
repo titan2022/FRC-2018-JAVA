@@ -47,6 +47,8 @@ public class Robot extends TimedRobot {
     	autoTypeChooser.addDefault("Left Position", "left"); 
     	autoTypeChooser.addObject("Center Postion", "center"); 
     	autoTypeChooser.addObject("Right Position", "right");
+    	
+    	autonomousCommand = new AutoCrossLineCommandGroup();
 	}
 
 	/**
@@ -81,7 +83,7 @@ public class Robot extends TimedRobot {
     	System.out.println("Auto");
 
     	try{
-    		autonomousCommand = new AutoCrossLineCommandGroup();
+    		
 
     	}
     	catch(Exception ex){

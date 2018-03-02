@@ -8,6 +8,7 @@
 package org.usfirst.frc.team2022.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team2022.robot.Attack3Map;
 import org.usfirst.frc.team2022.robot.OI;
@@ -40,6 +41,7 @@ public class DriveCommand extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
+		displayData();
 		//Normal Driving
     	double speedLeft = attack3Map.getSpeedLeftWheel();   
     	if(Math.abs(speedLeft) < 0.1){
@@ -67,6 +69,16 @@ public class DriveCommand extends Command {
 		}
     	
 	}
+	protected void displayData(){
+    	SmartDashboard.putNumber("Left Encoder Count: ", driveSubsystem.getLeftEncoderCount());
+    	SmartDashboard.putNumber("Left Encoder Distance: ", driveSubsystem.getLeftEncoderDistance());
+    	SmartDashboard.putNumber("Left Encoder Rate: ", driveSubsystem.getLeftEncoderRate());
+    	SmartDashboard.putNumber("Right Encoder Count: ", driveSubsystem.getRightEncoderCount());
+    	SmartDashboard.putNumber("Right Encoder Distance: ", driveSubsystem.getRightEncoderDistance());
+    	SmartDashboard.putNumber("Right Encoder Rate: ", driveSubsystem.getRightEncoderRate());
+    	//SmartDashboard.putNumber("Gyro Angle: ", driveSubsystem.getGyroAngle());
+    	SmartDashboard.putBoolean("AutoBrake", brakeState);
+    }
 
 	// Make this return true when this Command no longer needs to run execute()
 	@Override

@@ -1,6 +1,8 @@
 package org.usfirst.frc.team2022.robot;
 
-public class CustomPIDController {
+import edu.wpi.first.wpilibj.PIDInterface;
+
+public class CustomPIDController implements PIDInterface{
 	// TODO: documentation, numerical integration, actually make controller work
 	
 	// amount error is "damped" by the lpf
@@ -31,10 +33,7 @@ public class CustomPIDController {
 	private double lastTime;
 	
 	public CustomPIDController(double kp, double ki, double kd, double kf, double tolerance, double min, double max) {
-		this.kp = kp;
-		this.ki = ki;
-		this.kd = kd;
-		this.kf = kf;
+		
 		this.tolerance = tolerance;
 		this.min = min;
 		this.max = max;
@@ -57,11 +56,6 @@ public class CustomPIDController {
 		return output;
 	}
 	
-	public void setSetpoint(double setpoint) {
-		this.setpoint = setpoint;
-		err = 0.0;
-		lastTime = System.nanoTime();
-	}
 	//Still need to fix this. It only works for error=100 and the constant = .5.
 	public boolean isFinished() {
 		return Math.abs(lastLocation - setpoint) <= this.tolerance;
@@ -72,5 +66,74 @@ public class CustomPIDController {
 			//modErr = (CustomPIDController.lowPassConstant * lastModErr + err)/(CustomPIDController.lowPassConstant + 1);
 			modErr = lastModErr + CustomPIDController.lowPassConstant  * accumulation;
 			accumulation += lastModErr;
+	}
+
+	@Override
+	public void setPID(double p, double i, double d) {
+		this.kp = p;
+		this.ki = i;
+		this.kd = d;
+	}
+
+	@Override
+	public double getP() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double getI() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double getD() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double getSetpoint() {
+		
+		return 0;
+	}
+
+	@Override
+	public double getError() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void enable() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void disable() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void reset() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setSetpoint(double setpoint) {
+		this.setpoint = setpoint;
+		err = 0.0;
+		lastTime = System.nanoTime();
+		
 	}
 }

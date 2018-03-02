@@ -1,11 +1,12 @@
 package org.usfirst.frc.team2022.commands.autonomous;
 
 import org.usfirst.frc.team2022.robot.ConstantsMap;
-import org.usfirst.frc.team2022.robot.CustomPIDController;
 import org.usfirst.frc.team2022.robot.OI;
 import org.usfirst.frc.team2022.robot.Robot;
 import org.usfirst.frc.team2022.robot.subsystems.DriveSubsystem;
 
+import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -17,31 +18,48 @@ public class AutoDriveStraightCommand extends Command{
 	private double fieldSize = 0;
 	private double speed = 0;
 	double rotateToAngle = 0;
-	CustomPIDController rpid;
-	CustomPIDController lpid;
+	PIDController rpid;
+    PIDController lpid;
 	
 	DriveSubsystem driveSubsystem = Robot.driveSubsystem;
 	OI oi = Robot.oi;
+	private PIDOutput rspeed = new PIDOutput() {
+		
+		@Override
+		public void pidWrite(double output) {
+			//driveSubsystem.setRightSpeed(output);
+			
+		}
+	};
+	private PIDOutput lspeed = new PIDOutput() {
+		
+		@Override
+		public void pidWrite(double output) {
+			driveSubsystem.setLeftSpeed(output);
+			driveSubsystem.setRightSpeed(output);
+			
+		}
+	};
 	boolean limitSwitch = false;
 
 	
 	public AutoDriveStraightCommand (double inchesToDrive){
 
 		requires(driveSubsystem);
-		this.ticksToDrive = inchesToDrive / ConstantsMap.DRIVE_ENCODER_DIST_PER_TICK;
+		//this.ticksToDrive = inchesToDrive / ConstantsMap.DRIVE_ENCODER_DIST_PER_TICK;
+		ticksToDrive = inchesToDrive;
+		System.out.println("Ticks to drive" + ticksToDrive);
 		driveSubsystem.resetEncoders();
 		//driveSubsystem.resetGyro();
-		rpid = new CustomPIDController(ConstantsMap.KP_DRIVE_SPEED,ConstantsMap.KI_DRIVE_SPEED,ConstantsMap.KD_DRIVE_SPEED,ConstantsMap.KF_DRIVE_SPEED,
-        		ConstantsMap.DRIVE_ERR_TOLERANCE, -ConstantsMap.DRIVE_MAX_SPEED,ConstantsMap.DRIVE_MAX_SPEED);
-		rpid.setSetpoint(ticksToDrive);
-		lpid = new CustomPIDController(ConstantsMap.KP_DRIVE_SPEED,ConstantsMap.KI_DRIVE_SPEED,ConstantsMap.KD_DRIVE_SPEED,ConstantsMap.KF_DRIVE_SPEED,
-        		ConstantsMap.DRIVE_ERR_TOLERANCE, -ConstantsMap.DRIVE_MAX_SPEED,ConstantsMap.DRIVE_MAX_SPEED);
-		lpid.setSetpoint(ticksToDrive);
+
+		
+		
+		
 	}
 	
 	public AutoDriveStraightCommand(){
     	requires(driveSubsystem);
-    	ticksToDrive = fieldSize / ConstantsMap.DRIVE_ENCODER_DIST_PER_TICK;
+    	//ticksToDrive = fieldSize / ConstantsMap.DRIVE_ENCODER_DIST_PER_TICK;
     	limitSwitch = true;
     	
     	
@@ -53,58 +71,87 @@ public class AutoDriveStraightCommand extends Command{
 	// Called just before this Command runs the first time
     protected void initialize() {
     	System.out.println("auto Init");
-    	double p = SmartDashboard.getNumber("p",2);
-		double i = SmartDashboard.getNumber("i",0);
-		double d = SmartDashboard.getNumber("d",0);
-		double f = SmartDashboard.getNumber("f",0);
-		System.out.println(p + " " + i + " " + d + " " + f);
-    	driveSubsystem.enableBrake();
-    	
+   		driveSubsystem.enableBrake();
+		/*rpid = new PIDController(
+				ConstantsMap.KP_DRIVE_SPEED,
+				ConstantsMap.KI_DRIVE_SPEED,
+				ConstantsMap.KD_DRIVE_SPEED,
+				ConstantsMap.KF_DRIVE_SPEED,
+				driveSubsystem.getRightEncoder(),
+				rspeed
+				);
+		rpid.setSetpoint(ticksToDrive);				
+		rpid.setAbsoluteTolerance(ConstantsMap.DRIVE_ERR_ABSTOLERANCE);
+
+		rpid.setOutputRange(ConstantsMap.DRIVE_MIN_SPEED,ConstantsMap.DRIVE_MAX_SPEED);
+		rpid.setPercentTolerance(ConstantsMap.DRIVE_ERR_ABSTOLERANCE);*/
     	//Reset gyro to 0
     	//driveSubsystem.resetGyro();
+		lpid = new PIDController(
+				ConstantsMap.KP_DRIVE_SPEED,
+				ConstantsMap.KI_DRIVE_SPEED,
+				ConstantsMap.KD_DRIVE_SPEED,
+				ConstantsMap.KF_DRIVE_SPEED,
+				driveSubsystem.getLeftEncoder(),
+				lspeed
+				);
+		lpid.setSetpoint(ticksToDrive);				
+		lpid.setAbsoluteTolerance(ConstantsMap.DRIVE_ERR_ABSTOLERANCE);
+
+		lpid.setOutputRange(ConstantsMap.DRIVE_MIN_SPEED,ConstantsMap.DRIVE_MAX_SPEED);
+		//lpid.setPercentTolerance(ConstantsMap.DRIVE_ERR_BUFTOLERANCE);
     	System.out.println("before" + driveSubsystem.getLeftEncoderCount());
     	driveSubsystem.resetEncoders();
     	System.out.println("after" + driveSubsystem.getLeftEncoderCount());
-    	rpid = new CustomPIDController(p,i,d,f, ConstantsMap.DRIVE_ERR_TOLERANCE, -ConstantsMap.DRIVE_MAX_SPEED,ConstantsMap.DRIVE_MAX_SPEED);
-		rpid.setSetpoint(ticksToDrive);
-		lpid = new CustomPIDController(p,i,d,f,
-        		ConstantsMap.DRIVE_ERR_TOLERANCE, -ConstantsMap.DRIVE_MAX_SPEED,ConstantsMap.DRIVE_MAX_SPEED);
-		lpid.setSetpoint(ticksToDrive);
+    	//rpid.enable();
+    	
+    	lpid.enable();
+    	
     }
     
     protected void execute() {
-    	//System.out.println("exec");
-    	driveSubsystem.tankDrive(-lpid.update(driveSubsystem.getLeftEncoderDistance()),-rpid.update(driveSubsystem.getRightEncoderDistance()));
+    	System.out.println("exec");
+    	double lout = lpid.get();
+    	driveSubsystem.tankDrive(lout,lout);
+    	SmartDashboard.putNumber("OUtput",lout);
     	displayData();
     }
 	
     protected void displayData(){
+    	//SmartDashboard.
     	SmartDashboard.putNumber("Left Encoder Count: ", driveSubsystem.getLeftEncoderCount());
     	SmartDashboard.putNumber("Left Encoder Distance: ", driveSubsystem.getLeftEncoderDistance());
     	SmartDashboard.putNumber("Left Encoder Rate: ", driveSubsystem.getLeftEncoderRate());
     	SmartDashboard.putNumber("Right Encoder Count: ", driveSubsystem.getRightEncoderCount());
     	SmartDashboard.putNumber("Right Encoder Distance: ", driveSubsystem.getRightEncoderDistance());
     	SmartDashboard.putNumber("Right Encoder Rate: ", driveSubsystem.getRightEncoderRate());
-    	SmartDashboard.putString("test","hello world");
+    	SmartDashboard.putNumber("Error",lpid.getError());
+    	SmartDashboard.putData(lpid);
+    	
 
  //   	SmartDashboard.putNumber("Gyro Angle: ", driveSubsystem.getGyroAngle());
     }
     
 	// Make this return true when this Command no longer needs to run execute()
     public boolean isFinished() {
-    	return false;
-        //return lpid.isFinished() && rpid.isFinished();
+    	System.out.println("Finished: " + lpid.onTarget());
+        return lpid.onTarget(); //rpid.onTarget();
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	System.out.println("I finished");
+    	lpid.disable();
+    	//rpid.disable();
     	driveSubsystem.stop();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	//System.out.prin
+    	System.out.println("autodrivestart interupt");
+    	lpid.disable();
+    	rpid.disable();
     	end();
     }
 

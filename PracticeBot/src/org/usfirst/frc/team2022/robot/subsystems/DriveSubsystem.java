@@ -8,6 +8,8 @@
 package org.usfirst.frc.team2022.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team2022.robot.ConstantsMap;
 import org.usfirst.frc.team2022.robot.RobotMap;
@@ -15,12 +17,14 @@ import org.usfirst.frc.team2022.robot.commands.DriveCommand;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
 //import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 /**
@@ -33,7 +37,7 @@ public class DriveSubsystem extends Subsystem {
 	Talon left1,left2,left3,right1,right2, right3;
 	private Encoder leftEncoder, rightEncoder;
 
-//	private AHRS ahrs;
+	private AHRS ahrs;
 
 	public DriveSubsystem() {
 		//Instantiate motors		
@@ -45,30 +49,37 @@ public class DriveSubsystem extends Subsystem {
 		right3 = new Talon(RobotMap.RIGHT_DRIVE_PORT_3);
 		
 		//Invert Motors
-		left1.setInverted(true);
-		left2.setInverted(true);
-		left3.setInverted(true);
-	/*	right1.setInverted(true);
+		//left1.setInverted(true);
+		//left2.setInverted(true);
+		//left3.setInverted(true);
+		right1.setInverted(true);
 		right2.setInverted(true);
-		right3.setInverted(true)*/;
+		right3.setInverted(true);
 
 		//Instantiate Encoders
-		//leftEncoder = new Encoder(RobotMap.LEFT_ENCODER_PORT_A, RobotMap.LEFT_ENCODER_PORT_B, false);
-		//rightEncoder = new Encoder(RobotMap.RIGHT_ENCODER_PORT_A, RobotMap.RIGHT_ENCODER_PORT_B, false);
+		leftEncoder = new Encoder(RobotMap.LEFT_ENCODER_PORT_A, RobotMap.LEFT_ENCODER_PORT_B, false);
+		rightEncoder = new Encoder(RobotMap.RIGHT_ENCODER_PORT_A, RobotMap.RIGHT_ENCODER_PORT_B, false);
 		
-		//Instantiate Gyro | Gyro automatically calibrates when given power
-//        ahrs = new AHRS(SPI.Port.kMXP); 
-//		if (!ahrs.isCalibrating()) {	
-//			stop();
-//		}
+		
+		
+		try {
+	          /* Communicate w/navX-MXP via the MXP SPI Bus.                                     */
+	          /* Alternatively:  I2C.Port.kMXP, SerialPort.Port.kMXP or SerialPort.Port.kUSB     */
+	          /* See http://navx-mxp.kauailabs.com/guidance/selecting-an-interface/ for details. */
+	          ahrs = new AHRS(SPI.Port.kMXP); 
+	      } catch (RuntimeException ex ) {
+	          DriverStation.reportError("Error instantiating navX-MXP:  " + ex.getMessage(), true);
+	      }
 
-//		//Set encoder distance per pulse
-		//leftEncoder.setDistancePerPulse(ConstantsMap.DRIVE_ENCODER_DIST_PER_TICK);
-		//rightEncoder.setDistancePerPulse(ConstantsMap.DRIVE_ENCODER_DIST_PER_TICK);
+		//		//Set encoder distance per pulse
+		leftEncoder.setDistancePerPulse(ConstantsMap.DRIVE_ENCODER_DIST_PER_TICK);
+		rightEncoder.setDistancePerPulse(ConstantsMap.DRIVE_ENCODER_DIST_PER_TICK);
+		resetEncoders();
 	}
 	
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
+    	
     	setDefaultCommand(new DriveCommand());
     }
    
@@ -154,17 +165,17 @@ public class DriveSubsystem extends Subsystem {
 		rightEncoder.reset();
 	}
 	
-//	public AHRS getGyro(){
-//		return ahrs;
-//	}
-//	
-//	public double getGyroAngle(){
-//		return ahrs.getAngle(); 
-//	}
-//
-//	public void resetGyro() {
-//		ahrs.reset();
-//	}
+	public AHRS getGyro(){
+		return ahrs;
+	}
+	
+	public double getGyroAngle(){
+		return ahrs.getAngle(); 
+	}
+
+	public void resetGyro() {
+		ahrs.reset();;
+	}
 
 	public void stop() {
 		left1.set(0);
