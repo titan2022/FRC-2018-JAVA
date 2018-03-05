@@ -110,7 +110,7 @@ public class AutoDriveStraightCommand extends Command{
     }
     
     protected void execute() {
-    	System.out.println("exec");
+    	//System.out.println("exec");
     	double lout = lpid.get();
     	driveSubsystem.tankDrive(lout,lout);
     	SmartDashboard.putNumber("OUtput",lout);
@@ -134,7 +134,7 @@ public class AutoDriveStraightCommand extends Command{
     
 	// Make this return true when this Command no longer needs to run execute()
     public boolean isFinished() {
-    	System.out.println("Finished: " + lpid.onTarget());
+    	//System.out.println("Finished: " + lpid.onTarget());
         return lpid.onTarget(); //rpid.onTarget();
     }
 

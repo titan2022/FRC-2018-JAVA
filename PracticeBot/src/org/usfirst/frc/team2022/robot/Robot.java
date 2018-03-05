@@ -12,8 +12,11 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team2022.commands.autonomous.groups.AutoCrossLineCommandGroup;
+import org.usfirst.frc.team2022.commands.autonomous.groups.LeftSwitchCommandGroup;
+import org.usfirst.frc.team2022.commands.autonomous.groups.RightSwitchCommandGroup;
 import org.usfirst.frc.team2022.robot.commands.DriveCommand;
 import org.usfirst.frc.team2022.robot.subsystems.DriveSubsystem;
 
@@ -31,6 +34,7 @@ public class Robot extends TimedRobot {
 	
 	CommandGroup autonomousCommand;
 	SendableChooser<String> autoTypeChooser;
+	SendableChooser<String> actionTypeChooser;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -47,8 +51,12 @@ public class Robot extends TimedRobot {
     	autoTypeChooser.addDefault("Left Position", "left"); 
     	autoTypeChooser.addObject("Center Postion", "center"); 
     	autoTypeChooser.addObject("Right Position", "right");
+    	actionTypeChooser = new SendableChooser<String>();
+    	actionTypeChooser.addDefault("Switch", "switch"); 
+    	actionTypeChooser.addObject("AutoLine", "line"); 
+    	SmartDashboard.putData("Auto Chooser",autoTypeChooser);
+    	SmartDashboard.putData("Auto Type",actionTypeChooser);
     	
-    	autonomousCommand = new AutoCrossLineCommandGroup();
 	}
 
 	/**
@@ -66,31 +74,25 @@ public class Robot extends TimedRobot {
 		Scheduler.getInstance().run();
 	}
 
-	/**
-	 * This autonomous (along with the chooser code above) shows how to select
-	 * between different autonomous modes using the dashboard. The sendable
-	 * chooser code works with the Java SmartDashboard. If you prefer the
-	 * LabVIEW Dashboard, remove all of the chooser code and uncomment the
-	 * getString code to get the auto name from the text box below the Gyro
-	 *
-	 * <p>You can add additional auto modes by adding additional commands to the
-	 * chooser code above (like the commented example) or additional comparisons
-	 * to the switch structure below with additional strings & commands.
-	 */
+
 	@Override
 	public void autonomousInit() {
-    	String gameData = DriverStation.getInstance().getGameSpecificMessage();
-    	System.out.println("Auto");
+		String gameData;
+		gameData = DriverStation.getInstance().getGameSpecificMessage();
 
-    	try{
-    		
-
-    	}
-    	catch(Exception ex){
-    		System.out.println("Error: " + ex);
-    	}
-    	
-			autonomousCommand.start();
+		if(actionTypeChooser.getSelected() == "switch") {
+			if(autoTypeChooser.getSelected() == "left"){
+				autonomousCommand = new LeftSwitchCommandGroup(gameData);
+			}
+			else if(autoTypeChooser.getSelected() == "right") {
+				autonomousCommand = new RightSwitchCommandGroup(gameData);
+			}
+		}
+		else{
+			autonomousCommand = new AutoCrossLineCommandGroup();
+		}
+  	
+		autonomousCommand.start();
 			
     }
 	

@@ -26,7 +26,7 @@ public class ConstantsMap {
 	public static double DRIVE_MIN_SPEED = -.5;
 	public static double DRIVE_MAX_SPEED = .5;
 	
-	public static double KP_DRIVE_TURN = .025;
+	public static double KP_DRIVE_TURN = .03;
 	public static double KI_DRIVE_TURN = 0.0;//0.18;
 	public static double KD_DRIVE_TURN = 0;//0.23;
 	public static double KF_DRIVE_TURN = 0.0;

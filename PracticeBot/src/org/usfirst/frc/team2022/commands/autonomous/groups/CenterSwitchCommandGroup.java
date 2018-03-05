@@ -8,12 +8,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class CenterSwitchCommandGroup extends CommandGroup{
 
 	public CenterSwitchCommandGroup(String side){
-		
-		Timer.delay(1);
-  		addSequential(new AutoDriveStraightCommand(150));
-  	
-  		Timer.delay(1);
-  		if(side.equals("left")){
+  		if(side.charAt(0) == 'L'){
 //  		addSequential(new AutoDriveTurnCommand(-90));
   			addSequential(new AutoDriveStraightCommand(150));
 //  		addSequential(new AutoDriveTurnCommand(90));

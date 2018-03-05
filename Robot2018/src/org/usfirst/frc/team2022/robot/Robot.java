@@ -56,15 +56,16 @@ public class Robot extends IterativeRobot {
     	grabberCommand = new GrabberCommand();
     	elevatorCommand = new ElevatorManualCommand();
     	
-    	autoTypeChooser = new SendableChooser<String>();
-    	autoTypeChooser.addDefault("Left Position", "left"); 
-    	autoTypeChooser.addObject("Center Postion", "center"); 
-    	autoTypeChooser.addObject("Right Position", "right");
+    
     }
     
     
     //This starts the methods for autonomous
     public void autonomousInit() {
+    	autoTypeChooser = new SendableChooser<String>();
+    	autoTypeChooser.addDefault("Left Position", "left"); 
+    	autoTypeChooser.addObject("Center Postion", "center"); 
+    	autoTypeChooser.addObject("Right Position", "right");
     	String gameData;
     	gameData = DriverStation.getInstance().getGameSpecificMessage();
     	System.out.println("Auto");
