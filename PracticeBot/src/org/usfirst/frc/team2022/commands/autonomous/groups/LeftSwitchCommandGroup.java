@@ -11,28 +11,25 @@ public class LeftSwitchCommandGroup extends CommandGroup{
 	public LeftSwitchCommandGroup(String side){
 		System.out.println("AutoLeftSwitch");
   		if(side.charAt(0) == 'L'){
-  			Timer.delay(1);
-  			addSequential(new AutoDriveStraightCommand(45));
+  			//only goes forward turns then directly to plate 
+  			//168 is distance from back to middle of switch
+  			addSequential(new AutoDriveStraightCommand(168));
   			Timer.delay(1);
   			addSequential(new AutoDriveTurnCommand(90));
   			Timer.delay(1);
-  			addSequential(new AutoDriveStraightCommand(37.5));
-  			Timer.delay(1);
-  			addSequential(new AutoDriveTurnCommand(-90));
-  			Timer.delay(1);
-  			addSequential(new AutoDriveStraightCommand(54));
+  			//this value will change based off starting pos of robot
+  			addSequential(new AutoDriveStraightCommand(12));
+  			
   		}
   		else{
-  			Timer.delay(1);
-  			addSequential(new AutoDriveStraightCommand(45));
+  			//168 is distance from back to middle of switch
+  			//
+  			addSequential(new AutoDriveStraightCommand(48));
   			Timer.delay(1);
   			addSequential(new AutoDriveTurnCommand(90));
   			Timer.delay(1);
-  			addSequential(new AutoDriveStraightCommand(37.5));
-  			Timer.delay(1);
-  			addSequential(new AutoDriveTurnCommand(-90));
-  			Timer.delay(1);
-  			addSequential(new AutoDriveStraightCommand(54));
+  			//this value will change based off starting pos of robot
+  			addSequential(new AutoDriveStraightCommand(153));
   		}
 	}
 }

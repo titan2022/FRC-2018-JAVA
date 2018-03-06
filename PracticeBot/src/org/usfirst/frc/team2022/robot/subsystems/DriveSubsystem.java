@@ -75,6 +75,11 @@ public class DriveSubsystem extends Subsystem {
 		leftEncoder.setDistancePerPulse(ConstantsMap.DRIVE_ENCODER_DIST_PER_TICK);
 		rightEncoder.setDistancePerPulse(ConstantsMap.DRIVE_ENCODER_DIST_PER_TICK);
 		resetEncoders();
+		SmartDashboard.putData(ahrs);
+		SmartDashboard.putData(leftEncoder);
+		SmartDashboard.putData(rightEncoder);
+
+		
 	}
 	
     public void initDefaultCommand() {

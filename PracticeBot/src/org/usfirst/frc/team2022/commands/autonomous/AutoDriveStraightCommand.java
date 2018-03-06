@@ -48,7 +48,6 @@ public class AutoDriveStraightCommand extends Command{
 		requires(driveSubsystem);
 		//this.ticksToDrive = inchesToDrive / ConstantsMap.DRIVE_ENCODER_DIST_PER_TICK;
 		ticksToDrive = inchesToDrive;
-		System.out.println("Ticks to drive" + ticksToDrive);
 		driveSubsystem.resetEncoders();
 		//driveSubsystem.resetGyro();
 
@@ -70,7 +69,6 @@ public class AutoDriveStraightCommand extends Command{
 	
 	// Called just before this Command runs the first time
     protected void initialize() {
-    	System.out.println("auto Init");
    		driveSubsystem.enableBrake();
 		/*rpid = new PIDController(
 				ConstantsMap.KP_DRIVE_SPEED,
@@ -100,9 +98,8 @@ public class AutoDriveStraightCommand extends Command{
 
 		lpid.setOutputRange(ConstantsMap.DRIVE_MIN_SPEED,ConstantsMap.DRIVE_MAX_SPEED);
 		//lpid.setPercentTolerance(ConstantsMap.DRIVE_ERR_BUFTOLERANCE);
-    	System.out.println("before" + driveSubsystem.getLeftEncoderCount());
     	driveSubsystem.resetEncoders();
-    	System.out.println("after" + driveSubsystem.getLeftEncoderCount());
+    	
     	//rpid.enable();
     	
     	lpid.enable();

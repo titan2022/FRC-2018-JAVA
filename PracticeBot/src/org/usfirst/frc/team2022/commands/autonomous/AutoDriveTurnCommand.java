@@ -53,9 +53,7 @@ public class AutoDriveTurnCommand extends Command{
 
 		rotatePid.setOutputRange(ConstantsMap.TURN_MIN_SPEED,ConstantsMap.TURN_MAX_SPEED);
 		//lpid.setPercentTolerance(ConstantsMap.DRIVE_ERR_BUFTOLERANCE);
-    	System.out.println("before" + driveSubsystem.getLeftEncoderCount());
     	driveSubsystem.resetEncoders();
-    	System.out.println("after" + driveSubsystem.getLeftEncoderCount());
     	//rpid.enable();
     	SmartDashboard.putData(rotatePid);
     	

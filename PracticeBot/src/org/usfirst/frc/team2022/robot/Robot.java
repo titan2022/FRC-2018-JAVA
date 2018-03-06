@@ -15,7 +15,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team2022.commands.autonomous.groups.AutoCrossLineCommandGroup;
+import org.usfirst.frc.team2022.commands.autonomous.groups.CenterSwitchCommandGroup;
+import org.usfirst.frc.team2022.commands.autonomous.groups.LeftScaleCommandGroup;
 import org.usfirst.frc.team2022.commands.autonomous.groups.LeftSwitchCommandGroup;
+import org.usfirst.frc.team2022.commands.autonomous.groups.RightScaleCommandGroup;
 import org.usfirst.frc.team2022.commands.autonomous.groups.RightSwitchCommandGroup;
 import org.usfirst.frc.team2022.robot.commands.DriveCommand;
 import org.usfirst.frc.team2022.robot.subsystems.DriveSubsystem;
@@ -42,18 +45,22 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
-		oi = new OI();
-		
+		oi = new OI();		
 		
 		
 		driveCommand = new DriveCommand();
 		autoTypeChooser = new SendableChooser<String>();
     	autoTypeChooser.addDefault("Left Position", "left"); 
-    	autoTypeChooser.addObject("Center Postion", "center"); 
+     	autoTypeChooser.addObject("Center Postion", "center"); 
     	autoTypeChooser.addObject("Right Position", "right");
     	actionTypeChooser = new SendableChooser<String>();
-    	actionTypeChooser.addDefault("Switch", "switch"); 
+    	actionTypeChooser.addDefault("Switch", "switch");
+    	actionTypeChooser.addObject("Switch Defer Scale", " switch defer"); 
+    	actionTypeChooser.addObject("Scale", "scale");
+    	actionTypeChooser.addObject("Scale Defer ", "scale defer");    	
     	actionTypeChooser.addObject("AutoLine", "line"); 
+    	actionTypeChooser.addObject("AutoLineWait", "waitline");
+    	
     	SmartDashboard.putData("Auto Chooser",autoTypeChooser);
     	SmartDashboard.putData("Auto Type",actionTypeChooser);
     	
@@ -87,12 +94,31 @@ public class Robot extends TimedRobot {
 			else if(autoTypeChooser.getSelected() == "right") {
 				autonomousCommand = new RightSwitchCommandGroup(gameData);
 			}
+			else {
+				autonomousCommand = new CenterSwitchCommandGroup(gameData);
+			}
+		}
+		else if(actionTypeChooser.getSelected() == "scale") {
+			if(autoTypeChooser.getSelected() == "left"){
+				autonomousCommand = new LeftScaleCommandGroup(gameData,false);
+			}
+			else if(autoTypeChooser.getSelected() == "right") {
+				autonomousCommand = new RightScaleCommandGroup(gameData,false);
+			}
+		}
+		else if(actionTypeChooser.getSelected() == "scale defer") {
+			if(autoTypeChooser.getSelected() == "left"){
+				autonomousCommand = new LeftScaleCommandGroup(gameData,true);
+			}
+			else if(autoTypeChooser.getSelected() == "right") {
+				autonomousCommand = new RightScaleCommandGroup(gameData,true);
+			}
 		}
 		else{
 			autonomousCommand = new AutoCrossLineCommandGroup();
 		}
   	
-		autonomousCommand.start();
+		autonomousCommand.start(); 
 			
     }
 	
