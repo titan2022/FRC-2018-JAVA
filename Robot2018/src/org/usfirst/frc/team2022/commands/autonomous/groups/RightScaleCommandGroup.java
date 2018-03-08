@@ -24,6 +24,13 @@ public class RightScaleCommandGroup extends CommandGroup{
   		}
   		else if(!defer) {
   			//doing scale even if not on our side
+  			addSequential(new AutoDriveStraightCommand(200));
+  			Timer.delay(1);
+  			addSequential(new AutoDriveTurnCommand(-90));
+  			Timer.delay(1);
+  			addSequential(new AutoDriveStraightCommand(60));
+  			Timer.delay(1);
+  			addSequential(new AutoDriveTurnCommand(90));
   		}
   		else{
   			//do switch if on our side

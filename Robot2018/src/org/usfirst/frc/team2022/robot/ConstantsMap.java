@@ -8,7 +8,7 @@ public class ConstantsMap {
 	//Robot dimensions
 	public static final double ROBOT_LENGTH_INCHES = 36.5; 
 	public static final double ROBOT_WIDTH_INCHES = 0; 
-	public static final double ROBOT_WHEEL_RADIUS_INCHES = 4; 
+	public static final double ROBOT_WHEEL_RADIUS_INCHES = 6; 
 
 	//Grabber Speeds
 	public static final double OUTTER_GRABBER_SPEED = 0.3;
@@ -28,14 +28,14 @@ public class ConstantsMap {
 	
 
 	//PID Values
-		public static double KP_DRIVE_SPEED = 0.1;
+		public static double KP_DRIVE_SPEED = 1;
 		public static double KI_DRIVE_SPEED = 0;	
-		public static double KD_DRIVE_SPEED = .08;
+		public static double KD_DRIVE_SPEED = .00;
 		public static double KF_DRIVE_SPEED = 0;
-		public static double DRIVE_ERR_ABSTOLERANCE = .5;
+		public static double DRIVE_ERR_ABSTOLERANCE = .1;
 		public static double DRIVE_ERR_BUFTOLERANCE = 15;
-		public static double DRIVE_MIN_SPEED = -.5;
-		public static double DRIVE_MAX_SPEED = .5;
+		public static double DRIVE_MIN_SPEED = -.25;
+		public static double DRIVE_MAX_SPEED = .25;
 		
 		public static double KP_DRIVE_TURN = .03;
 		public static double KI_DRIVE_TURN = 0.0;//0.18;

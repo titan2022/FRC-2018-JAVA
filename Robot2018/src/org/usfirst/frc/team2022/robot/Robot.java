@@ -4,6 +4,11 @@ package org.usfirst.frc.team2022.robot;
 import org.usfirst.frc.team2022.commands.DriveCommand;
 import org.usfirst.frc.team2022.commands.ElevatorManualCommand;
 import org.usfirst.frc.team2022.commands.autonomous.groups.AutoCrossLineCommandGroup;
+import org.usfirst.frc.team2022.commands.autonomous.groups.CenterSwitchCommandGroup;
+import org.usfirst.frc.team2022.commands.autonomous.groups.LeftScaleCommandGroup;
+import org.usfirst.frc.team2022.commands.autonomous.groups.LeftSwitchCommandGroup;
+import org.usfirst.frc.team2022.commands.autonomous.groups.RightScaleCommandGroup;
+import org.usfirst.frc.team2022.commands.autonomous.groups.RightSwitchCommandGroup;
 import org.usfirst.frc.team2022.commands.GrabberCommand;
 import org.usfirst.frc.team2022.subsystems.DriveSubsystem;
 import org.usfirst.frc.team2022.subsystems.ElevatorSubsystem;
@@ -11,6 +16,7 @@ import org.usfirst.frc.team2022.subsystems.GrabberSubsystem;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -39,6 +45,7 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 	public XboxMap xboxMap = new XboxMap();
 	public Attack3Map attack3Map = new Attack3Map();
+	PowerDistributionPanel pdp;
 	
 	public double position;
 	
@@ -49,9 +56,9 @@ public class Robot extends IterativeRobot {
 	
 	//Initialization code ran when you turn on the robot
     public void robotInit() {    	
-
+    	pdp = new PowerDistributionPanel();
     	//Instantiate OI
-    	oi = new OI();
+    	oi = new OI(); 
     	System.out.println("Start");
     	//Instantiate Commands
     	driveCommand = new DriveCommand();
@@ -72,61 +79,51 @@ public class Robot extends IterativeRobot {
     	
     	SmartDashboard.putData("Auto Chooser",autoTypeChooser);
     	SmartDashboard.putData("Auto Type",actionTypeChooser);
-    
+    	//SmartDashboard.putData("PDP",pdp);
+    	//SmartDashboard.putData("Gyro", driveSubsystem.getGyro());
     }
     
     
     //This starts the methods for autonomous
     public void autonomousInit() {
-    	autoTypeChooser = new SendableChooser<String>();
-    	autoTypeChooser.addDefault("Left Position", "left"); 
-    	autoTypeChooser.addObject("Center Postion", "center"); 
-    	autoTypeChooser.addObject("Right Position", "right");
-    	String gameData;
+    	/*String gameData;
     	gameData = DriverStation.getInstance().getGameSpecificMessage();
-    	System.out.println("Auto");
-
-    	try{
+    	System.out.println("Selected: " + actionTypeChooser.getSelected());
+    	//System.out.println();
+    	if(actionTypeChooser.getSelected() == "switch") {
+			if(autoTypeChooser.getSelected() == "left"){
+				autonomousCommand = new LeftSwitchCommandGroup(gameData);
+			}
+			else if(autoTypeChooser.getSelected() == "right") {
+				autonomousCommand = new RightSwitchCommandGroup(gameData);
+			}
+			else {
+				autonomousCommand = new CenterSwitchCommandGroup(gameData);
+			}
+		}
+		else if(actionTypeChooser.getSelected() == "scale") {
+			if(autoTypeChooser.getSelected() == "left"){
+				autonomousCommand = new LeftScaleCommandGroup(gameData,false);
+			}
+			else if(autoTypeChooser.getSelected() == "right") {
+				autonomousCommand = new RightScaleCommandGroup(gameData,false);
+			}
+		}
+		else if(actionTypeChooser.getSelected() == "scale defer") {
+			if(autoTypeChooser.getSelected() == "left"){
+				autonomousCommand = new LeftScaleCommandGroup(gameData,true);
+			}
+			else if(autoTypeChooser.getSelected() == "right") {
+				autonomousCommand = new RightScaleCommandGroup(gameData,true);
+			}
+		}
+		else{
+			autonomousCommand = new AutoCrossLineCommandGroup();
+		}
+  	
+		autonomousCommand.start(); */
     	autonomousCommand = new AutoCrossLineCommandGroup();
-//	    	//Left
-//	    	if(autoTypeChooser.getSelected().equals("left")){
-//	    		if(gameData.charAt(0) == 'L'){
-//	    			// left switch
-//	    		}
-//	    		if(gameData.charAt(0) != 'L' && gameData.charAt(1) == 'L'){
-//	    			//left scale
-//	    		}
-//	    		if(gameData.charAt(0) != 'L' && gameData.charAt(1) != 'L'){
-//	    			//cross line
-//	    		}
-//	    	}
-//	    	//Center
-//	    	else if(autoTypeChooser.getSelected().equals("center")){
-//	    		if(gameData.charAt(0) == 'L'){
-//	    			//left switch
-//	    		}
-//	    		else{
-//	    			//right switch
-//	    		}
-//	    	}
-//	    	//Right
-//	    	else if(autoTypeChooser.getSelected().equals("right")){
-//	    		if(gameData.charAt(0) == 'R'){
-//	    			//right switch
-//	    		}
-//	    		if(gameData.charAt(0) != 'R' && gameData.charAt(1) == 'R'){
-//	    			//right scale
-//	    		}
-//	    		if(gameData.charAt(0) != 'R' && gameData.charAt(1) != 'R'){
-//	    			//cross line
-//	    		}
-//	    	}
-    	}
-    	catch(Exception ex){
-    		System.out.println(ex);
-    	}
-    	
-		autonomousCommand.start();
+    	autonomousCommand.start();
     }
     
     //This starts the methods for teleop and stops methods for autonomous

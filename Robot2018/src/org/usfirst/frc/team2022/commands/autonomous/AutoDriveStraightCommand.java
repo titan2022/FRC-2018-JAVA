@@ -27,7 +27,7 @@ public class AutoDriveStraightCommand extends Command{
 		
 		@Override
 		public void pidWrite(double output) {
-			driveSubsystem.setRightSpeed(output);
+			//driveSubsystem.setRightSpeed(output);
 			
 		}
 	};
@@ -36,12 +36,13 @@ public class AutoDriveStraightCommand extends Command{
 		@Override
 		public void pidWrite(double output) {
 			driveSubsystem.setLeftSpeed(output);
+			driveSubsystem.setRightSpeed(output);
 			
 		}
 	};
 	boolean limitSwitch = false;
 
-	
+		
 	public AutoDriveStraightCommand (double inchesToDrive){
 
 		requires(driveSubsystem);
@@ -54,22 +55,11 @@ public class AutoDriveStraightCommand extends Command{
 		
 		
 	}
-	
-	public AutoDriveStraightCommand(){
-    	requires(driveSubsystem);
-    	//ticksToDrive = fieldSize / ConstantsMap.DRIVE_ENCODER_DIST_PER_TICK;
-    	limitSwitch = true;
-    	
-    	
-    	//driveSubsystem.resetGyro();
-    	
-		
-    }
-	
+
 	// Called just before this Command runs the first time
     protected void initialize() {
    		driveSubsystem.enableBrake();
-		rpid = new PIDController(
+		/*rpid = new PIDController(
 				ConstantsMap.KP_DRIVE_SPEED,
 				ConstantsMap.KI_DRIVE_SPEED,
 				ConstantsMap.KD_DRIVE_SPEED,
@@ -80,10 +70,8 @@ public class AutoDriveStraightCommand extends Command{
 		rpid.setSetpoint(ticksToDrive);				
 		rpid.setAbsoluteTolerance(ConstantsMap.DRIVE_ERR_ABSTOLERANCE);
 
-		rpid.setOutputRange(ConstantsMap.DRIVE_MIN_SPEED,ConstantsMap.DRIVE_MAX_SPEED);
-		rpid.setPercentTolerance(ConstantsMap.DRIVE_ERR_ABSTOLERANCE);
-    	//Reset gyro to 0
-    	driveSubsystem.resetGyro();
+		rpid.setOutputRange(ConstantsMap.DRIVE_MIN_SPEED,ConstantsMap.DRIVE_MAX_SPEED);*/
+		
 		lpid = new PIDController(
 				ConstantsMap.KP_DRIVE_SPEED,
 				ConstantsMap.KI_DRIVE_SPEED,
@@ -99,18 +87,30 @@ public class AutoDriveStraightCommand extends Command{
 		//lpid.setPercentTolerance(ConstantsMap.DRIVE_ERR_BUFTOLERANCE);
     	driveSubsystem.resetEncoders();
     	
-    	rpid.enable();
-     	lpid.enable();
     	
+    	//Reset gyro to 0
+    	driveSubsystem.resetGyro();
+    	//rpid.enable();
+     	
+    	lpid.enable();
+    	
+    	/*if(rpid.isEnabled()) {
+    		System.out.println("Right PID Enabled");
+    	}*/
+    	if(lpid.isEnabled()) {
+    		System.out.println("Left PID Enabled");
+    	}
+    	SmartDashboard.putData("LPID",lpid);
+    	//SmartDashboard.putData("RPID",rpid);
     }
     
     protected void execute() {
     	//System.out.println("exec");
     	double lout = lpid.get();
-    	double rout = rpid.get();
-    	driveSubsystem.tankDrive(lout,rout);
+    	//double rout = rpid.get();
+    	driveSubsystem.tankDrive(lout,lout);
     	SmartDashboard.putNumber("Output Left",lout);
-    	SmartDashboard.putNumber("Output Right",rout);
+    	//SmartDashboard.putNumber("Output Right",rout);
     	displayData();
     }
 	
@@ -123,23 +123,22 @@ public class AutoDriveStraightCommand extends Command{
     	SmartDashboard.putNumber("Right Encoder Distance: ", driveSubsystem.getRightEncoderDistance());
     	SmartDashboard.putNumber("Right Encoder Rate: ", driveSubsystem.getRightEncoderRate());
     	SmartDashboard.putNumber("Error",lpid.getError());
-    	SmartDashboard.putData(lpid);
     	
 
- //   	SmartDashboard.putNumber("Gyro Angle: ", driveSubsystem.getGyroAngle());
+    	SmartDashboard.putNumber("Gyro Angle: ", driveSubsystem.getGyroAngle());
     }
     
 	// Make this return true when this Command no longer needs to run execute()
     public boolean isFinished() {
     	//System.out.println("Finished: " + lpid.onTarget());
-        return lpid.onTarget() && rpid.onTarget();
+        return lpid.onTarget(); //&& rpid.onTarget();
     }
 
     // Called once after isFinished returns true
     protected void end() {
     	System.out.println("I finished");
     	lpid.disable();
-    	rpid.disable();
+    //	rpid.disable();
     	driveSubsystem.stop();
     }
 
@@ -148,7 +147,7 @@ public class AutoDriveStraightCommand extends Command{
     protected void interrupted() {
     	System.out.println("autodrivestart interupt");
     	lpid.disable();
-    	rpid.disable();
+    	//rpid.disable();
     	end();
     }
 

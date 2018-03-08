@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
@@ -38,16 +39,16 @@ public class DriveSubsystem extends Subsystem {
 		right3 = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_PORT_3);
 		
 		//Invert Motors
-		left1.setInverted(true);
-		left2.setInverted(true);
-		left3.setInverted(true);
-		right1.setInverted(true);
-		right2.setInverted(true);
-		right3.setInverted(true);
+		left1.setInverted(false);
+		left2.setInverted(false);
+		left3.setInverted(false);
+		right1.setInverted(false);
+		right2.setInverted(false);
+		right3.setInverted(false);
 
 		//Instantiate Encoders
 		leftEncoder = new Encoder(RobotMap.LEFT_ENCODER_PORT_A, RobotMap.LEFT_ENCODER_PORT_B, false);
-		rightEncoder = new Encoder(RobotMap.RIGHT_ENCODER_PORT_A, RobotMap.RIGHT_ENCODER_PORT_B, false);
+		rightEncoder = new Encoder(RobotMap.RIGHT_ENCODER_PORT_A, RobotMap.RIGHT_ENCODER_PORT_B, true);
 		
 		//Instantiate Gyro | Gyro automatically calibrates when given power
         ahrs = new AHRS(SPI.Port.kMXP); 
@@ -58,7 +59,9 @@ public class DriveSubsystem extends Subsystem {
 //		//Set encoder distance per pulse
 		leftEncoder.setDistancePerPulse(ConstantsMap.DRIVE_ENCODER_DIST_PER_TICK);
 		rightEncoder.setDistancePerPulse(ConstantsMap.DRIVE_ENCODER_DIST_PER_TICK);
-		
+		SmartDashboard.putData(ahrs);
+		SmartDashboard.putData(leftEncoder);
+		SmartDashboard.putData(rightEncoder);
 		
 	}
 	

@@ -23,7 +23,13 @@ public class LeftScaleCommandGroup extends CommandGroup{
   			
   		}
   		else if(!defer) {
-  			System.out.println("Doing Opposite Switch");
+  			addSequential(new AutoDriveStraightCommand(200));
+  			Timer.delay(1);
+  			addSequential(new AutoDriveTurnCommand(90));
+  			Timer.delay(1);
+  			addSequential(new AutoDriveStraightCommand(60));
+  			Timer.delay(1);
+  			addSequential(new AutoDriveTurnCommand(-90));
   		}
   		else{
   			//do switch if on our side

@@ -29,8 +29,9 @@ public class LeftScaleCommandGroup extends CommandGroup{
   			addSequential(new AutoDriveTurnCommand(90));
   			Timer.delay(1);
   			addSequential(new AutoDriveStraightCommand(60));
-  			addSequential(new AutoDriveTurnCommand(-90));
   			Timer.delay(1);
+  			addSequential(new AutoDriveTurnCommand(-90));
+  	
   			
   		}
   		else{
