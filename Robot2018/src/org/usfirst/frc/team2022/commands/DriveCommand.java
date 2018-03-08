@@ -71,7 +71,7 @@ public class DriveCommand extends Command {
     	SmartDashboard.putNumber("Right Encoder Count: ", driveSubsystem.getRightEncoderCount());
     	SmartDashboard.putNumber("Right Encoder Distance: ", driveSubsystem.getRightEncoderDistance());
     	SmartDashboard.putNumber("Right Encoder Rate: ", driveSubsystem.getRightEncoderRate());
- //   	SmartDashboard.putNumber("Gyro Angle: ", driveSubsystem.getGyroAngle());
+    	SmartDashboard.putNumber("Gyro Angle: ", driveSubsystem.getGyroAngle());
     	SmartDashboard.putBoolean("AutoBrake", brakeState);
     }
     

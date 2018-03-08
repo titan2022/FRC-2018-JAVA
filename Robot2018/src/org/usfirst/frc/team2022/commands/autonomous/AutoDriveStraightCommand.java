@@ -3,7 +3,7 @@ package org.usfirst.frc.team2022.commands.autonomous;
 import org.usfirst.frc.team2022.robot.ConstantsMap;
 import org.usfirst.frc.team2022.robot.OI;
 import org.usfirst.frc.team2022.robot.Robot;
-import org.usfirst.frc.team2022.robot.subsystems.DriveSubsystem;
+import org.usfirst.frc.team2022.subsystems.DriveSubsystem;
 
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
@@ -27,7 +27,7 @@ public class AutoDriveStraightCommand extends Command{
 		
 		@Override
 		public void pidWrite(double output) {
-			//driveSubsystem.setRightSpeed(output);
+			driveSubsystem.setRightSpeed(output);
 			
 		}
 	};
@@ -36,7 +36,6 @@ public class AutoDriveStraightCommand extends Command{
 		@Override
 		public void pidWrite(double output) {
 			driveSubsystem.setLeftSpeed(output);
-			driveSubsystem.setRightSpeed(output);
 			
 		}
 	};
@@ -49,7 +48,7 @@ public class AutoDriveStraightCommand extends Command{
 		//this.ticksToDrive = inchesToDrive / ConstantsMap.DRIVE_ENCODER_DIST_PER_TICK;
 		ticksToDrive = inchesToDrive;
 		driveSubsystem.resetEncoders();
-		//driveSubsystem.resetGyro();
+		driveSubsystem.resetGyro();
 
 		
 		
@@ -70,7 +69,7 @@ public class AutoDriveStraightCommand extends Command{
 	// Called just before this Command runs the first time
     protected void initialize() {
    		driveSubsystem.enableBrake();
-		/*rpid = new PIDController(
+		rpid = new PIDController(
 				ConstantsMap.KP_DRIVE_SPEED,
 				ConstantsMap.KI_DRIVE_SPEED,
 				ConstantsMap.KD_DRIVE_SPEED,
@@ -82,9 +81,9 @@ public class AutoDriveStraightCommand extends Command{
 		rpid.setAbsoluteTolerance(ConstantsMap.DRIVE_ERR_ABSTOLERANCE);
 
 		rpid.setOutputRange(ConstantsMap.DRIVE_MIN_SPEED,ConstantsMap.DRIVE_MAX_SPEED);
-		rpid.setPercentTolerance(ConstantsMap.DRIVE_ERR_ABSTOLERANCE);*/
+		rpid.setPercentTolerance(ConstantsMap.DRIVE_ERR_ABSTOLERANCE);
     	//Reset gyro to 0
-    	//driveSubsystem.resetGyro();
+    	driveSubsystem.resetGyro();
 		lpid = new PIDController(
 				ConstantsMap.KP_DRIVE_SPEED,
 				ConstantsMap.KI_DRIVE_SPEED,
@@ -100,17 +99,18 @@ public class AutoDriveStraightCommand extends Command{
 		//lpid.setPercentTolerance(ConstantsMap.DRIVE_ERR_BUFTOLERANCE);
     	driveSubsystem.resetEncoders();
     	
-    	//rpid.enable();
-    	
-    	lpid.enable();
+    	rpid.enable();
+     	lpid.enable();
     	
     }
     
     protected void execute() {
     	//System.out.println("exec");
     	double lout = lpid.get();
-    	driveSubsystem.tankDrive(lout,lout);
-    	SmartDashboard.putNumber("OUtput",lout);
+    	double rout = rpid.get();
+    	driveSubsystem.tankDrive(lout,rout);
+    	SmartDashboard.putNumber("Output Left",lout);
+    	SmartDashboard.putNumber("Output Right",rout);
     	displayData();
     }
 	
@@ -132,14 +132,14 @@ public class AutoDriveStraightCommand extends Command{
 	// Make this return true when this Command no longer needs to run execute()
     public boolean isFinished() {
     	//System.out.println("Finished: " + lpid.onTarget());
-        return lpid.onTarget(); //rpid.onTarget();
+        return lpid.onTarget() && rpid.onTarget();
     }
 
     // Called once after isFinished returns true
     protected void end() {
     	System.out.println("I finished");
     	lpid.disable();
-    	//rpid.disable();
+    	rpid.disable();
     	driveSubsystem.stop();
     }
 

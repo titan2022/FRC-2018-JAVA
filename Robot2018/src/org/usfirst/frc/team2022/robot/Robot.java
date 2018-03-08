@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -44,6 +45,7 @@ public class Robot extends IterativeRobot {
 	//Autonomous
 	CommandGroup autonomousCommand = new CommandGroup();
 	SendableChooser<String> autoTypeChooser;
+	SendableChooser<String> actionTypeChooser;
 	
 	//Initialization code ran when you turn on the robot
     public void robotInit() {    	
@@ -56,6 +58,20 @@ public class Robot extends IterativeRobot {
     	grabberCommand = new GrabberCommand();
     	elevatorCommand = new ElevatorManualCommand();
     	
+    	autoTypeChooser = new SendableChooser<String>();
+    	autoTypeChooser.addDefault("Left Position", "left"); 
+     	autoTypeChooser.addObject("Center Postion", "center"); 
+    	autoTypeChooser.addObject("Right Position", "right");
+    	actionTypeChooser = new SendableChooser<String>();
+    	actionTypeChooser.addDefault("Switch", "switch");
+    	actionTypeChooser.addObject("Switch Defer Scale", " switch defer"); 
+    	actionTypeChooser.addObject("Scale", "scale");
+    	actionTypeChooser.addObject("Scale Defer ", "scale defer");    	
+    	actionTypeChooser.addObject("AutoLine", "line"); 
+    	actionTypeChooser.addObject("AutoLineWait", "waitline");
+    	
+    	SmartDashboard.putData("Auto Chooser",autoTypeChooser);
+    	SmartDashboard.putData("Auto Type",actionTypeChooser);
     
     }
     

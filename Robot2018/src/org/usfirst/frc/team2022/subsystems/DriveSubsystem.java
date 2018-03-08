@@ -6,6 +6,7 @@ import org.usfirst.frc.team2022.robot.RobotMap;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
 //import com.kauailabs.navx.frc.AHRS;
@@ -25,7 +26,7 @@ public class DriveSubsystem extends Subsystem {
 	private WPI_TalonSRX left1,left2,left3,right1,right2, right3;
 	private Encoder leftEncoder, rightEncoder;
 
-//	private AHRS ahrs;
+	private AHRS ahrs;
 
 	public DriveSubsystem() {
 		//Instantiate motors		
@@ -49,14 +50,16 @@ public class DriveSubsystem extends Subsystem {
 		rightEncoder = new Encoder(RobotMap.RIGHT_ENCODER_PORT_A, RobotMap.RIGHT_ENCODER_PORT_B, false);
 		
 		//Instantiate Gyro | Gyro automatically calibrates when given power
-//        ahrs = new AHRS(SPI.Port.kMXP); 
-//		if (!ahrs.isCalibrating()) {	
-//			stop();
-//		}
+        ahrs = new AHRS(SPI.Port.kMXP); 
+		if (!ahrs.isCalibrating()) {	
+			stop();
+		}
 
 //		//Set encoder distance per pulse
 		leftEncoder.setDistancePerPulse(ConstantsMap.DRIVE_ENCODER_DIST_PER_TICK);
 		rightEncoder.setDistancePerPulse(ConstantsMap.DRIVE_ENCODER_DIST_PER_TICK);
+		
+		
 	}
 	
     public void initDefaultCommand() {
@@ -146,17 +149,17 @@ public class DriveSubsystem extends Subsystem {
 		rightEncoder.reset();
 	}
 	
-//	public AHRS getGyro(){
-//		return ahrs;
-//	}
-//	
-//	public double getGyroAngle(){
-//		return ahrs.getAngle(); 
-//	}
-//
-//	public void resetGyro() {
-//		ahrs.reset();
-//	}
+	public AHRS getGyro(){
+		return ahrs;
+	}
+	
+	public double getGyroAngle(){
+		return ahrs.getAngle(); 
+	}
+
+	public void resetGyro() {
+		ahrs.reset();
+	}
 
 	public void stop() {
 		left1.set(0);
