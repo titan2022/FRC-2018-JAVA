@@ -48,10 +48,6 @@ public class AutoDriveStraightCommand extends Command{
 		requires(driveSubsystem);
 		//this.ticksToDrive = inchesToDrive / ConstantsMap.DRIVE_ENCODER_DIST_PER_TICK;
 		ticksToDrive = inchesToDrive;
-		driveSubsystem.resetEncoders();
-		driveSubsystem.resetGyro();
-
-		
 		
 		
 	}
@@ -100,7 +96,7 @@ public class AutoDriveStraightCommand extends Command{
     	if(lpid.isEnabled()) {
     		System.out.println("Left PID Enabled");
     	}
-    	SmartDashboard.putData("LPID",lpid);
+    	//SmartDashboard.putData("LPID",lpid);
     	//SmartDashboard.putData("RPID",rpid);
     }
     
@@ -110,8 +106,9 @@ public class AutoDriveStraightCommand extends Command{
     	//double rout = rpid.get();
     	driveSubsystem.tankDrive(lout,lout);
     	SmartDashboard.putNumber("Output Left",lout);
+    	SmartDashboard.putData("LPID",lpid);
     	//SmartDashboard.putNumber("Output Right",rout);
-    	displayData();
+    	//displayData();
     }
 	
     protected void displayData(){
@@ -124,7 +121,7 @@ public class AutoDriveStraightCommand extends Command{
     	SmartDashboard.putNumber("Right Encoder Rate: ", driveSubsystem.getRightEncoderRate());
     	SmartDashboard.putNumber("Error",lpid.getError());
     	
-
+    	SmartDashboard.putData("LPID",lpid);
     	SmartDashboard.putNumber("Gyro Angle: ", driveSubsystem.getGyroAngle());
     }
     
@@ -136,7 +133,7 @@ public class AutoDriveStraightCommand extends Command{
 
     // Called once after isFinished returns true
     protected void end() {
-    	System.out.println("I finished");
+    	System.out.println("AutoStraight finished");
     	lpid.disable();
     //	rpid.disable();
     	driveSubsystem.stop();

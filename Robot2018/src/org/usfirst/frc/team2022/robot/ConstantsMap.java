@@ -28,22 +28,22 @@ public class ConstantsMap {
 	
 
 	//PID Values
-		public static double KP_DRIVE_SPEED = 1;
+		public static double KP_DRIVE_SPEED = .05;
 		public static double KI_DRIVE_SPEED = 0;	
 		public static double KD_DRIVE_SPEED = .00;
 		public static double KF_DRIVE_SPEED = 0;
-		public static double DRIVE_ERR_ABSTOLERANCE = .1;
+		public static double DRIVE_ERR_ABSTOLERANCE = .08;
 		public static double DRIVE_ERR_BUFTOLERANCE = 15;
 		public static double DRIVE_MIN_SPEED = -.25;
 		public static double DRIVE_MAX_SPEED = .25;
 		
-		public static double KP_DRIVE_TURN = .03;
+		public static double KP_DRIVE_TURN = .5;
 		public static double KI_DRIVE_TURN = 0.0;//0.18;
 		public static double KD_DRIVE_TURN = 0;//0.23;
 		public static double KF_DRIVE_TURN = 0.0;
-		public static double TURN_ERR_TOLERANCE = 1;
-		public static double TURN_MIN_SPEED = -.3;
-		public static double TURN_MAX_SPEED = .3;
+		public static double TURN_ERR_TOLERANCE = .5;
+		public static double TURN_MIN_SPEED = -.2;
+		public static double TURN_MAX_SPEED = .2;
 		
 		public static double KP_ELEVATOR = 0.1;
 		public static double KI_ELEVATOR = 1.0;

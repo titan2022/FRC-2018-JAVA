@@ -9,7 +9,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
-//import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
 
 
@@ -20,10 +19,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
-@SuppressWarnings("unused")
 public class DriveSubsystem extends Subsystem {
-	private static final NeutralMode NeutralMode = null;
-	
+
 	private WPI_TalonSRX left1,left2,left3,right1,right2, right3;
 	private Encoder leftEncoder, rightEncoder;
 

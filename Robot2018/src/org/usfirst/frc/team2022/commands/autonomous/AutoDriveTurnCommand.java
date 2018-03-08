@@ -55,7 +55,7 @@ public class AutoDriveTurnCommand extends Command{
 		//lpid.setPercentTolerance(ConstantsMap.DRIVE_ERR_BUFTOLERANCE);
     	driveSubsystem.resetEncoders();
     	//rpid.enable();
-    	SmartDashboard.putData(rotatePid);
+    	SmartDashboard.putData("Rotate PID",rotatePid);
     	
     	
 
@@ -78,7 +78,6 @@ public class AutoDriveTurnCommand extends Command{
     	double speed = rotatePid.get();
 //    	double newSpeed = 0.2;
     		driveSubsystem.tankDrive(speed,-speed);		
-    		SmartDashboard.putNumber("Gyro Angle" , driveSubsystem.getGyroAngle());
     }
 	
 	// Make this return true when this Command no longer needs to run execute()

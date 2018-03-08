@@ -13,7 +13,7 @@ public class LeftSwitchCommandGroup extends CommandGroup{
   		if(side.charAt(0) == 'L'){
   			//only goes forward turns then directly to plate 
   			//168 is distance from back to middle of switch
-  			addSequential(new AutoDriveStraightCommand(168));
+  			addSequential(new AutoDriveStraightCommand(150));
   			Timer.delay(1);
   			addSequential(new AutoDriveTurnCommand(90));
   			Timer.delay(1);

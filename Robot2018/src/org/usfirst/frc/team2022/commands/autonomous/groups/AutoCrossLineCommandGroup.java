@@ -10,6 +10,6 @@ public class AutoCrossLineCommandGroup extends CommandGroup{
 
 	public AutoCrossLineCommandGroup(){
 		System.out.println("AutoLineTest");
-		addSequential(new AutoDriveStraightCommand(60));
+		addSequential(new AutoDriveTurnCommand(90));
 	}
 }

@@ -56,11 +56,11 @@ public class Robot extends IterativeRobot {
 	
 	//Initialization code ran when you turn on the robot
     public void robotInit() {    	
-    	pdp = new PowerDistributionPanel();
+    	//pdp = new PowerDistributionPanel();
     	//Instantiate OI
     	oi = new OI(); 
     	System.out.println("Start");
-    	//Instantiate Commands
+    	//Instantiate Commands	
     	driveCommand = new DriveCommand();
     	grabberCommand = new GrabberCommand();
     	elevatorCommand = new ElevatorManualCommand();
@@ -80,13 +80,16 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putData("Auto Chooser",autoTypeChooser);
     	SmartDashboard.putData("Auto Type",actionTypeChooser);
     	//SmartDashboard.putData("PDP",pdp);
-    	//SmartDashboard.putData("Gyro", driveSubsystem.getGyro());
+    	SmartDashboard.putData("Gyro", driveSubsystem.getGyro());
+    	SmartDashboard.putData("Left Encoder",driveSubsystem.getLeftEncoder());
+    	SmartDashboard.putData("Right Encoder",driveSubsystem.getRightEncoder());
+    	SmartDashboard.putData("autocommand", autonomousCommand);
     }
     
     
     //This starts the methods for autonomous
     public void autonomousInit() {
-    	/*String gameData;
+    	String gameData;
     	gameData = DriverStation.getInstance().getGameSpecificMessage();
     	System.out.println("Selected: " + actionTypeChooser.getSelected());
     	//System.out.println();
@@ -120,10 +123,10 @@ public class Robot extends IterativeRobot {
 		else{
 			autonomousCommand = new AutoCrossLineCommandGroup();
 		}
-  	
-		autonomousCommand.start(); */
-    	autonomousCommand = new AutoCrossLineCommandGroup();
-    	autonomousCommand.start();
+    	SmartDashboard.putData("autocommand", autonomousCommand);
+		autonomousCommand.start(); 
+    	//autonomousCommand = new AutoCrossLineCommandGroup();
+    	//.start();
     }
     
     //This starts the methods for teleop and stops methods for autonomous
