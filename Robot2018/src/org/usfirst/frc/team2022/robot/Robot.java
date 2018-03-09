@@ -85,6 +85,7 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putData("Left Encoder",driveSubsystem.getLeftEncoder());
     	SmartDashboard.putData("Right Encoder",driveSubsystem.getRightEncoder());
     	SmartDashboard.putData("autocommand", autonomousCommand);
+    	SmartDashboard.putData("Elevator", driveSubsystem);
     }
     
     
@@ -140,6 +141,7 @@ public class Robot extends IterativeRobot {
     
     //This stops the methods for autonomous
 	public void disabledInit() {
+		autonomousCommand.cancel();
 		driveCommand.cancel();
 		grabberCommand.cancel();
 		elevatorCommand.cancel();

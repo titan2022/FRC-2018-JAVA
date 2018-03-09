@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
 public class ElevatorSubsystem extends PIDSubsystem {
 	public int extensionLimit;
-	private static final NeutralMode NeutralMode = null;
 	private WPI_TalonSRX elevatorMotor;
 	private Counter counter;
 	private DigitalInput limitSwitch;
@@ -30,7 +29,7 @@ public class ElevatorSubsystem extends PIDSubsystem {
 		
 		limitSwitch = new DigitalInput(RobotMap.ELEVATOR_SWITCH);
 		counter = new Counter(limitSwitch);		
-	   
+		
 	}
 	
 	public boolean isSwitchSet() {

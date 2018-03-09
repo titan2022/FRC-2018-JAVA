@@ -11,8 +11,7 @@ public class ConstantsMap {
 	public static final double ROBOT_WHEEL_RADIUS_INCHES = 6; 
 	public static final double FrontElevatorTravel = 45;
 	//Grabber Speeds
-	public static final double OUTTER_GRABBER_SPEED = 0.3;
-	public static final double INNER_GRABBER_SPEED = 0.3;
+	public static final double AutoGrabSpeed = 1;
 	
 	//Drive encoders
 	public static final double DRIVE_ENCODER_DIST_PER_TICK = ((ROBOT_WHEEL_RADIUS_INCHES * Math.PI)/(128));
@@ -27,37 +26,38 @@ public class ConstantsMap {
 	public static final double BACKELEVATOR_ENCODER_DIST_PER_TICK = ((BACKWHEEL_RADIUS_INCHES * Math.PI)/(128));
 	
 	public static final double ElevatorManualSpeed = 2;
+	
 
 	//PID Values
-		public static double KP_DRIVE_SPEED = .008;
-		public static double KI_DRIVE_SPEED = 0;	
-		public static double KD_DRIVE_SPEED = .00;
-		public static double KF_DRIVE_SPEED = 0;
-		public static double DRIVE_ERR_ABSTOLERANCE = .1;
-		public static double DRIVE_ERR_BUFTOLERANCE = 15;
-		public static double DRIVE_MIN_SPEED = -4;
-		public static double DRIVE_MAX_SPEED = .4;
-		
-		public static double KP_DRIVESTRAIGHT_TURN = .5;
-		public static double KI_DRIVESTRAIGHT_TURN = 0;//0.18;
-		public static double KD_DRIVESTRAIGHT_TURN = 0;//0.23;
-		public static double KF_DRIVESTRAIGHT_TURN = 0.0;
-		
-		public static double KP_DRIVE_TURN = .007;
-		public static double KI_DRIVE_TURN =0;//0.18;
-		public static double KD_DRIVE_TURN = 0;//0.23;
-		public static double KF_DRIVE_TURN = 0.0;
-		public static double TURN_ERR_TOLERANCE = .07;
-		public static double TURN_MIN_SPEED = -.3;
-		public static double TURN_MAX_SPEED = .3;
-		
-		public static double KP_ELEVATOR = 0.1;
-		public static double KI_ELEVATOR = 1.0;
-		public static double KD_ELEVATOR = 0.1;
-		public static double KF_ELEVATOR = 0;
-		public static double ELEVATOR_ERR_TOLERANCE = 0.1;
-		public static double ELEVATOR_MAX_SPEED = 6;
+	public static double KP_DRIVE_SPEED = .008;
+	public static double KI_DRIVE_SPEED = 0;	
+	public static double KD_DRIVE_SPEED = .00;
+	public static double KF_DRIVE_SPEED = 0;
+	public static double DRIVE_ERR_ABSTOLERANCE = .1;
+	public static double DRIVE_ERR_BUFTOLERANCE = 15;
+	public static double DRIVE_MIN_SPEED = -4;
+	public static double DRIVE_MAX_SPEED = .4;
 	
+	public static double KP_DRIVESTRAIGHT_TURN = .5;
+	public static double KI_DRIVESTRAIGHT_TURN = 0;//0.18;
+	public static double KD_DRIVESTRAIGHT_TURN = 0;//0.23;
+	public static double KF_DRIVESTRAIGHT_TURN = 0.0;
+	
+	public static double KP_DRIVE_TURN = .007;
+	public static double KI_DRIVE_TURN =0;//0.18;
+	public static double KD_DRIVE_TURN = 0;//0.23;
+	public static double KF_DRIVE_TURN = 0.0;
+	public static double TURN_ERR_TOLERANCE = .07;
+	public static double TURN_MIN_SPEED = -.3;
+	public static double TURN_MAX_SPEED = .3;
+	
+	public static double KP_ELEVATOR = 0.1;
+	public static double KI_ELEVATOR = 1.0;
+	public static double KD_ELEVATOR = 0.1;
+	public static double KF_ELEVATOR = 0;
+	public static double ELEVATOR_ERR_TOLERANCE = 0.1;
+	public static double ELEVATOR_MAX_SPEED = 6;
+
 	//Dimensions
 	public static double BASE_WIDTH = 27.75;
 	public static double BASE_LENGTH = 32.75;

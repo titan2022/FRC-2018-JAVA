@@ -29,7 +29,7 @@ public class RobotMap {
 	
 	//Limit switch ports
 	public static final int BOX_SWITCH = 0;
-	public static final int ELEVATOR_SWITCH = 0;
+	public static final int ELEVATOR_SWITCH = 1;
 	
 	//Encoder ports for drive base (looking at it from the back)
 	public static final int LEFT_ENCODER_PORT_A = 0;

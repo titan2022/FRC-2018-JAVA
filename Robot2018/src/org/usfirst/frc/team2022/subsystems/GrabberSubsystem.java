@@ -5,12 +5,17 @@ import org.usfirst.frc.team2022.robot.RobotMap;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
+import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class GrabberSubsystem extends Subsystem {
-	private static final NeutralMode NeutralMode = null;
+	
 	private WPI_TalonSRX leftMotor, rightMotor;
+	
+	private Counter counter;
+	private DigitalInput boxSwitch;
 	
 	public GrabberSubsystem(int port1, int port2) {
 		//Instantiate motors		
@@ -18,18 +23,26 @@ public class GrabberSubsystem extends Subsystem {
 		rightMotor = new WPI_TalonSRX(port2);	
 		
 		leftMotor.setInverted(true);
-		rightMotor.setInverted(true);
+		rightMotor.setInverted(false);
 		
-//		boxSwitch = new DigitalInput(RobotMap.BOX_SWITCH);
+		boxSwitch = new DigitalInput(RobotMap.BOX_SWITCH);
+
+		counter = new Counter(boxSwitch);		
 	}
 	
     public void initDefaultCommand() {
     	setDefaultCommand(new GrabberCommand());
     }
+    public boolean isSwitchSet() {
+		return counter.get() > 0;
+	}
 
+    public void initializeCounter() {
+        counter.reset();
+    }
 	public void setMotorSpeed(double speed){
 		leftMotor.set(speed);
-		rightMotor.set(-speed);
+		rightMotor.set(speed);
 	}
 	
 	public void stopMotors(){
@@ -39,10 +52,6 @@ public class GrabberSubsystem extends Subsystem {
 	public void stop(){
 		stopMotors();
 	}
-	
-//	public boolean getBoxSwitch(){
-//	   return boxSwitch.get();
-//	}
 	 
 	 public void enableBrake(){
 		leftMotor.setNeutralMode(NeutralMode.Brake);
