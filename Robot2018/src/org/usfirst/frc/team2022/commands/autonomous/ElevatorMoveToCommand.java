@@ -15,12 +15,12 @@ public class ElevatorMoveToCommand extends Command {
 	int location;
 
 	
-    public ElevatorMoveToCommand(boolean useFront, int location) {
+    public ElevatorMoveToCommand(int location) {
 //    	if (useFront) elevator = Robot.frontElevatorSubsystem;
 //    	else elevator = Robot.backElevatorSubsystem;
     	
         requires(elevator);
-        this.location = location;
+        this.location = location/2;
         elevator.setSetpoint(location);
         elevator.setAbsoluteTolerance(ConstantsMap.ELEVATOR_ERR_TOLERANCE);
        

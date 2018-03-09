@@ -3,6 +3,8 @@ package org.usfirst.frc.team2022.commands.autonomous.groups;
 import org.usfirst.frc.team2022.commands.autonomous.AutoDelayCommand;
 import org.usfirst.frc.team2022.commands.autonomous.AutoDriveStraightCommand;
 import org.usfirst.frc.team2022.commands.autonomous.AutoDriveTurnCommand;
+import org.usfirst.frc.team2022.commands.autonomous.AutoGrabberCommand;
+import org.usfirst.frc.team2022.commands.autonomous.ElevatorMoveToCommand;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -22,6 +24,8 @@ public class LeftSwitchCommandGroup extends CommandGroup{
   			addSequential(new AutoDelayCommand(1000));
   			//this value will change based off starting pos of robot
   			addSequential(new AutoDriveStraightCommand(12));
+  			addParallel(new ElevatorMoveToCommand(36));
+	  		addSequential(new AutoGrabberCommand());;
   			
   		}
   		else{
@@ -33,6 +37,8 @@ public class LeftSwitchCommandGroup extends CommandGroup{
   			addSequential(new AutoDelayCommand(1000));
   			//this value will change based off starting pos of robot
   			addSequential(new AutoDriveStraightCommand(153));
+  			addParallel(new ElevatorMoveToCommand(36));
+	  			addSequential(new AutoGrabberCommand());;
   		}
   		long end = System.currentTimeMillis();
   		System.out.println("Time" + (end-start));
