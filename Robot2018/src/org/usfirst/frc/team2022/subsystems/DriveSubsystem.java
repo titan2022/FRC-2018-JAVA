@@ -45,14 +45,12 @@ public class DriveSubsystem extends Subsystem {
 
 		//Instantiate Encoders
 		leftEncoder = new Encoder(RobotMap.LEFT_ENCODER_PORT_A, RobotMap.LEFT_ENCODER_PORT_B, false);
-		rightEncoder = new Encoder(RobotMap.RIGHT_ENCODER_PORT_A, RobotMap.RIGHT_ENCODER_PORT_B, true);
+		rightEncoder = new Encoder(RobotMap.RIGHT_ENCODER_PORT_A, RobotMap.RIGHT_ENCODER_PORT_B,true);
 		
 		//Instantiate Gyro | Gyro automatically calibrates when given power
-        ahrs = new AHRS(SPI.Port.kMXP); 
-		if (!ahrs.isCalibrating()) {	
-			stop();
-		}
-
+        ahrs = new AHRS(SPI.Port.kMXP);
+		stop();
+		
 //		//Set encoder distance per pulse
 		leftEncoder.setDistancePerPulse(ConstantsMap.DRIVE_ENCODER_DIST_PER_TICK);
 		rightEncoder.setDistancePerPulse(ConstantsMap.DRIVE_ENCODER_DIST_PER_TICK);
@@ -64,7 +62,7 @@ public class DriveSubsystem extends Subsystem {
 	
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-    	setDefaultCommand(new DriveCommand());
+    	//setDefaultCommand(new DriveCommand());
     }
    
 	public void setLeftSpeed(double speed) {
@@ -121,7 +119,7 @@ public class DriveSubsystem extends Subsystem {
 	
 	//Get Encoder Distances
 	public double getRightEncoderDistance(){
-		return rightEncoder.getDistance() * -1;
+		return rightEncoder.getDistance();
 	}	
 	public double getLeftEncoderDistance(){
 		return leftEncoder.getDistance();

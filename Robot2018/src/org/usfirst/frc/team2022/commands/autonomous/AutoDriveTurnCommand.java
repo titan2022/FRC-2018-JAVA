@@ -27,6 +27,7 @@ public class AutoDriveTurnCommand extends Command{
 		
 		@Override
 		public void pidWrite(double output) {
+			SmartDashboard.putNumber("Output",output);
 			//driveSubsystem.setRightSpeed(output);
 			
 		}
@@ -37,7 +38,8 @@ public class AutoDriveTurnCommand extends Command{
         // eg. requires(chassis);
     	requires(driveSubsystem);
     	this.degreeToTurn = degreeToTurn;
- 
+    	
+    	
     	
     	rotatePid = new PIDController(
 				ConstantsMap.KP_DRIVE_TURN,
@@ -52,10 +54,7 @@ public class AutoDriveTurnCommand extends Command{
 		
 
 		rotatePid.setOutputRange(ConstantsMap.TURN_MIN_SPEED,ConstantsMap.TURN_MAX_SPEED);
-		//lpid.setPercentTolerance(ConstantsMap.DRIVE_ERR_BUFTOLERANCE);
-    	driveSubsystem.resetEncoders();
-    	//rpid.enable();
-    	SmartDashboard.putData("Rotate PID",rotatePid);
+
     	
     	
 
@@ -71,13 +70,14 @@ public class AutoDriveTurnCommand extends Command{
     	driveSubsystem.resetGyro();
     	driveSubsystem.resetEncoders();
     	rotatePid.enable();
+    	SmartDashboard.putData("Rotate Turn PID",rotatePid);
     }
     
     protected void execute() {
     	
     	double speed = rotatePid.get();
 //    	double newSpeed = 0.2;
-    		driveSubsystem.tankDrive(speed,-speed);		
+    	driveSubsystem.tankDrive(speed,-speed);		
     }
 	
 	// Make this return true when this Command no longer needs to run execute()
@@ -87,6 +87,7 @@ public class AutoDriveTurnCommand extends Command{
 
     // Called once after isFinished returns true
     protected void end() {
+    	System.out.println("Finished Auto Turn");
     	rotatePid.disable();
     	driveSubsystem.stop();
     }

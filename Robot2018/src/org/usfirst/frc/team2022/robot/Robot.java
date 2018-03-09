@@ -16,6 +16,7 @@ import org.usfirst.frc.team2022.subsystems.GrabberSubsystem;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -131,6 +132,7 @@ public class Robot extends IterativeRobot {
     
     //This starts the methods for teleop and stops methods for autonomous
 	public void teleopInit() {
+		autonomousCommand.cancel();
     	driveCommand.start();
     	grabberCommand.start();
     	elevatorCommand.start();
@@ -155,6 +157,7 @@ public class Robot extends IterativeRobot {
 	public void robotPeriodic() {
 		// TODO Auto-generated method stub
     	Scheduler.getInstance().run();
+//    	SmartDashboard.putNumber("Heading", driveSubsystem.getGyro().getAngle());
 	}
     
     /**

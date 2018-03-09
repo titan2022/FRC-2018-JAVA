@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2022.commands;
 
+import org.usfirst.frc.team2022.robot.ConstantsMap;
 import org.usfirst.frc.team2022.robot.OI;
 import org.usfirst.frc.team2022.robot.Robot;
 import org.usfirst.frc.team2022.robot.XboxMap;
@@ -18,21 +19,42 @@ public class ElevatorManualCommand extends Command {
 	
 	boolean brakeState = true;
 	long lastPressed = 0;
-	
+	double position;
     public ElevatorManualCommand() {
         requires(elevatorSubsystem);
+        elevatorSubsystem.setOutputRange(-ConstantsMap.ELEVATOR_MAX_SPEED, ConstantsMap.ELEVATOR_MAX_SPEED);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	elevatorSubsystem.setSetpoint(elevatorSubsystem.getEncoderDistance());
+    	elevatorSubsystem.enable();
+    	position = elevatorSubsystem.getEncoderDistance();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double speed = xboxMap.controlFrontElevator();
-    	displayData();
-    	elevatorSubsystem.setElevatorSpeed(speed);
-    	
+    	double displacement = xboxMap.controlFrontElevator();
+    	displacement *= ConstantsMap.ElevatorManualSpeed;
+    	position += displacement;
+    	if(position <= 0) {
+    		position = 0;
+    	}
+    	if(position >= ConstantsMap.FrontElevatorTravel) {
+    		position = ConstantsMap.FrontElevatorTravel;
+    	}
+    	if(elevatorSubsystem.isSwitchSet()) {
+    		elevatorSubsystem.stop();
+    		elevatorSubsystem.resetEncoderPosition();
+    		position = 0;
+    	}
+    	else if(elevatorSubsystem.getEncoderDistance() > ConstantsMap.FrontElevatorTravel) {
+    		elevatorSubsystem.stop();
+    	}
+    	else {	    	
+
+	    	elevatorSubsystem.setSetpoint(position);
+    	}
     	//Auto Brake Mode
     	if(xboxMap.startAutoElevatorBrakerSystem() && (System.currentTimeMillis() - lastPressed) > 200){  
     		brakeState = !brakeState;
@@ -48,21 +70,11 @@ public class ElevatorManualCommand extends Command {
     	if(xboxMap.stopSystem()){
     		end();
     	}
-    	SmartDashboard.putNumber("Encoder Distance: ", elevatorSubsystem.getEncoderDistance());
-    	SmartDashboard.putNumber("Encoder Velocity: ", elevatorSubsystem.getEncoderVelocity());
-    	SmartDashboard.putBoolean("Elevator Auto Brake: ", brakeState);
-    	SmartDashboard.putNumber("Elevator Speed: ", speed);
+    	
     	
     	
     }
     
-    protected void displayData(){
-    	SmartDashboard.putNumber("Encoder Distance: ", elevatorSubsystem.getEncoderDistance());
-    	SmartDashboard.putNumber("Encoder Velocity: ", elevatorSubsystem.getEncoderVelocity());
-    	SmartDashboard.putBoolean("Elevator Auto Brake: ", brakeState);
-    	//SmartDashboard.putNumber("Elevator Speed: ", elevatorSubsystem.getSpeed());
-    }
-
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         return false;
@@ -70,12 +82,14 @@ public class ElevatorManualCommand extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	elevatorSubsystem.disable();
     	elevatorSubsystem.stop();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	elevatorSubsystem.disable();
     	elevatorSubsystem.stop();
     }
 }

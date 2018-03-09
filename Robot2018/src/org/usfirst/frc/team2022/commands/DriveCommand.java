@@ -29,17 +29,20 @@ public class DriveCommand extends Command {
     protected void initialize() {
     	System.out.println("Drive Comand init");
     	driveSubsystem.resetEncoders();
+    	driveSubsystem.resetGyro();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {   
     	//Normal Driving
     	double speedLeft = attack3Map.getSpeedLeftWheel();   
+    	speedLeft *= -1;
     	if(Math.abs(speedLeft) < 0.1){
     		speedLeft = 0;
     	}
     	
     	double speedRight = attack3Map.getSpeedRightWheel();
+    	speedRight *= -1;
     	if(Math.abs(speedRight) < 0.1){
     		speedRight = 0; 
     	}

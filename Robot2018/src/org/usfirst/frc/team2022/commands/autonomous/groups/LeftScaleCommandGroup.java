@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2022.commands.autonomous.groups;
 
+import org.usfirst.frc.team2022.commands.autonomous.AutoDelayCommand;
 import org.usfirst.frc.team2022.commands.autonomous.AutoDriveStraightCommand;
 import org.usfirst.frc.team2022.commands.autonomous.AutoDriveTurnCommand;
 
@@ -14,9 +15,9 @@ public class LeftScaleCommandGroup extends CommandGroup{
   			//only goes forward turns then directly to plate 
   			//319 is distance from back to middle of scale
   			addSequential(new AutoDriveStraightCommand(319));
-  			Timer.delay(1);
+  			addSequential(new AutoDelayCommand(1000));
   			addSequential(new AutoDriveTurnCommand(90));
-  			Timer.delay(1);
+  			addSequential(new AutoDelayCommand(1000));
   			addSequential(new AutoDriveStraightCommand(12));
   			//this value will change based off starting pos of robot
   			
@@ -24,18 +25,20 @@ public class LeftScaleCommandGroup extends CommandGroup{
   		}
   		else if(!defer) {
   			addSequential(new AutoDriveStraightCommand(200));
-  			Timer.delay(1);
+  			addSequential(new AutoDelayCommand(1000));
   			addSequential(new AutoDriveTurnCommand(90));
-  			Timer.delay(1);
+  			addSequential(new AutoDelayCommand(1000));
   			addSequential(new AutoDriveStraightCommand(60));
-  			Timer.delay(1);
+  			addSequential(new AutoDelayCommand(1000));
   			addSequential(new AutoDriveTurnCommand(-90));
   		}
   		else{
   			//do switch if on our side
   			if(side.charAt(0) == 'L') {
   				addSequential(new AutoDriveStraightCommand(110));
+  				addSequential(new AutoDelayCommand(1000));
   				addSequential(new AutoDriveTurnCommand(90));
+  				addSequential(new AutoDelayCommand(1000));
   				addSequential(new AutoDriveTurnCommand(12));
 
   			}
