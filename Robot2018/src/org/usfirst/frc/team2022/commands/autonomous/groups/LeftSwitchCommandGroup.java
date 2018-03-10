@@ -20,17 +20,20 @@ public class LeftSwitchCommandGroup extends CommandGroup{
   			
   			addSequential(new AutoDriveStraightCommand(150));
   			addSequential(new AutoDelayCommand(1000));
+  			addParallel(new ElevatorMoveToCommand(12),1000);
   			addSequential(new AutoDriveTurnCommand(90));
+  			
   			addSequential(new AutoDelayCommand(1000));
   			//this value will change based off starting pos of robot
-  			addSequential(new AutoDriveStraightCommand(12));
-  			addParallel(new ElevatorMoveToCommand(36));
+  			
+  			addSequential(new AutoDriveStraightCommand(20),2000);
 	  		addSequential(new AutoGrabberCommand());;
   			
   		}
   		else{
+  			addSequential(new AutoDriveStraightCommand(120));
   			//168 is distance from back to middle of switch
-  			//
+  			/*//
   			addSequential(new AutoDriveStraightCommand(48));
   			addSequential(new AutoDelayCommand(1000));
   			addSequential(new AutoDriveTurnCommand(90));
@@ -38,7 +41,7 @@ public class LeftSwitchCommandGroup extends CommandGroup{
   			//this value will change based off starting pos of robot
   			addSequential(new AutoDriveStraightCommand(153));
   			addParallel(new ElevatorMoveToCommand(36));
-	  			addSequential(new AutoGrabberCommand());;
+	  		addSequential(new AutoGrabberCommand());;*/
   		}
   		long end = System.currentTimeMillis();
   		System.out.println("Time" + (end-start));

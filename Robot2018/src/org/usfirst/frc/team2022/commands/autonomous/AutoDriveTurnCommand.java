@@ -15,8 +15,6 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class AutoDriveTurnCommand extends Command{
-	private boolean finished = false;
-	private double degreeToTurn; //True: 90, false: -90
 	double outputSpeed = 0;
 	int degreeNum;
 
@@ -37,10 +35,6 @@ public class AutoDriveTurnCommand extends Command{
 		// Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(driveSubsystem);
-    	this.degreeToTurn = degreeToTurn;
-    	
-    	
-    	
     	rotatePid = new PIDController(
 				ConstantsMap.KP_DRIVE_TURN,
 				ConstantsMap.KI_DRIVE_TURN,

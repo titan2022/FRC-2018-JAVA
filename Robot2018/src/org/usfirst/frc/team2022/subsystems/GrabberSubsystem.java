@@ -27,7 +27,8 @@ public class GrabberSubsystem extends Subsystem {
 		
 		boxSwitch = new DigitalInput(RobotMap.BOX_SWITCH);
 
-		counter = new Counter(boxSwitch);		
+		counter = new Counter(boxSwitch);
+		enableBrake();
 	}
 	
     public void initDefaultCommand() {

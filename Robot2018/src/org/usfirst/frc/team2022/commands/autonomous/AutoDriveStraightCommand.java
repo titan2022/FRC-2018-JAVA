@@ -142,8 +142,9 @@ public class AutoDriveStraightCommand extends Command{
     
 	// Make this return true when this Command no longer needs to run execute()
     public boolean isFinished() {
+    	
     	//System.out.println("Finished: " + lpid.onTarget());
-        return lpid.onTarget() && rpid.onTarget() && rotatePid.onTarget();
+        return lpid.onTarget() && rpid.onTarget();
     }
 
     // Called once after isFinished returns true

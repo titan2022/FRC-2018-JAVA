@@ -19,4 +19,8 @@ public class Attack3Map {
 	public boolean controlDriverGear() {
 		return oi.attack3_L.get2Value();
 	}
+	public boolean turtleButton (){
+		
+		return oi.attack3_L.get3Value();
+	}
 }

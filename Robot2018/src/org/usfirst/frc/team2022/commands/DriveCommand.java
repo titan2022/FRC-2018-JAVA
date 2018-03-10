@@ -17,7 +17,7 @@ public class DriveCommand extends Command {
 	XboxMap xboxMap = new XboxMap();
 	Attack3Map attack3Map = new Attack3Map();
 	OI oi = Robot.oi;
-		
+	boolean turtlemode = false;	
 	boolean brakeState = false;
 	long lastPressed = 0;
 	
@@ -35,6 +35,9 @@ public class DriveCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {   
     	//Normal Driving
+    	if(attack3Map.turtleButton()) {
+    		turtlemode = !turtlemode;
+    	}
     	double speedLeft = attack3Map.getSpeedLeftWheel();   
     	speedLeft *= -1;
     	if(Math.abs(speedLeft) < 0.1){
@@ -46,7 +49,10 @@ public class DriveCommand extends Command {
     	if(Math.abs(speedRight) < 0.1){
     		speedRight = 0; 
     	}
-    	
+    	if(turtlemode) {
+    		speedLeft *= ConstantsMap.TurtleSpeed;
+    		speedRight *= ConstantsMap.TurtleSpeed;
+    	}
     	driveSubsystem.setLeftSpeed(speedLeft);
     	driveSubsystem.setRightSpeed(speedRight);
 

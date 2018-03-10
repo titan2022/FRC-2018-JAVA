@@ -21,8 +21,9 @@ public class AutoGrabberCommand extends Command{
     }
     
     protected void initialize() {
-    	grabberSubsystem.setMotorSpeed(ConstantsMap.AutoGrabSpeed);
+    	grabberSubsystem.setMotorSpeed(-ConstantsMap.AutoGrabSpeed);
     	Timer.delay(1);
+    	grabberSubsystem.stop();
     	finished = true;
     }
 

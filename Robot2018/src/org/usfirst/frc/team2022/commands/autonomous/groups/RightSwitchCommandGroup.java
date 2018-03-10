@@ -15,27 +15,28 @@ public class RightSwitchCommandGroup extends CommandGroup{
 		if(side.charAt(0) == 'L'){
   			//only goes forward turns then directly to plate 
   			//168 is distance from back to middle of switch
-  			
-  			addSequential(new AutoDriveStraightCommand(120));
+			addSequential(new AutoDriveStraightCommand(120));
+  			/*addSequential(new AutoDriveStraightCommand(150));
   			addSequential(new AutoDelayCommand(1000));
   			addSequential(new AutoDriveTurnCommand(-90));
   			addSequential(new AutoDelayCommand(1000));
   			//this value will change based off starting pos of robot
   			addSequential(new AutoDriveStraightCommand(12));
   			addParallel(new ElevatorMoveToCommand(36));
-	  		addSequential(new AutoGrabberCommand());;
+	  		addSequential(new AutoGrabberCommand());;*/
   			
   		}
   		else{
   			//168 is distance from back to middle of switch
   			//
-  			addSequential(new AutoDriveStraightCommand(120));
+  			addSequential(new AutoDriveStraightCommand(150));
   			addSequential(new AutoDelayCommand(1000));
-  			addSequential(new AutoDriveTurnCommand(-90));
+  			addParallel(new ElevatorMoveToCommand(12),1000);
+  			addSequential(new AutoDriveTurnCommand(-90));  			
   			addSequential(new AutoDelayCommand(1000));
   			//this value will change based off starting pos of robot
-  			addSequential(new AutoDriveStraightCommand(12));
-  			addParallel(new ElevatorMoveToCommand(36));
+  			
+  			addSequential(new AutoDriveStraightCommand(20),2000);  			
 	  		addSequential(new AutoGrabberCommand());;
   		}
 	}

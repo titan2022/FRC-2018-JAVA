@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2022.commands.autonomous.groups;
 
+import org.usfirst.frc.team2022.commands.autonomous.AutoDriveStraightCommand;
 import org.usfirst.frc.team2022.commands.autonomous.AutoDriveTurnCommand;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -10,7 +11,7 @@ public class AutoCrossLineCommandGroup extends CommandGroup{
 
 	public AutoCrossLineCommandGroup(){
 		System.out.println("AutoLineTest");
-		addSequential(new AutoDriveTurnCommand(360));
+		addSequential(new AutoDriveStraightCommand(120));
 		
 	}
 }

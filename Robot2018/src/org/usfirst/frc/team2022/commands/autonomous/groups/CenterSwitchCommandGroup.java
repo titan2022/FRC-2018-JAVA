@@ -13,30 +13,31 @@ public class CenterSwitchCommandGroup extends CommandGroup{
 
 	public CenterSwitchCommandGroup(String side){
   		if(side.charAt(0) == 'L'){
-  			addSequential(new AutoDriveStraightCommand(40));
+  			addSequential(new AutoDriveStraightCommand(45));
   			addSequential(new AutoDelayCommand(1000));
     		addSequential(new AutoDriveTurnCommand(-90));
     		addSequential(new AutoDelayCommand(1000));
-  			addSequential(new AutoDriveStraightCommand(65));
+  			addSequential(new AutoDriveStraightCommand(50));
   			addSequential(new AutoDelayCommand(1000));
+  			addParallel(new ElevatorMoveToCommand(36),1000);
   			addSequential(new AutoDriveTurnCommand(90));
-  			addSequential(new AutoDelayCommand(1000));		
-  			addParallel(new ElevatorMoveToCommand(36));
-  			addSequential(new AutoDriveStraightCommand(12));
   			
+  			addSequential(new AutoDelayCommand(1000));		
+  			
+  			addSequential(new AutoDriveStraightCommand(50),2000);  			
   			addSequential(new AutoGrabberCommand());
   		}
   		else{
-  			addSequential(new AutoDriveStraightCommand(40));
+  			addSequential(new AutoDriveStraightCommand(45));
   			addSequential(new AutoDelayCommand(1000));
     		addSequential(new AutoDriveTurnCommand(90));
     		addSequential(new AutoDelayCommand(1000));
-  			addSequential(new AutoDriveStraightCommand(65));
+  			addSequential(new AutoDriveStraightCommand(40));
   			addSequential(new AutoDelayCommand(1000));
+  			addParallel(new ElevatorMoveToCommand(36),1000);
   			addSequential(new AutoDriveTurnCommand(-90));
-  			addSequential(new AutoDelayCommand(1000));
-  			addParallel(new ElevatorMoveToCommand(36));
-  			addSequential(new AutoDriveStraightCommand(12));
+  			addSequential(new AutoDelayCommand(1000));	  			
+  			addSequential(new AutoDriveStraightCommand(50),2000);  			
   			addSequential(new AutoGrabberCommand());
   		}
 	}

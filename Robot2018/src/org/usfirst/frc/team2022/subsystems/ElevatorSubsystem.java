@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ElevatorSubsystem extends PIDSubsystem {
 	public int extensionLimit;
@@ -23,24 +24,23 @@ public class ElevatorSubsystem extends PIDSubsystem {
 		elevatorMotor.setInverted(true);
 		elevatorMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		
-		setInputRange(0, 200);
+		setInputRange(0, 50);
 		setOutputRange(-ConstantsMap.ELEVATOR_MAX_SPEED, ConstantsMap.ELEVATOR_MAX_SPEED);
 		setAbsoluteTolerance(ConstantsMap.ELEVATOR_ERR_TOLERANCE);
 		
 		limitSwitch = new DigitalInput(RobotMap.ELEVATOR_SWITCH);
-		counter = new Counter(limitSwitch);		
-		
+		resetEncoderPosition();
 	}
 	
 	public boolean isSwitchSet() {
-		return counter.get() > 0;
+		return limitSwitch.get();
 	}
 
     public void initializeCounter() {
         counter.reset();
     }
 	public void initDefaultCommand() {
-    	setDefaultCommand(new ElevatorManualCommand());
+    
     }
 	
 	public void setElevatorSpeed(double speed) {
@@ -64,8 +64,12 @@ public class ElevatorSubsystem extends PIDSubsystem {
 	}
 	
     public double getEncoderDistance(){
+    	return elevatorMotor.getSelectedSensorPosition(0)* ConstantsMap.FRONTELEVATOR_ENCODER_DIST_PER_TICK;
+    }
+    public double getEncoderTicks(){
     	return elevatorMotor.getSelectedSensorPosition(0);
     }
+    
     
     public double getEncoderVelocity(){
     	return elevatorMotor.getSelectedSensorVelocity(0);
@@ -86,7 +90,7 @@ public class ElevatorSubsystem extends PIDSubsystem {
 	@Override
 	protected double returnPIDInput() {
 		// TODO Auto-generated method stub
-		return elevatorMotor.getSelectedSensorPosition(0);
+		return getEncoderDistance();
 	}
 
 	@Override

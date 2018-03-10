@@ -16,12 +16,12 @@ public class RightScaleCommandGroup extends CommandGroup{
   		if((side.charAt(1) == 'R')){
   			//only goes forward turns then directly to plate 
   			//319 is distance from back to middle of scale
-  			addSequential(new AutoDriveStraightCommand(319));
+  			addSequential(new AutoDriveStraightCommand(305));
   			addSequential(new AutoDelayCommand(1000));
   			addSequential(new AutoDriveTurnCommand(-90));
   			addSequential(new AutoDelayCommand(1000));
   			addParallel(new ElevatorMoveToCommand(75));
-  			addSequential(new AutoDriveStraightCommand(12));
+  			
   			//this value will change based off starting pos of robot
   			
 	  		addSequential(new AutoGrabberCommand());;

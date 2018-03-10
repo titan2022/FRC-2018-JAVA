@@ -34,19 +34,28 @@ public class ElevatorManualCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	
     	double displacement = xboxMap.controlFrontElevator();
+    	
+    	if(Math.abs( displacement) < 0.1){
+    		 displacement = 0; 
+    	}
     	displacement *= ConstantsMap.ElevatorManualSpeed;
     	position += displacement;
-    	if(position <= 0) {
+    	if(position < 0) {
     		position = 0;
     	}
     	if(position >= ConstantsMap.FrontElevatorTravel) {
     		position = ConstantsMap.FrontElevatorTravel;
     	}
-    	if(elevatorSubsystem.isSwitchSet()) {
+    	
+    	//Hardware stop
+    	if(elevatorSubsystem.isSwitchSet() && (-2 < elevatorSubsystem.getEncoderDistance() || (elevatorSubsystem.getEncoderDistance()) < 2)){
     		elevatorSubsystem.stop();
     		elevatorSubsystem.resetEncoderPosition();
-    		position = 0;
+    		if(position > 0) {
+    			elevatorSubsystem.setSetpoint(position);
+    		}
     	}
     	else if(elevatorSubsystem.getEncoderDistance() > ConstantsMap.FrontElevatorTravel) {
     		elevatorSubsystem.stop();
@@ -71,7 +80,10 @@ public class ElevatorManualCommand extends Command {
     		end();
     	}
     	
-    	
+    	SmartDashboard.putNumber("Elevator Encoder", elevatorSubsystem.getEncoderDistance()); 
+    	SmartDashboard.putNumber("Elevator Set Position", position); 
+
+    	SmartDashboard.putBoolean("Bottom Elevator",elevatorSubsystem.isSwitchSet());
     	
     }
     

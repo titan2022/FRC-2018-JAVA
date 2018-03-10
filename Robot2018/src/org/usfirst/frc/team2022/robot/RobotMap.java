@@ -5,7 +5,7 @@ package org.usfirst.frc.team2022.robot;
  * in the subsystem classes. This class holds the variables to port 
  * numbers for sensors and motors.
  * 
- * Standard format for port number variables:
+ * Standard format for port number variables:s
  * public static final portNumber = 0;
  */
 
@@ -28,8 +28,8 @@ public class RobotMap {
 	public static final int BACK_ELEVATOR_PORT = 0;
 	
 	//Limit switch ports
-	public static final int BOX_SWITCH = 0;
-	public static final int ELEVATOR_SWITCH = 1;
+	public static final int BOX_SWITCH = 4;
+	public static final int ELEVATOR_SWITCH = 5;
 	
 	//Encoder ports for drive base (looking at it from the back)
 	public static final int LEFT_ENCODER_PORT_A = 0;

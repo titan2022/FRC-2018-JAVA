@@ -6,52 +6,60 @@ import org.usfirst.frc.team2022.robot.Robot;
 import org.usfirst.frc.team2022.subsystems.ElevatorSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
 public class ElevatorMoveToCommand extends Command {
-	ElevatorSubsystem elevator = Robot.frontElevatorSubsystem;
+	ElevatorSubsystem elevatorSubsystem = Robot.frontElevatorSubsystem;
 	int location;
 
 	
     public ElevatorMoveToCommand(int location) {
 //    	if (useFront) elevator = Robot.frontElevatorSubsystem;
 //    	else elevator = Robot.backElevatorSubsystem;
-    	
-        requires(elevator);
-        this.location = location/2;
-        elevator.setSetpoint(location);
-        elevator.setAbsoluteTolerance(ConstantsMap.ELEVATOR_ERR_TOLERANCE);
+    	if(location > ConstantsMap.FrontElevatorTravel) {
+    		location = (int) ConstantsMap.FrontElevatorTravel;
+    		
+    	}
+    	this.location = location;
+        requires(elevatorSubsystem);
+       
+       
        
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	elevator.enable();
+    	elevatorSubsystem.setAbsoluteTolerance(.95);
+    	elevatorSubsystem.setSetpoint(location);
+    	elevatorSubsystem.enable();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if(elevator.isSwitchSet()) {
-    		elevator.stop();
-    		elevator.resetEncoderPosition();
+    	if(elevatorSubsystem.isSwitchSet()) {
+    		elevatorSubsystem.stop();
+    		elevatorSubsystem.resetEncoderPosition();
     		
     	}
-    	else if(elevator.getEncoderDistance() >= ConstantsMap.FrontElevatorTravel) {
-    		elevator.stop();
+    	else if(elevatorSubsystem.getEncoderDistance() >= ConstantsMap.FrontElevatorTravel) {
+    		elevatorSubsystem.stop();
     	}
+    	SmartDashboard.putNumber("Elevator Encoder", elevatorSubsystem.getEncoderDistance());
+
+    	SmartDashboard.putBoolean("Bottom Elevator",elevatorSubsystem.isSwitchSet());
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return elevator.onTarget();
+        return elevatorSubsystem.onTarget();
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	elevator.disable();
-    	elevator.stop();
+    	elevatorSubsystem.stop();
     }
 
     // Called when another command which requires one or more of the same

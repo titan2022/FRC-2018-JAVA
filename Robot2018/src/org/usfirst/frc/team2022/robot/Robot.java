@@ -4,6 +4,7 @@ package org.usfirst.frc.team2022.robot;
 import org.usfirst.frc.team2022.commands.DriveCommand;
 import org.usfirst.frc.team2022.commands.ElevatorManualCommand;
 import org.usfirst.frc.team2022.commands.autonomous.groups.AutoCrossLineCommandGroup;
+import org.usfirst.frc.team2022.commands.autonomous.groups.AutoTestGroup;
 import org.usfirst.frc.team2022.commands.autonomous.groups.CenterSwitchCommandGroup;
 import org.usfirst.frc.team2022.commands.autonomous.groups.LeftScaleCommandGroup;
 import org.usfirst.frc.team2022.commands.autonomous.groups.LeftSwitchCommandGroup;
@@ -16,7 +17,6 @@ import org.usfirst.frc.team2022.subsystems.GrabberSubsystem;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -77,6 +77,7 @@ public class Robot extends IterativeRobot {
     	actionTypeChooser.addObject("Scale Defer ", "scale defer");    	
     	actionTypeChooser.addObject("AutoLine", "line"); 
     	actionTypeChooser.addObject("AutoLineWait", "waitline");
+    	actionTypeChooser.addObject("Test", "test");
     	
     	SmartDashboard.putData("Auto Chooser",autoTypeChooser);
     	SmartDashboard.putData("Auto Type",actionTypeChooser);
@@ -97,15 +98,19 @@ public class Robot extends IterativeRobot {
     	//System.out.println();
     	if(actionTypeChooser.getSelected() == "switch") {
 			if(autoTypeChooser.getSelected() == "left"){
+				System.out.println("Switch Left");
 				autonomousCommand = new LeftSwitchCommandGroup(gameData);
 			}
 			else if(autoTypeChooser.getSelected() == "right") {
+				System.out.println("Switch Right");
 				autonomousCommand = new RightSwitchCommandGroup(gameData);
 			}
 			else {
+				System.out.println("Switch Center");
 				autonomousCommand = new CenterSwitchCommandGroup(gameData);
 			}
 		}
+
 		else if(actionTypeChooser.getSelected() == "scale") {
 			if(autoTypeChooser.getSelected() == "left"){
 				autonomousCommand = new LeftScaleCommandGroup(gameData,false);
@@ -122,13 +127,16 @@ public class Robot extends IterativeRobot {
 				autonomousCommand = new RightScaleCommandGroup(gameData,true);
 			}
 		}
-		else{
+		else if(actionTypeChooser.getSelected() == "line"){
 			autonomousCommand = new AutoCrossLineCommandGroup();
 		}
+    	else{
+			autonomousCommand = new AutoTestGroup();
+		}
+		
     	SmartDashboard.putData("autocommand", autonomousCommand);
-		autonomousCommand.start(); 
-    	//autonomousCommand = new AutoCrossLineCommandGroup();
-    	//.start();
+    	autonomousCommand.start(); 
+ 
     }
     
     //This starts the methods for teleop and stops methods for autonomous
