@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2022.commands;
 
+import org.usfirst.frc.team2022.commands.autonomous.ElevatorMoveToCommand;
 import org.usfirst.frc.team2022.robot.ConstantsMap;
 import org.usfirst.frc.team2022.robot.OI;
 import org.usfirst.frc.team2022.robot.Robot;
@@ -34,57 +35,69 @@ public class ElevatorManualCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	
-    	double displacement = xboxMap.controlFrontElevator();
-    	
-    	if(Math.abs( displacement) < 0.1){
-    		 displacement = 0; 
+    	ElevatorMoveToCommand preset = new ElevatorMoveToCommand((int) mapStages(48));
+    	if(xboxMap.scaleNormalPreset()) {
+    		System.out.println((int) mapStages(48));
+    		preset.start();
     	}
-    	displacement *= ConstantsMap.ElevatorManualSpeed;
-    	position += displacement;
-    	if(position < 0) {
-    		position = 0;
+    
+    	if(!preset.isRunning()) {
+	    		
+	    	double displacement = xboxMap.controlFrontElevator();
+	    	
+	    	if(Math.abs( displacement) < 0.1){
+	    		 displacement = 0; 
+	    	}
+	    	displacement *= ConstantsMap.ElevatorManualSpeed;
+	    	position += displacement;
+	    	if(10 <position-elevatorSubsystem.getEncoderDistance()) {
+	    		position = 10 + elevatorSubsystem.getEncoderDistance();
+	    	}
+	    	else if(10 <elevatorSubsystem.getEncoderDistance()-position) {
+	    		position = elevatorSubsystem.getEncoderDistance()-10;
+	    	}
+	    	if(position < 0) {
+	    		position = 0;
+	    	}
+	    	if(position >= ConstantsMap.FrontElevatorTravel) {
+	    		position = ConstantsMap.FrontElevatorTravel;
+	    	}
+	    	
+	    	//Hardware stop
+	    	if(elevatorSubsystem.isSwitchSet() && (-2 < elevatorSubsystem.getEncoderDistance() || (elevatorSubsystem.getEncoderDistance()) < 2)){
+	    		elevatorSubsystem.stop();
+	    		elevatorSubsystem.resetEncoderPosition();
+	    		if(position > 0) {
+	    			elevatorSubsystem.setSetpoint(position);
+	    		}
+	    	}
+	    	else if(elevatorSubsystem.getEncoderDistance() > ConstantsMap.FrontElevatorTravel) {
+	    		elevatorSubsystem.stop();
+	    	}
+	    	else {	    	
+	
+		    	elevatorSubsystem.setSetpoint(position);
+	    	}
+	    	//Auto Brake Mode
+	    	if(xboxMap.startAutoElevatorBrakerSystem() && (System.currentTimeMillis() - lastPressed) > 200){  
+	    		brakeState = !brakeState;
+	    		lastPressed = System.currentTimeMillis();
+	    	}
+	    	if(brakeState){
+				elevatorSubsystem.enableBrake();
+			}
+			else if(!brakeState){
+				elevatorSubsystem.disableBrake();
+			}
+	    	
+	    	if(xboxMap.stopSystem()){
+	    		end();
+	    	}
     	}
-    	if(position >= ConstantsMap.FrontElevatorTravel) {
-    		position = ConstantsMap.FrontElevatorTravel;
-    	}
-    	
-    	//Hardware stop
-    	if(elevatorSubsystem.isSwitchSet() && (-2 < elevatorSubsystem.getEncoderDistance() || (elevatorSubsystem.getEncoderDistance()) < 2)){
-    		elevatorSubsystem.stop();
-    		elevatorSubsystem.resetEncoderPosition();
-    		if(position > 0) {
-    			elevatorSubsystem.setSetpoint(position);
-    		}
-    	}
-    	else if(elevatorSubsystem.getEncoderDistance() > ConstantsMap.FrontElevatorTravel) {
-    		elevatorSubsystem.stop();
-    	}
-    	else {	    	
-
-	    	elevatorSubsystem.setSetpoint(position);
-    	}
-    	//Auto Brake Mode
-    	if(xboxMap.startAutoElevatorBrakerSystem() && (System.currentTimeMillis() - lastPressed) > 200){  
-    		brakeState = !brakeState;
-    		lastPressed = System.currentTimeMillis();
-    	}
-    	if(brakeState){
-			elevatorSubsystem.enableBrake();
-		}
-		else if(!brakeState){
-			elevatorSubsystem.disableBrake();
-		}
-    	
-    	if(xboxMap.stopSystem()){
-    		end();
-    	}
-    	
-    	SmartDashboard.putNumber("Elevator Encoder", elevatorSubsystem.getEncoderDistance()); 
-    	SmartDashboard.putNumber("Elevator Set Position", position); 
-
-    	SmartDashboard.putBoolean("Bottom Elevator",elevatorSubsystem.isSwitchSet());
-    	
+	    	SmartDashboard.putNumber("Elevator Encoder", elevatorSubsystem.getEncoderDistance()); 
+	    	SmartDashboard.putNumber("Elevator Set Position", position); 
+	    	SmartDashboard.putBoolean("Bottom Elevator",elevatorSubsystem.isSwitchSet());
+	    	
     }
     
     // Make this return true when this Command no longer needs to run execute()
@@ -103,5 +116,8 @@ public class ElevatorManualCommand extends Command {
     protected void interrupted() {
     	elevatorSubsystem.disable();
     	elevatorSubsystem.stop();
+    }
+    public double mapStages(double carriage) {
+    	return ((16.2/(37.4))*carriage);
     }
 }

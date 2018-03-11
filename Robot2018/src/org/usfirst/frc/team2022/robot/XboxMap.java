@@ -32,6 +32,17 @@ public class XboxMap {
 
 	//Universal stop command
 	public boolean stopSystem() {
-		return oi.xbox.getYValue();
+		return oi.xbox.getBackValue();
+	}
+	
+	//Presets
+	public boolean switchPreset() {
+		return oi.xbox.getAValue();
+	}
+	public boolean scaleNormalPreset() {
+		return oi.xbox.getBValue();
+	}
+	public boolean scaleHighPreset() {
+		return oi.xbox.getBValue();
 	}
 }

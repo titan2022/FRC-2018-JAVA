@@ -1,6 +1,5 @@
 package org.usfirst.frc.team2022.subsystems;
 
-import org.usfirst.frc.team2022.commands.ElevatorManualCommand;
 import org.usfirst.frc.team2022.robot.ConstantsMap;
 import org.usfirst.frc.team2022.robot.RobotMap;
 
@@ -30,6 +29,9 @@ public class ElevatorSubsystem extends PIDSubsystem {
 		
 		limitSwitch = new DigitalInput(RobotMap.ELEVATOR_SWITCH);
 		resetEncoderPosition();
+		
+		SmartDashboard.putData("Elevator PID",this.getPIDController());
+		SmartDashboard.putNumber("Elevator Encoder",getEncoderTicks());
 	}
 	
 	public boolean isSwitchSet() {

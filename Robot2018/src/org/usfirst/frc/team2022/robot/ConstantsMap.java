@@ -15,8 +15,8 @@ public class ConstantsMap {
 	public static final double ROBOT_LENGTH_INCHES = 36.5; 
 	public static final double ROBOT_WIDTH_INCHES = 0; 
 	public static final double ROBOT_WHEEL_RADIUS_INCHES = 6; 
-	//public static final double FrontElevatorTravel = 36.5;
-	public static final double FrontElevatorTravel = 18;
+	public static final double FrontElevatorTravel = 36.5;
+	//public static final double FrontElevatorTravel = 18;
 
 	public static final double SPROCKET= 1.5;
 	//Grabber Speeds
@@ -47,24 +47,24 @@ public class ConstantsMap {
 	public static double DRIVE_MIN_SPEED = -4;
 	public static double DRIVE_MAX_SPEED = .4;
 	
-	public static double KP_DRIVESTRAIGHT_TURN = .5;
+	public static double KP_DRIVESTRAIGHT_TURN = .2;
 	public static double KI_DRIVESTRAIGHT_TURN = 0;//0.18;
 	public static double KD_DRIVESTRAIGHT_TURN = 0;//0.23;
 	public static double KF_DRIVESTRAIGHT_TURN = 0.0;
 	
-	public static double KP_DRIVE_TURN = .37;
-	public static double KI_DRIVE_TURN =0;//0.18;
-	public static double KD_DRIVE_TURN = .2;//0.23;
-	public static double KF_DRIVE_TURN = 0.1;
-	public static double TURN_ERR_TOLERANCE = .065;
-	public static double TURN_MIN_SPEED = -.4;
-	public static double TURN_MAX_SPEED = .4;
+	public static double KP_DRIVE_TURN = .08;
+	public static double KI_DRIVE_TURN = 0.001;//0.18;
+	public static double KD_DRIVE_TURN = .02;//0.23;
+	public static double KF_DRIVE_TURN = 0;
+	public static double TURN_ERR_TOLERANCE = .025;
+	public static double TURN_MIN_SPEED = -.5;
+	public static double TURN_MAX_SPEED = .5;
 	
 	public static double KP_ELEVATOR = 0.1;
 	public static double KI_ELEVATOR = 0;
 	public static double KD_ELEVATOR = 0;
 	public static double KF_ELEVATOR = 0;
-	public static double ELEVATOR_ERR_TOLERANCE = .9;
+	public static double ELEVATOR_ERR_TOLERANCE = .25;
 	public static double ELEVATOR_MAX_SPEED = 1;
 
 	//Dimensions

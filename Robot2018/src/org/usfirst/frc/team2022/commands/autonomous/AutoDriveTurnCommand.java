@@ -21,20 +21,28 @@ public class AutoDriveTurnCommand extends Command{
 	DriveSubsystem driveSubsystem = Robot.driveSubsystem;
 	OI oi = Robot.oi;
 	PIDController rotatePid;
+	int degreeToTurn;
 	PIDOutput angle = new PIDOutput() {
 		
 		@Override
 		public void pidWrite(double output) {
 			SmartDashboard.putNumber("Output",output);
 			//driveSubsystem.setRightSpeed(output);
-			
+
 		}
 	};
 	
-	public AutoDriveTurnCommand(double degreeToTurn){
+	public AutoDriveTurnCommand(int degreeToTurn){
 		// Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(driveSubsystem);
+    	
+    	this.degreeToTurn = degreeToTurn;
+    }
+	
+	// Called just before this Command runs the first time
+    protected void initialize() {
+    	
     	rotatePid = new PIDController(
 				ConstantsMap.KP_DRIVE_TURN,
 				ConstantsMap.KI_DRIVE_TURN,
@@ -52,23 +60,18 @@ public class AutoDriveTurnCommand extends Command{
     	
     	
 
-    	driveSubsystem.enableBrake();
-    }
-	
-	// Called just before this Command runs the first time
-    protected void initialize() {
-    	
+    //	driveSubsystem.enableBrake();
     	driveSubsystem.enableBrake();
     	
     	//Reset gyro to 0
     	driveSubsystem.resetGyro();
     	driveSubsystem.resetEncoders();
     	rotatePid.enable();
-    	SmartDashboard.putData("Rotate Turn PID",rotatePid);
+    	
     }
     
     protected void execute() {
-    	
+    	SmartDashboard.putData("Rotate Turn PID",rotatePid);
     	double speed = rotatePid.get();
 //    	double newSpeed = 0.2;
     	driveSubsystem.tankDrive(speed,-speed);		
