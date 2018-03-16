@@ -8,6 +8,7 @@
 package org.usfirst.frc.team2022.robot;
 
 import org.usfirst.frc.team2022.robot.triggers.Attack3;
+import org.usfirst.frc.team2022.robot.triggers.Xbox;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -19,10 +20,12 @@ public class OI {
 	//Controllers
 
 	public Attack3 attack3_L, attack3_R;
+	public Xbox xbox;
 
 	public OI(){
 		attack3_L = new Attack3(0);
 		attack3_R = new Attack3(1);
+		xbox = new Xbox(0);	
 
 	}
 }

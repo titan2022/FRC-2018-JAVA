@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team2022.robot.Attack3Map;
 import org.usfirst.frc.team2022.robot.OI;
 import org.usfirst.frc.team2022.robot.Robot;
+import org.usfirst.frc.team2022.robot.XboxMap;
 import org.usfirst.frc.team2022.robot.subsystems.DriveSubsystem;
 
 
@@ -22,7 +23,8 @@ import org.usfirst.frc.team2022.robot.subsystems.DriveSubsystem;
 public class DriveCommand extends Command {
 	DriveSubsystem driveSubsystem = Robot.driveSubsystem;
 
-	Attack3Map attack3Map = new Attack3Map();
+	//Attack3Map attack3Map = new Attack3Map();
+	XboxMap xboxMap = new XboxMap();
 	OI oi = Robot.oi;
 	
 	boolean brakeState = false;
@@ -43,12 +45,14 @@ public class DriveCommand extends Command {
 	protected void execute() {
 		displayData();
 		//Normal Driving
-    	double speedLeft = attack3Map.getSpeedLeftWheel();   
+    	//double speedLeft = attack3Map.getSpeedLeftWheel();  
+    	double speedLeft = xboxMap.getSpeedLeftWheel();
     	if(Math.abs(speedLeft) < 0.1){
     		speedLeft = 0;
     	}
     	
-    	double speedRight = attack3Map.getSpeedRightWheel();
+    	//double speedRight = attack3Map.getSpeedRightWheel();
+    	double speedRight = xboxMap.getSpeedRightWheel();
     	if(Math.abs(speedRight) < 0.1){
     		speedRight = 0; 
     	}
@@ -57,16 +61,16 @@ public class DriveCommand extends Command {
     	driveSubsystem.setRightSpeed(speedRight);
 
     	//Auto Brake Mode
-    	if(attack3Map.startAutoBrakerSystem() && (System.currentTimeMillis() - lastPressed) > 200){  
-    		brakeState = !brakeState;
-    		lastPressed = System.currentTimeMillis();
-    	}
-    	if(brakeState){
-			driveSubsystem.enableBrake();
-		}
-		else if(!brakeState){
-			driveSubsystem.disableBrake();
-		}
+//    	if(attack3Map.startAutoBrakerSystem() && (System.currentTimeMillis() - lastPressed) > 200){  
+//    		brakeState = !brakeState;
+//    		lastPressed = System.currentTimeMillis();
+//    	}
+//    	if(brakeState){
+//			driveSubsystem.enableBrake();
+//		}
+//		else if(!brakeState){
+//			driveSubsystem.disableBrake();
+//		}
     	
 	}
 	protected void displayData(){
