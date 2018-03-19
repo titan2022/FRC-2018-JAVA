@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team2022.robot;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -21,7 +22,9 @@ import org.usfirst.frc.team2022.commands.autonomous.groups.LeftSwitchCommandGrou
 import org.usfirst.frc.team2022.commands.autonomous.groups.RightScaleCommandGroup;
 import org.usfirst.frc.team2022.commands.autonomous.groups.RightSwitchCommandGroup;
 import org.usfirst.frc.team2022.robot.commands.DriveCommand;
+import org.usfirst.frc.team2022.robot.commands.GrabberCommand;
 import org.usfirst.frc.team2022.robot.subsystems.DriveSubsystem;
+import org.usfirst.frc.team2022.robot.subsystems.GrabberSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -34,7 +37,8 @@ public class Robot extends TimedRobot {
 	public static OI oi;
 	public static final DriveSubsystem driveSubsystem = new DriveSubsystem();
 	public DriveCommand driveCommand;
-	
+	public GrabberCommand grabberCommand;
+	public static GrabberSubsystem grabberSubsystem = new GrabberSubsystem(8, 9);
 	CommandGroup autonomousCommand;
 	SendableChooser<String> autoTypeChooser;
 	SendableChooser<String> actionTypeChooser;
@@ -48,7 +52,9 @@ public class Robot extends TimedRobot {
 		oi = new OI();		
 		
 		
+		
 		driveCommand = new DriveCommand();
+		grabberCommand = new GrabberCommand();
 		autoTypeChooser = new SendableChooser<String>();
     	autoTypeChooser.addDefault("Left Position", "left"); 
      	autoTypeChooser.addObject("Center Postion", "center"); 
@@ -134,6 +140,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopInit() {
 		driveCommand.start();
+		grabberCommand.start();
 	}
 
 	/**

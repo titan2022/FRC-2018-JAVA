@@ -43,18 +43,18 @@ public class DriveSubsystem extends Subsystem {
 		//Instantiate motors		
 		left1 = new Talon(RobotMap.LEFT_DRIVE_PORT_1);
 		left2 = new Talon(RobotMap.LEFT_DRIVE_PORT_2);
-		left3 = new Talon(RobotMap.LEFT_DRIVE_PORT_3);
+
 		right1 = new Talon(RobotMap.RIGHT_DRIVE_PORT_1);		
 		right2 = new Talon(RobotMap.RIGHT_DRIVE_PORT_2);
-		right3 = new Talon(RobotMap.RIGHT_DRIVE_PORT_3);
+
 		
 		//Invert Motors
-		//left1.setInverted(true);
-		//left2.setInverted(true);
-		//left3.setInverted(true);
+		left1.setInverted(true);
+		left2.setInverted(true);
+
 		right1.setInverted(true);
 		right2.setInverted(true);
-		right3.setInverted(true);
+		//right3.setInverted(true);
 
 		//Instantiate Encoders
 		leftEncoder = new Encoder(RobotMap.LEFT_ENCODER_PORT_A, RobotMap.LEFT_ENCODER_PORT_B, false);
@@ -91,13 +91,13 @@ public class DriveSubsystem extends Subsystem {
 	public void setLeftSpeed(double speed) {
 			left1.set(speed);
 			left2.set(speed);
-			left3.set(speed);
+			
 	}	
 	
 	public void setRightSpeed (double speed) {
 			right1.set(speed);
 			right2.set(speed);		
-			right3.set(speed);
+			
 	}
 	
 	public double getLeftSpeed() {		
@@ -185,10 +185,10 @@ public class DriveSubsystem extends Subsystem {
 	public void stop() {
 		left1.set(0);
 		left2.set(0);
-		left3.set(0);
+		
 		right1.set(0);
 		right2.set(0);
-		right3.set(0);
+		
 	}
     
 }

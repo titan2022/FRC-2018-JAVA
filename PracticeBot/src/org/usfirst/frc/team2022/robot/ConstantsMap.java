@@ -15,7 +15,7 @@ public class ConstantsMap {
 	public static final double DRIVE_ENCODER_DIST_PER_TICK = ((ROBOT_WHEEL_RADIUS_INCHES * Math.PI)/(128));
 	public static final double DRIVE_SPEED_REDUCER_MULTIPLIER = 0.3;
 	
-
+	public static final double GrabberSpeed = 1;
 	//PID Values
 	public static double KP_DRIVE_SPEED = 0.1;
 	public static double KI_DRIVE_SPEED = 0;	

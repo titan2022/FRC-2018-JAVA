@@ -11,7 +11,6 @@ public class Attack3Map {
 	public double getSpeedLeftWheel() {
 		return oi.attack3_L.getYAxis();
 	}
-	
 	public boolean startAutoBrakerSystem(){
 		return oi.attack3_R.get2Value();
 	}

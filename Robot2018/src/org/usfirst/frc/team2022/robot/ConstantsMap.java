@@ -7,9 +7,15 @@ package org.usfirst.frc.team2022.robot;
 public class ConstantsMap {
 	
 	public static final boolean testing = true;
-	
 
 	public static final double TurtleSpeed = .4;
+	
+	
+	//Presets
+	public static final double ElevatorSwitchHeight = 40;
+	public static final double ElevatorScaleNormalHeight = (12*5) + 10;
+	public static final double ElevatorScaleHighHeight = (12*6) + 10;
+	public static final double ElevatorPortalHeightHeight = (12*3) + 10;
 	
 	//Robot dimensions
 	public static final double ROBOT_LENGTH_INCHES = 36.5; 

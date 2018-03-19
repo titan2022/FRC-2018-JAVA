@@ -84,7 +84,7 @@ public class AutoDriveStraightCommand extends Command{
 				ConstantsMap.KI_DRIVE_SPEED,
 				ConstantsMap.KD_DRIVE_SPEED,
 				ConstantsMap.KF_DRIVE_SPEED,
-				driveSubsystem.getLeftEncoder(),
+				driveSubsystem.getRightEncoder(),
 				lspeed
 				);
 		rpid.setSetpoint(ticksToDrive);				
