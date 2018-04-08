@@ -10,6 +10,9 @@ import org.usfirst.frc.team2022.commands.autonomous.groups.LeftScaleCommandGroup
 import org.usfirst.frc.team2022.commands.autonomous.groups.LeftSwitchCommandGroup;
 import org.usfirst.frc.team2022.commands.autonomous.groups.RightScaleCommandGroup;
 import org.usfirst.frc.team2022.commands.autonomous.groups.RightSwitchCommandGroup;
+import org.usfirst.frc.team2022.commands.autonomous.groups.Auto2CubeLeft;
+import org.usfirst.frc.team2022.commands.autonomous.groups.Auto2CubeRight;
+
 import org.usfirst.frc.team2022.commands.GrabberCommand;
 import org.usfirst.frc.team2022.subsystems.DriveSubsystem;
 import org.usfirst.frc.team2022.subsystems.ElevatorSubsystem;
@@ -34,7 +37,7 @@ public class Robot extends IterativeRobot {
 
 	//Instantiate Subsystems
 	public static final DriveSubsystem driveSubsystem = new DriveSubsystem();
-	public static final GrabberSubsystem grabberSubsystem = new GrabberSubsystem(RobotMap.INNERLEFT_GRABBER_PORT, RobotMap.INNERRIGHT_GRABBER_PORT);
+	public static final GrabberSubsystem grabberSubsystem = new GrabberSubsystem();
 	public static final ElevatorSubsystem frontElevatorSubsystem = new ElevatorSubsystem(RobotMap.FRONT_ELEVATOR_PORT);
 
 	//Create References to commands
@@ -45,7 +48,7 @@ public class Robot extends IterativeRobot {
 	//Create reference to OI
 	public static OI oi;
 	public XboxMap xboxMap = new XboxMap();
-	public Attack3Map attack3Map = new Attack3Map();
+	
 	PowerDistributionPanel pdp;
 	
 	public double position;
@@ -77,7 +80,9 @@ public class Robot extends IterativeRobot {
     	actionTypeChooser.addObject("Scale Defer ", "scale defer");    	
     	actionTypeChooser.addObject("AutoLine", "line"); 
     	actionTypeChooser.addObject("AutoLineWait", "waitline");
+    	actionTypeChooser.addObject("2 cube",  "2cube");
     	actionTypeChooser.addObject("Test", "test");
+    	
     	
     	SmartDashboard.putData("Auto Chooser",autoTypeChooser);
     	SmartDashboard.putData("Auto Type",actionTypeChooser);
@@ -129,6 +134,18 @@ public class Robot extends IterativeRobot {
 		}
 		else if(actionTypeChooser.getSelected() == "line"){
 			autonomousCommand = new AutoCrossLineCommandGroup();
+		}
+    	
+		else if(actionTypeChooser.getSelected() == "2cube")
+		{
+			if(autoTypeChooser.getSelected() == "left")
+			{
+				autonomousCommand = new Auto2CubeLeft();
+			}
+			else if(autoTypeChooser.getSelected() == "right")
+			{
+				autonomousCommand = new Auto2CubeRight();
+			}
 		}
     	else{
 			autonomousCommand = new AutoTestGroup();

@@ -38,7 +38,7 @@ public class Robot extends TimedRobot {
 	public static final DriveSubsystem driveSubsystem = new DriveSubsystem();
 	public DriveCommand driveCommand;
 	public GrabberCommand grabberCommand;
-	public static GrabberSubsystem grabberSubsystem = new GrabberSubsystem(8, 9);
+	public static GrabberSubsystem grabberSubsystem = new GrabberSubsystem(RobotMap.LEFT_GRABBER_PORT, RobotMap.RIGHT_GRABBER_PORT);
 	CommandGroup autonomousCommand;
 	SendableChooser<String> autoTypeChooser;
 	SendableChooser<String> actionTypeChooser;

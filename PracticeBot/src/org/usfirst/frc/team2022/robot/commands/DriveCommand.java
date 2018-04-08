@@ -22,8 +22,10 @@ import org.usfirst.frc.team2022.robot.subsystems.DriveSubsystem;
  */
 public class DriveCommand extends Command {
 	DriveSubsystem driveSubsystem = Robot.driveSubsystem;
+
 	XboxMap xboxMap = new XboxMap();
 	Attack3Map attack3Map = new Attack3Map();
+
 	OI oi = Robot.oi;
 	
 	boolean brakeState = false;
@@ -44,14 +46,18 @@ public class DriveCommand extends Command {
 	protected void execute() {
 		displayData();
 		//Normal Driving
+
     //	double speedLeft = attack3Map.getSpeedLeftWheel();   
 		double speedLeft = xboxMap.left();
+
     	if(Math.abs(speedLeft) < 0.1){
     		speedLeft = 0;
     	}
     	
     	//double speedRight = attack3Map.getSpeedRightWheel();
+
 		double speedRight = xboxMap.right();
+
     	if(Math.abs(speedRight) < 0.1){
     		speedRight = 0; 
     	}
@@ -60,16 +66,16 @@ public class DriveCommand extends Command {
     	driveSubsystem.setRightSpeed(speedRight);
 
     	//Auto Brake Mode
-    	if(attack3Map.startAutoBrakerSystem() && (System.currentTimeMillis() - lastPressed) > 200){  
-    		brakeState = !brakeState;
-    		lastPressed = System.currentTimeMillis();
-    	}
-    	if(brakeState){
-			driveSubsystem.enableBrake();
-		}
-		else if(!brakeState){
-			driveSubsystem.disableBrake();
-		}
+//    	if(attack3Map.startAutoBrakerSystem() && (System.currentTimeMillis() - lastPressed) > 200){  
+//    		brakeState = !brakeState;
+//    		lastPressed = System.currentTimeMillis();
+//    	}
+//    	if(brakeState){
+//			driveSubsystem.enableBrake();
+//		}
+//		else if(!brakeState){
+//			driveSubsystem.disableBrake();
+//		}
     	
 	}
 	protected void displayData(){

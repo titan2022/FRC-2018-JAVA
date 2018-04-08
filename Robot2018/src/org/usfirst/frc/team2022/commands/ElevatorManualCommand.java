@@ -29,39 +29,32 @@ public class ElevatorManualCommand extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	elevatorSubsystem.setSetpoint(elevatorSubsystem.getEncoderDistance());
-    	elevatorSubsystem.enable();
+    	//elevatorSubsystem.setSetpoint(elevatorSubsystem.getEncoderDistance());
+    	//elevatorSubsystem.enable();
     	position = elevatorSubsystem.getEncoderDistance();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-  
-
-    		
-	    	if(xboxMap.switchPreset()) {	    		
-	    		preset = !preset;
-	    		if(preset) {
-	    			position = ConstantsMap.ElevatorSwitchHeight;
-	    		}
-	    		
-	    	}
-	    	else if(xboxMap.scaleNormalPreset()) {
-	    		preset = !preset;
-	    		if(preset) {
-	    			position = ConstantsMap.ElevatorScaleNormalHeight;
-	    		}
-	    	}
-	    	else if(xboxMap.switchPreset()) {
-	    		preset = !preset;
-	    		if(preset) {
-	    			position = ConstantsMap.ElevatorScaleHighHeight;
-	    		}
-	    	}
-	    	else {
 		    	
-		    	double displacement = xboxMap.controlFrontElevator();
+		    	double displacement = xboxMap.controlFrontElevator()*-1;
+		    	if(elevatorSubsystem.isSwitchSet()){
+		    		if(displacement>0) {
+		    			elevatorSubsystem.setMotor(displacement*-1);
+		    		}
+		    		else {
+		    			elevatorSubsystem.stop();
+		    		}
+		    	}
+		    	else {
+		    		elevatorSubsystem.setMotor(displacement*-1);
+		    	}
 		    	
+		    	
+		    	
+    			
+    	
+    		/*	double displacement = xboxMap.controlFrontElevator();
 		    	if(Math.abs( displacement) < 0.1){
 		    		 displacement = 0; 
 		    	}
@@ -109,10 +102,10 @@ public class ElevatorManualCommand extends Command {
 		    	
 		    	if(xboxMap.stopSystem()){
 		    		end();
-		    	}
-	    	}
+		    	}*/
 	    	SmartDashboard.putNumber("Elevator Encoder", elevatorSubsystem.getEncoderDistance()); 
 	    	SmartDashboard.putNumber("Elevator Set Position", position); 
+
 	    	SmartDashboard.putBoolean("Bottom Elevator",elevatorSubsystem.isSwitchSet());
 	    	
     }
@@ -133,8 +126,5 @@ public class ElevatorManualCommand extends Command {
     protected void interrupted() {
     	elevatorSubsystem.disable();
     	elevatorSubsystem.stop();
-    }
-    public double mapStages(double carriage) {
-    	return ((16.2/(37.4))*carriage);
     }
 }

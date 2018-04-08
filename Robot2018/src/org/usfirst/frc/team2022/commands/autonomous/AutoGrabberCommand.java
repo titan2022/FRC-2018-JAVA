@@ -12,22 +12,33 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class AutoGrabberCommand extends Command{
 	GrabberSubsystem grabberSubsystem = Robot.grabberSubsystem;
-	XboxMap xboxMap = new XboxMap();
 	OI oi = Robot.oi;
-	
+	boolean intake;
 	boolean finished = false;
-    public AutoGrabberCommand() {
+    public AutoGrabberCommand(boolean intake) {
     	requires(grabberSubsystem);
+    	this.intake = intake;
     }
     
     protected void initialize() {
-    	grabberSubsystem.setMotorSpeed(-ConstantsMap.AutoGrabSpeed);
-    	Timer.delay(1);
-    	grabberSubsystem.stop();
-    	finished = true;
+    	if(!intake) {
+    		grabberSubsystem.setMotorSpeed(-ConstantsMap.AutoGrabSpeed);
+    		finished = true;
+    		Timer.delay(4);
+        	grabberSubsystem.stop();
+    	}
+    	
+    	
     }
 
     protected void execute() {    	
+    	if(!grabberSubsystem.isBoxSet()) {
+    		grabberSubsystem.setMotorSpeed(ConstantsMap.AutoGrabSpeed);
+    	}
+    	else {
+    		grabberSubsystem.stop();
+    		finished = true;
+    	}
     }
  
     protected boolean isFinished() {

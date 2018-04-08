@@ -3,26 +3,31 @@ package org.usfirst.frc.team2022.robot;
 public class XboxMap {
 	OI oi = Robot.oi;
 	
+
 	//Drive commands
-	public boolean in(){
-		return oi.xbox.getRightBumperValue();
-	}
-	
-	public boolean out() {
+	public boolean piston(){
 		return oi.xbox.getLeftBumperValue();
 	}
+
+	
 	public boolean inTake(){
 		return oi.xbox.getAValue();
 	}
-	
+	public double Grab() {
+		return oi.xbox.getLeftY();
+	}
 	public boolean outTake() {
 		return oi.xbox.getBValue();
 	}
-	public double right() {
+	public double actuate() {
 		return oi.xbox.getRightY();
 	}
+	public double right() {
+		return oi.ps4.getRightY();
+	}
 	public double left() {
-		return oi.xbox.getLeftY();
+		return oi.ps4.getLeftY();
 	}
 
 }
+

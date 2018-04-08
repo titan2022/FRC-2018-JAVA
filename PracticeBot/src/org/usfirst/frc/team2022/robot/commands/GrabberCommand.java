@@ -12,9 +12,9 @@ public class GrabberCommand extends Command{
 	XboxMap xboxMap = new XboxMap();
 	OI oi = Robot.oi;
 	
-	private boolean innerSwitch = false;
+	private boolean closed = true;
 	
-	private double lastPressed = 0;
+	private long lastPressed = 0;
 	
     public GrabberCommand() {
     	requires(grabberSubsystem);
@@ -24,12 +24,34 @@ public class GrabberCommand extends Command{
     }
 
     protected void execute() {    	
-    	if(xboxMap.in()) {
-    		grabberSubsystem.in();
+    	if(xboxMap.piston() &&(System.currentTimeMillis() - lastPressed) > 500) {
+    		lastPressed = System.currentTimeMillis();
+    		if(closed) {
+    			grabberSubsystem.in();
+    			closed = !closed;
+    		}
+    		else {
+    			grabberSubsystem.out();
+    			closed = !closed;
+    		}
     	}
-    	else if(xboxMap.out()) {
-    		grabberSubsystem.out();
-    	} 
+    	double actuate = xboxMap.actuate();
+    	double speed  = xboxMap.Grab();
+    	/*if(speed > .1) {
+    		grabberSubsystem.inTake();
+    	}
+    	else if(speed < .1) {
+    		grabberSubsystem.outTake();
+    	}
+    	else {
+    		grabberSubsystem.stopTake();
+    	}*/
+    	
+    	if(Math.abs(actuate) < 0.1){
+    		actuate = 0; 
+    	}
+    	grabberSubsystem.actuate(actuate*.5);
+    	
     	if(xboxMap.inTake()) {
     		grabberSubsystem.inTake();
     	}

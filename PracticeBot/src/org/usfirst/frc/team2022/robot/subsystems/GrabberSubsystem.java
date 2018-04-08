@@ -14,7 +14,7 @@ public class GrabberSubsystem extends Subsystem {
 	
 	Talon leftMotor;
 
-	private Talon rightMotor;
+	private Talon rightMotor,upMotor;
 	
 	private Counter counter;
 	private DigitalInput boxSwitch;
@@ -24,8 +24,7 @@ public class GrabberSubsystem extends Subsystem {
 		//Instantiate motors		
 		leftMotor = new Talon(port1);
 		rightMotor = new Talon(port2);	
-		
-	
+		upMotor = new Talon(RobotMap.UP_GRABBER_PORT);	
 		
 		//boxSwitch = new DigitalInput(RobotMap.BOX_SWITCH);
 
@@ -55,6 +54,9 @@ public class GrabberSubsystem extends Subsystem {
     	larmout.set(true);
     	rarmin.set(false);
     	rarmout.set(true);
+    }
+    public void actuate(double value) {
+    	upMotor.set(value);
     }
     public void outTake() {
     	leftMotor.set(ConstantsMap.GrabberSpeed);

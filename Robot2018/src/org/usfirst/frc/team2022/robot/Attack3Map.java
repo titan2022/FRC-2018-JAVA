@@ -4,7 +4,7 @@ public class Attack3Map {
 	OI oi = Robot.oi;
 	
 	//Drive commands
-	public double getSpeedRightWheel(){ 
+	/*public double getSpeedRightWheel(){ 
 		return oi.attack3_R.getYAxis();
 	}
 	
@@ -21,5 +21,5 @@ public class Attack3Map {
 	public boolean turtleButton (){
 		
 		return oi.attack3_L.get3Value();
-	}
+	}*/
 }

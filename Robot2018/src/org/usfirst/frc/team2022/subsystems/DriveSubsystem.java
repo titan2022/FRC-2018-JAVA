@@ -10,8 +10,7 @@ import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.SPI;
-
-
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -25,23 +24,25 @@ public class DriveSubsystem extends Subsystem {
 	private Encoder leftEncoder, rightEncoder;
 
 	private AHRS ahrs;
+	
+	private Solenoid shift_high,shift_low;
 
 	public DriveSubsystem() {
 		//Instantiate motors		
 		left1 = new WPI_TalonSRX(RobotMap.LEFT_DRIVE_PORT_1);
 		left2 = new WPI_TalonSRX(RobotMap.LEFT_DRIVE_PORT_2);
-		left3 = new WPI_TalonSRX(RobotMap.LEFT_DRIVE_PORT_3);
+		//left3 = new WPI_TalonSRX(RobotMap.LEFT_DRIVE_PORT_3);
 		right1 = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_PORT_1);		
 		right2 = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_PORT_2);
-		right3 = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_PORT_3);
+		//right3 = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_PORT_3);
 		
 		//Invert Motors
 		left1.setInverted(false);
 		left2.setInverted(false);
-		left3.setInverted(false);
+		//left3.setInverted(false);
 		right1.setInverted(false);
 		right2.setInverted(false);
-		right3.setInverted(false);
+		//right3.setInverted(false);
 
 		//Instantiate Encoders
 		leftEncoder = new Encoder(RobotMap.LEFT_ENCODER_PORT_A, RobotMap.LEFT_ENCODER_PORT_B, false);
@@ -51,6 +52,7 @@ public class DriveSubsystem extends Subsystem {
         ahrs = new AHRS(SPI.Port.kMXP);
 		stop();
 		
+		
 //		//Set encoder distance per pulse
 		leftEncoder.setDistancePerPulse(ConstantsMap.DRIVE_ENCODER_DIST_PER_TICK);
 		rightEncoder.setDistancePerPulse(ConstantsMap.DRIVE_ENCODER_DIST_PER_TICK);
@@ -58,23 +60,36 @@ public class DriveSubsystem extends Subsystem {
 		SmartDashboard.putData(leftEncoder);
 		SmartDashboard.putData(rightEncoder);
 		
+		shift_high = new Solenoid(2);
+		shift_low = new Solenoid(3);
+
 	}
 	
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
     	//setDefaultCommand(new DriveCommand());
     }
+    
+    public void shiftHigh() {
+    	shift_high.set(true);
+    	shift_low.set(false);
+    }
+    public void shiftLow() {
+    	shift_high.set(false);
+    	shift_low.set(true);
+    }
+   
    
 	public void setLeftSpeed(double speed) {
 			left1.set(speed);
 			left2.set(speed);
-			left3.set(speed);
+			//left3.set(speed);
 	}	
 	
 	public void setRightSpeed (double speed) {
 			right1.set(speed);
 			right2.set(speed);		
-			right3.set(speed);
+		//	right3.set(speed);
 	}
 	
 	public double getLeftSpeed() {		
@@ -93,20 +108,20 @@ public class DriveSubsystem extends Subsystem {
 	public void enableBrake(){
 		left1.setNeutralMode(NeutralMode.Brake);
 		left2.setNeutralMode(NeutralMode.Brake);
-		left3.setNeutralMode(NeutralMode.Brake);
+	//	left3.setNeutralMode(NeutralMode.Brake);
 		right1.setNeutralMode(NeutralMode.Brake);
 		right2.setNeutralMode(NeutralMode.Brake);
-		right3.setNeutralMode(NeutralMode.Brake);
+		//right3.setNeutralMode(NeutralMode.Brake);
 		
 	}
 	
 	public void disableBrake(){
 		left1.setNeutralMode(NeutralMode.Coast);
 		left2.setNeutralMode(NeutralMode.Coast);
-		left3.setNeutralMode(NeutralMode.Coast);
+	//	left3.setNeutralMode(NeutralMode.Coast);
 		right1.setNeutralMode(NeutralMode.Coast);
 		right2.setNeutralMode(NeutralMode.Coast);
-		right3.setNeutralMode(NeutralMode.Coast);
+		//right3.setNeutralMode(NeutralMode.Coast);
 	}
 	 
 	public Encoder getRightEncoder(){
@@ -162,10 +177,10 @@ public class DriveSubsystem extends Subsystem {
 	public void stop() {
 		left1.set(0);
 		left2.set(0);
-		left3.set(0);
+		//left3.set(0);
 		right1.set(0);
 		right2.set(0);
-		right3.set(0);
+	//	right3.set(0);
 	}
     
 }

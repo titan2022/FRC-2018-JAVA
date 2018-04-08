@@ -35,17 +35,23 @@ public class DriveCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {   
     	//Normal Driving
-    	if(attack3Map.turtleButton()) {
+    	/*if(attack3Map.turtleButton()) {
     		turtlemode = !turtlemode;
-    	}
-    	double speedLeft = attack3Map.getSpeedLeftWheel();   
+    	} */
+    	
+    	double speedLeft = xboxMap.left();
     	speedLeft *= -1;
     	if(Math.abs(speedLeft) < 0.1){
     		speedLeft = 0;
     	}
-    	
-    	double speedRight = attack3Map.getSpeedRightWheel();
-    	speedRight *= -1;
+    	if(xboxMap.shiftHigh()) {
+    		driveSubsystem.shiftHigh();
+    	}
+    	if(xboxMap.shiftLow()) {
+    		driveSubsystem.shiftLow();
+    	}
+    	double speedRight = xboxMap.right();
+    	//speedRight *= -1;
     	if(Math.abs(speedRight) < 0.1){
     		speedRight = 0; 
     	}
@@ -53,11 +59,12 @@ public class DriveCommand extends Command {
     		speedLeft *= ConstantsMap.TurtleSpeed;
     		speedRight *= ConstantsMap.TurtleSpeed;
     	}
-    	driveSubsystem.setLeftSpeed(speedLeft);
-    	driveSubsystem.setRightSpeed(speedRight);
+    	driveSubsystem.setLeftSpeed(speedLeft*ConstantsMap.TurtleSpeed);
+    	driveSubsystem.setRightSpeed(speedRight*ConstantsMap.TurtleSpeed);
 
     	//Auto Brake Mode
-    	if(attack3Map.startAutoBrakerSystem() && (System.currentTimeMillis() - lastPressed) > 200){  
+    	//attack3Map.startAutoBrakerSystem();
+    	if(xboxMap.startAutoBrakerSystem() && (System.currentTimeMillis() - lastPressed) > 200){  
     		brakeState = !brakeState;
     		lastPressed = System.currentTimeMillis();
     	}

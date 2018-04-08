@@ -11,15 +11,16 @@ public class OI {
 	//User interface Constants
 	public double attackThrottleSensitivity=.1;
 	//Controllers
-	public Xbox xbox;
+	public Xbox xbox,ps4;
 
 	public Attack3 attack3_L, attack3_R;
 
 	public OI(){
 		xbox = new Xbox(0);
+		ps4 = new Xbox(1);
 
-		attack3_L = new Attack3(1);
-		attack3_R = new Attack3(2);
+		//attack3_L = new Attack3(3);
+		//attack3_R = new Attack3(4);
 
 	}
 }

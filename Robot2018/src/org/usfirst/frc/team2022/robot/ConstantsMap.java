@@ -8,7 +8,7 @@ public class ConstantsMap {
 	
 	public static final boolean testing = true;
 
-	public static final double TurtleSpeed = .4;
+	public static final double TurtleSpeed = .7;
 	
 	
 	//Presets
@@ -21,7 +21,7 @@ public class ConstantsMap {
 	public static final double ROBOT_LENGTH_INCHES = 36.5; 
 	public static final double ROBOT_WIDTH_INCHES = 0; 
 	public static final double ROBOT_WHEEL_RADIUS_INCHES = 6; 
-	public static final double FrontElevatorTravel = 36.5;
+	public static final double FrontElevatorTravel = 34;
 	//public static final double FrontElevatorTravel = 18;
 
 	public static final double SPROCKET= 1.5;
@@ -37,10 +37,12 @@ public class ConstantsMap {
 	public static final double BACKWHEEL_RADIUS_sINCHES = 0;
 	
 	//Elevator encoders
-	public static final double FRONTELEVATOR_ENCODER_DIST_PER_TICK = (32.5/1480018.0);
+	public static final double FRONTELEVATOR_ENCODER_DIST_PER_TICK = (30/1963959.0);
+	public static final double GRABBER_ENCODER_ANGLE_PER_TICK = (90/92819.0);
 //	/public static finadl double BACKELEVATOR_ENCODER_DIST_PER_TICK = ((BACKWHEEL_RADIUS_INCHES * Math.PI)/(128));
 	
-	public static final double ElevatorManualSpeed = .5;
+	public static final double ElevatorManualSpeed	 = 1;
+	public static final double GrabberManualSpeed	 = 1;
 	
 	
 	//PID Values
@@ -58,21 +60,28 @@ public class ConstantsMap {
 	public static double KD_DRIVESTRAIGHT_TURN = 0;//0.23;
 	public static double KF_DRIVESTRAIGHT_TURN = 0.0;
 	
-	public static double KP_DRIVE_TURN = .08;
-	public static double KI_DRIVE_TURN = 0.001;//0.18;
-	public static double KD_DRIVE_TURN = .02;//0.23;
-	public static double KF_DRIVE_TURN = 0;
-	public static double TURN_ERR_TOLERANCE = .025;
-	public static double TURN_MIN_SPEED = -.5;
-	public static double TURN_MAX_SPEED = .5;
+	public static double KP_DRIVE_TURN = .13;
+	public static double KI_DRIVE_TURN = 0;//0.18;
+	public static double KD_DRIVE_TURN = .13;//0.23;
+	public static double KF_DRIVE_TURN = .1;
+	public static double TURN_ERR_TOLERANCE = .02;
+	public static double TURN_MIN_SPEED = -.6;
+	public static double TURN_MAX_SPEED = .6;
 	
 	public static double KP_ELEVATOR = 0.1;
 	public static double KI_ELEVATOR = 0;
 	public static double KD_ELEVATOR = 0;
 	public static double KF_ELEVATOR = 0;
 	public static double ELEVATOR_ERR_TOLERANCE = .25;
-	public static double ELEVATOR_MAX_SPEED = 1;
-
+	public static double ELEVATOR_MAX_SPEED = .4;
+	
+	public static double KP_GRABBER = .1;
+	public static double KI_GRABBER = 0;
+	public static double KD_GRABBER = 0;
+	public static double KF_GRABBER = 0;
+	public static double GRABBER_ERR_TOLERANCE = .25;
+	public static double GRABBER_MAX_SPEED = .5;
+	public static double GrabberSpeed = .9;
 	//Dimensions
 	public static double BASE_WIDTH = 27.75;
 	public static double BASE_LENGTH = 32.75;

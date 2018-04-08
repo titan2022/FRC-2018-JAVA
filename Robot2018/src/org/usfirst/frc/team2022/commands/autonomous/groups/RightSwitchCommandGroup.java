@@ -31,13 +31,12 @@ public class RightSwitchCommandGroup extends CommandGroup{
   			//
   			addSequential(new AutoDriveStraightCommand(150));
   			addSequential(new AutoDelayCommand(1000));
-  			addParallel(new ElevatorMoveToCommand(12),1000);
+  			//addParallel(new ElevatorMoveToCommand(12),1000);
   			addSequential(new AutoDriveTurnCommand(-90));  			
   			addSequential(new AutoDelayCommand(1000));
   			//this value will change based off starting pos of robot
-  			
-  			addSequential(new AutoDriveStraightCommand(20),2000);  			
-	  		addSequential(new AutoGrabberCommand());;
+  			addSequential(new AutoDriveStraightCommand(20),1000);  			
+	  		addSequential(new AutoGrabberCommand(false));
   		}
 	}
 }

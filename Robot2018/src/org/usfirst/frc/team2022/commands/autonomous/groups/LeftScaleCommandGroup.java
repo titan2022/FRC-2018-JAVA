@@ -22,7 +22,7 @@ public class LeftScaleCommandGroup extends CommandGroup{
   			addSequential(new AutoDelayCommand(1000));
   			addSequential(new AutoDriveStraightCommand(12));
   			addParallel(new ElevatorMoveToCommand(75));
-  			addSequential(new AutoGrabberCommand());;
+  			addSequential(new AutoGrabberCommand(false));;
   			//this value will change based off starting pos of robot
   			
   			
@@ -36,7 +36,7 @@ public class LeftScaleCommandGroup extends CommandGroup{
   			addSequential(new AutoDelayCommand(1000));
   			addSequential(new AutoDriveTurnCommand(-90));
   			addParallel(new ElevatorMoveToCommand(75));
-  			addSequential(new AutoGrabberCommand());
+  			addSequential(new AutoGrabberCommand(false));
   		}
   		else{
   			//do switch if on our side
@@ -47,7 +47,7 @@ public class LeftScaleCommandGroup extends CommandGroup{
   				addSequential(new AutoDelayCommand(1000));
   				addSequential(new AutoDriveTurnCommand(12));
   				addParallel(new ElevatorMoveToCommand(36));
-  	  			addSequential(new AutoGrabberCommand());;
+  	  			addSequential(new AutoGrabberCommand(false));;
 
   			}
   			else {

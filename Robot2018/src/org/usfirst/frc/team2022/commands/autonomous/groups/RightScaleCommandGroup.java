@@ -24,7 +24,7 @@ public class RightScaleCommandGroup extends CommandGroup{
   			
   			//this value will change based off starting pos of robot
   			
-	  		addSequential(new AutoGrabberCommand());;
+	  		addSequential(new AutoGrabberCommand(false));;
   			
   		}
   		else if(!defer) {
@@ -38,7 +38,7 @@ public class RightScaleCommandGroup extends CommandGroup{
   			addParallel(new ElevatorMoveToCommand(75));
   			addSequential(new AutoDriveTurnCommand(90));
   			
-	  		addSequential(new AutoGrabberCommand());;
+	  		addSequential(new AutoGrabberCommand(false));;
   		}
   		else{
   			//do switch if on our side
@@ -47,7 +47,7 @@ public class RightScaleCommandGroup extends CommandGroup{
   				addSequential(new AutoDriveTurnCommand(-90));
   				addSequential(new AutoDriveTurnCommand(12));
   				addParallel(new ElevatorMoveToCommand(36));
-  		  		addSequential(new AutoGrabberCommand());;
+  		  		addSequential(new AutoGrabberCommand(false));;
 
   			}
   			else {

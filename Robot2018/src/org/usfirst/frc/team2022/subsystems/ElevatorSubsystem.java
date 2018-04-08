@@ -20,7 +20,7 @@ public class ElevatorSubsystem extends PIDSubsystem {
 	public ElevatorSubsystem(int motorPort1) {
 		super("Elevator",ConstantsMap.KP_ELEVATOR,ConstantsMap.KI_ELEVATOR,ConstantsMap.KD_ELEVATOR);
 		elevatorMotor = new WPI_TalonSRX(motorPort1);
-		elevatorMotor.setInverted(true);
+		elevatorMotor.setInverted(false);
 		elevatorMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		
 		setInputRange(0, 50);
@@ -32,6 +32,7 @@ public class ElevatorSubsystem extends PIDSubsystem {
 		
 		SmartDashboard.putData("Elevator PID",this.getPIDController());
 		SmartDashboard.putNumber("Elevator Encoder",getEncoderTicks());
+		
 	}
 	
 	public boolean isSwitchSet() {
@@ -64,15 +65,16 @@ public class ElevatorSubsystem extends PIDSubsystem {
 	public void stop() {
 		stopElevator();
 	}
-	
+	public void setMotor(double power) {
+		elevatorMotor.set(power);
+	}
     public double getEncoderDistance(){
     	return elevatorMotor.getSelectedSensorPosition(0)* ConstantsMap.FRONTELEVATOR_ENCODER_DIST_PER_TICK;
     }
     public double getEncoderTicks(){
     	return elevatorMotor.getSelectedSensorPosition(0);
     }
-    
-    
+
     public double getEncoderVelocity(){
     	return elevatorMotor.getSelectedSensorVelocity(0);
     }

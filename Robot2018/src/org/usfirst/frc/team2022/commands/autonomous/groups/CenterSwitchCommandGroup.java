@@ -25,8 +25,16 @@ public class CenterSwitchCommandGroup extends CommandGroup{
   			addSequential(new AutoDelayCommand(1000));		
   			
   			addSequential(new AutoDriveStraightCommand(50),2000);  			
-  			addSequential(new AutoGrabberCommand());
-  		}
+  			addSequential(new AutoGrabberCommand(false));
+  			
+//  			addSequential(new AutoDriveStraightCommand(45));
+//  			addSequential(new AutoDelayCommand(1000));
+//  			addSequential(new AutoDriveTurnCommand(-45));
+//  			addSequential(new AutoDelayCommand(1000));
+//  			addSequential(new AutoDriveStraightCommand(87));
+//  			addSequential(new AutoDriveTurnCommand(30),2000);
+//  			addSequential(new AutoGrabberCommand(false));
+  		}	
   		else{
   			addSequential(new AutoDriveStraightCommand(45));
   			addSequential(new AutoDelayCommand(1000));
@@ -38,7 +46,7 @@ public class CenterSwitchCommandGroup extends CommandGroup{
   			addSequential(new AutoDriveTurnCommand(-90));
   			addSequential(new AutoDelayCommand(1000));	  			
   			addSequential(new AutoDriveStraightCommand(50),2000);  			
-  			addSequential(new AutoGrabberCommand());
+  			addSequential(new AutoGrabberCommand(false));
   		}
 	}
 }

@@ -26,8 +26,8 @@ public class LeftSwitchCommandGroup extends CommandGroup{
   			addSequential(new AutoDelayCommand(1000));
   			//this value will change based off starting pos of robot
   			
-  			addSequential(new AutoDriveStraightCommand(20),2000);
-	  		addSequential(new AutoGrabberCommand());;
+  			addSequential(new AutoDriveStraightCommand(15),2000);
+	  		addSequential(new AutoGrabberCommand(false));;
   			
   		}
   		else{
