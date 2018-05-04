@@ -5,38 +5,52 @@ import org.usfirst.frc.team2022.commands.autonomous.AutoDriveStraightCommand;
 import org.usfirst.frc.team2022.commands.autonomous.AutoDriveTurnCommand;
 import org.usfirst.frc.team2022.commands.autonomous.AutoGrabberCommand;
 import org.usfirst.frc.team2022.commands.autonomous.ElevatorMoveToCommand;
+import org.usfirst.frc.team2022.commands.autonomous.FollowPathCommand;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import jaci.pathfinder.Waypoint;
 
 public class RightSwitchCommandGroup extends CommandGroup{
 
 	public RightSwitchCommandGroup(String side){
-		if(side.charAt(0) == 'L'){
-  			//only goes forward turns then directly to plate 
-  			//168 is distance from back to middle of switch
-			addSequential(new AutoDriveStraightCommand(120));
-  			/*addSequential(new AutoDriveStraightCommand(150));
-  			addSequential(new AutoDelayCommand(1000));
-  			addSequential(new AutoDriveTurnCommand(-90));
-  			addSequential(new AutoDelayCommand(1000));
-  			//this value will change based off starting pos of robot
-  			addSequential(new AutoDriveStraightCommand(12));
-  			addParallel(new ElevatorMoveToCommand(36));
-	  		addSequential(new AutoGrabberCommand());;*/
-  			
+		if(side.charAt(0) == 'L') {
+  			addSequential(new FollowPathCommand(new Waypoint[] {
+  					// 0.0254 is inches-to-meters conversion factor
+  					new Waypoint(0,0,0),
+  					new Waypoint(0,45*0.0254,0),
+  					new Waypoint(37.5*0.0254,45*0.0254,0),
+  					new Waypoint(37.5*0.0254,99*0.0254,0)
+  			}));
+//  			Timer.delay(1);
+//  			addSequential(new AutoDriveStraightCommand(45));
+//  			Timer.delay(1);
+//  			addSequential(new AutoDriveTurnCommand(90));
+//  			Timer.delay(1);
+//  			addSequential(new AutoDriveStraightCommand(37.5));
+//  			Timer.delay(1);
+//  			addSequential(new AutoDriveTurnCommand(-90));
+//  			Timer.delay(1);
+//  			addSequential(new AutoDriveStraightCommand(54));
   		}
   		else{
-  			//168 is distance from back to middle of switch
-  			//
-  			addSequential(new AutoDriveStraightCommand(150));
-  			addSequential(new AutoDelayCommand(1000));
-  			//addParallel(new ElevatorMoveToCommand(12),1000);
-  			addSequential(new AutoDriveTurnCommand(-90));  			
-  			addSequential(new AutoDelayCommand(1000));
-  			//this value will change based off starting pos of robot
-  			addSequential(new AutoDriveStraightCommand(20),1000);  			
-	  		addSequential(new AutoGrabberCommand(false));
+  			addSequential(new FollowPathCommand(new Waypoint[] {
+  					// 0.0254 is inches-to-meters conversion factor
+  					new Waypoint(0,0,0),
+  					new Waypoint(0,45*0.0254,0),
+  					new Waypoint(37.5*0.0254,45*0.0254,0),
+  					new Waypoint(37.5*0.0254,99*0.0254,0)
+  			}));
+//  			Timer.delay(1);
+//  			addSequential(new AutoDriveStraightCommand(45));
+//  			Timer.delay(1);
+//  			addSequential(new AutoDriveTurnCommand(90));
+//  			Timer.delay(1);
+//  			addSequential(new AutoDriveStraightCommand(37.5));
+//  			Timer.delay(1);
+//  			addSequential(new AutoDriveTurnCommand(-90));
+//  			Timer.delay(1);
+//  			addSequential(new AutoDriveStraightCommand(54));
   		}
 	}
 }

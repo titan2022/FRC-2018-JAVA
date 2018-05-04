@@ -44,6 +44,8 @@ public class ConstantsMap {
 	public static final double ElevatorManualSpeed	 = 1;
 	public static final double GrabberManualSpeed	 = 1;
 	
+	public static final int DRIVE_TICKS_PER_REV = 256;
+	
 	
 	//PID Values
 	public static double KP_DRIVE_SPEED = .04;
