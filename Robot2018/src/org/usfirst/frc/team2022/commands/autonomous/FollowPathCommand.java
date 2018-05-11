@@ -20,21 +20,28 @@ public class FollowPathCommand extends Command {
 	
 	EncoderFollower leftFollower;
 	EncoderFollower rightFollower;
-	public FollowPathCommand(Waypoint[] points) {
+	Trajectory trajectory;
+	TankModifier modifier;
+	public FollowPathCommand(TankModifier profile) {
         requires(driveSubsystem);
-        
+       /* System.out.println("My name is jeff");
         // fit method, sample quantity, time step, max vel, max accl, max jerk
         Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH,
-        		0.05, 1.7, 2.0, 60.0);
-        Trajectory trajectory = Pathfinder.generate(points, config);
+        		0.05, 1.0, 1.0, 30.0);
+        System.out.println("My name is jeff2");
+        trajectory = Pathfinder.generate(points, config);
+        System.out.println("My name is jeff3");
         TankModifier modifier = new TankModifier(trajectory).modify(WHEEL_RADIUS_M); // modify (wheel diameter)
-        this.leftFollower = new EncoderFollower(modifier.getLeftTrajectory());
-        this. rightFollower = new EncoderFollower(modifier.getRightTrajectory());
+*/        System.out.println("My name is jeff4");
+        modifier = profile;
+        System.out.println("created");
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
     	// current enc distance, ticks/rev, wheel diameter (m)
+    	leftFollower = new EncoderFollower(modifier.getLeftTrajectory());
+        rightFollower = new EncoderFollower(modifier.getRightTrajectory());
     	leftFollower.configureEncoder(driveSubsystem.getLeftEncoderCount(),
     			ConstantsMap.DRIVE_TICKS_PER_REV, WHEEL_RADIUS_M);
     	rightFollower.configureEncoder((driveSubsystem.getRightEncoderCount()),
@@ -42,6 +49,7 @@ public class FollowPathCommand extends Command {
     	
     	leftFollower.configurePIDVA(1.0, 0.0, 0.0, 1 / 2, 0);
     	rightFollower.configurePIDVA(1.0, 0.0, 0.0, 1 / 2, 0);
+    	 System.out.println("initialized");
 
     }
 
@@ -54,6 +62,8 @@ public class FollowPathCommand extends Command {
     	double targetDir = Pathfinder.r2d(leftFollower.getHeading());  // Should also be in degrees
     	double angleDifference = Pathfinder.boundHalfDegrees(targetDir - gyroDir);
     	double turn = 0.8 * (-1.0/80.0) * angleDifference;
+    	
+    	System.out.println("l:" + l + " r: " + r + " turn: " + turn + " traj len: " + trajectory.length());
     	
     	driveSubsystem.tankDrive(l + turn, r - turn);
     }
