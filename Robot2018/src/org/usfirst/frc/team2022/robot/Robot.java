@@ -49,7 +49,7 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 	public XboxMap xboxMap = new XboxMap();
 	
-	PowerDistributionPanel pdp;
+		PowerDistributionPanel pdp;
 	
 	public double position;
 	
