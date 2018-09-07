@@ -87,7 +87,7 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putData("Auto Chooser",autoTypeChooser);
     	SmartDashboard.putData("Auto Type",actionTypeChooser);
     	//SmartDashboard.putData("PDP",pdp);
-    	SmartDashboard.putData("Gyro", driveSubsystem.getGyro());
+    	//SmartDashboard.putData("Gyro", driveSubsystem.getGyro());
     	SmartDashboard.putData("Left Encoder",driveSubsystem.getLeftEncoder());
     	SmartDashboard.putData("Right Encoder",driveSubsystem.getRightEncoder());
     	SmartDashboard.putData("autocommand", autonomousCommand);
