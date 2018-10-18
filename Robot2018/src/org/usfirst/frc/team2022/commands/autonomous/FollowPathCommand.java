@@ -39,16 +39,18 @@ public class FollowPathCommand extends Command {
         requires(driveSubsystem);
         System.out.println("My name is tim");
         // fit method, sample quantity, time step, max vel, max accl, max jerk
-        Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH,
+        Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_FAST,
         		0.05, 1.0, 1.0, 30.0);
         System.out.println("My name is timmy");
         trajectory = Pathfinder.generate(points, config);
         
         System.out.println("My name is timmyeee");
-        modifier = new TankModifier(trajectory).modify(WHEEL_RADIUS_M); // modify (wheel diameter)
+        modifier = new TankModifier(trajectory).modify(ConstantsMap.BASE_WIDTH); // modify (wheel diameter)
         System.out.println("My name is timmieieiei");
        
         System.out.println("created");
+		driveSubsystem.enableBrake();
+
     }
 
     // Called just before this Command runs the first time
@@ -61,9 +63,9 @@ public class FollowPathCommand extends Command {
     	rightFollower.configureEncoder((driveSubsystem.getRightEncoderCount()),
     			ConstantsMap.DRIVE_TICKS_PER_REV, WHEEL_RADIUS_M);
     	
-    	leftFollower.configurePIDVA(1.0, 0.0, 0.0, 1 / 2, 0);
-    	rightFollower.configurePIDVA(1.0, 0.0, 0.0, 1 / 2, 0);
-    	 System.out.println("initialized");
+    	leftFollower.configurePIDVA(1.0, 0.1, 0.1, 1 / 5, 0);
+    	rightFollower.configurePIDVA(1.0, 0.1, 0.1, 1 / 5, 0);
+    	System.out.println("initialized");
 
     }
 

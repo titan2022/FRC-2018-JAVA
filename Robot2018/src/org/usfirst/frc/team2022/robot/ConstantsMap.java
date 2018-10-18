@@ -27,9 +27,11 @@ public class ConstantsMap {
 	public static final double SPROCKET= 1.5;
 	//Grabber Speeds
 	public static final double AutoGrabSpeed = 1;
+
+	public static final int DRIVE_TICKS_PER_REV = 128;
 	
 	//Drive encoders
-	public static final double DRIVE_ENCODER_DIST_PER_TICK = ((ROBOT_WHEEL_RADIUS_INCHES * Math.PI)/(128));
+	public static final double DRIVE_ENCODER_DIST_PER_TICK = ((ROBOT_WHEEL_RADIUS_INCHES * Math.PI)/(DRIVE_TICKS_PER_REV));
 	public static final double DRIVE_SPEED_REDUCER_MULTIPLIER = 0.3;
 
 	//Radius Elevator
@@ -43,8 +45,6 @@ public class ConstantsMap {
 	
 	public static final double ElevatorManualSpeed	 = 1;
 	public static final double GrabberManualSpeed	 = 1;
-	
-	public static final int DRIVE_TICKS_PER_REV = 256;
 	
 	
 	//PID Values

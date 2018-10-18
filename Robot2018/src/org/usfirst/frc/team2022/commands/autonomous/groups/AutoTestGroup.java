@@ -14,9 +14,10 @@ import jaci.pathfinder.modifiers.TankModifier;
 public class AutoTestGroup extends CommandGroup{
 
 	public AutoTestGroup(){
+		
 		Waypoint[] points =  new Waypoint[] {
-				new Waypoint(0, 0, 0),
-				new Waypoint(49, 0, Pathfinder.d2r(0))
+				new Waypoint(5, 0, Pathfinder.d2r(0)),
+				new Waypoint(0, 0, 0)				
 				};
     	Config config = new Config(
 				Trajectory.FitMethod.HERMITE_CUBIC,
