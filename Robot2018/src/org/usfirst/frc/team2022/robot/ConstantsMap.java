@@ -1,5 +1,7 @@
 package org.usfirst.frc.team2022.robot;
 
+import org.usfirst.frc.team2022.robot.Unit.UnitType;
+
 /*
  * Easy place to access variables that need to be easily changed
  */
@@ -10,12 +12,11 @@ public class ConstantsMap {
 
 	public static final double TurtleSpeed = .7;
 	
-	
 	//Presets
-	public static final double ElevatorSwitchHeight = 40;
-	public static final double ElevatorScaleNormalHeight = (12*5) + 10;
-	public static final double ElevatorScaleHighHeight = (12*6) + 10;
-	public static final double ElevatorPortalHeightHeight = (12*3) + 10;
+	public static final Unit ElevatorSwitchHeight = new Unit(40.0d, UnitType.INCHES);
+	public static final Unit ElevatorScaleNormalHeight = new Unit((12*5) + 10.0d, UnitType.INCHES);
+	public static final Unit ElevatorScaleHighHeight = new Unit((12*6) + 10.0d, UnitType.INCHES);
+	public static final Unit ElevatorPortalHeightHeight = new Unit((12*3) + 10.0d, UnitType.INCHES);
 	
 	//Robot dimensions
 	public static final double ROBOT_LENGTH_INCHES = 36.5; 
