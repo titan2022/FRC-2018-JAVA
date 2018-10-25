@@ -3,6 +3,8 @@ package org.usfirst.frc.team2022.commands.autonomous;
 import org.usfirst.frc.team2022.robot.ConstantsMap;
 import org.usfirst.frc.team2022.robot.CustomPIDController;
 import org.usfirst.frc.team2022.robot.Robot;
+import org.usfirst.frc.team2022.robot.Unit;
+import org.usfirst.frc.team2022.robot.Unit.UnitType;
 import org.usfirst.frc.team2022.subsystems.GrabberSubsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -13,27 +15,23 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class GrabberMoveToCommand extends Command {
 	GrabberSubsystem grabberSubsystem = Robot.grabberSubsystem;
-	int location;
+	Unit location;
 
 	
-    public GrabberMoveToCommand(int location) {
+    public GrabberMoveToCommand(Unit location) {
 //    	if (useFront) elevator = Robot.frontgrabberSubsystem;
 //    	else elevator = Robot.backgrabberSubsystem;
-    	if(location > ConstantsMap.FrontElevatorTravel) {
-    		location = (int) ConstantsMap.FrontElevatorTravel;
-    		
+    	if(location.getValueAs(UnitType.INCHES) > ConstantsMap.FrontElevatorTravel.getValueAs(UnitType.INCHES)) {
+    		location.setValue(ConstantsMap.FrontElevatorTravel.getValueAs(UnitType.INCHES), UnitType.INCHES);
     	}
     	this.location = location;
         requires(grabberSubsystem);
-       
-       
-       
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
     	grabberSubsystem.setAbsoluteTolerance(.95);
-    	grabberSubsystem.setSetpoint(location);
+    	grabberSubsystem.setSetpoint(location.getValueAs(UnitType.INCHES));
     	grabberSubsystem.enable();
     }
 
@@ -44,7 +42,7 @@ public class GrabberMoveToCommand extends Command {
     		grabberSubsystem.resetEncoderPosition();
     		
     	}
-    	else if(grabberSubsystem.getEncoderAngle() >= ConstantsMap.FrontElevatorTravel) {
+    	else if(grabberSubsystem.getEncoderAngle() >= ConstantsMap.FrontElevatorTravel.getValueAs(UnitType.INCHES)) {
     		grabberSubsystem.stop();
     	}
     	SmartDashboard.putNumber("Grabber Anglw", grabberSubsystem.getEncoderAngle());

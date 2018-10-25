@@ -3,7 +3,9 @@ package org.usfirst.frc.team2022.commands.autonomous;
 import org.usfirst.frc.team2022.robot.ConstantsMap;
 import org.usfirst.frc.team2022.robot.CustomPIDController;
 import org.usfirst.frc.team2022.robot.Robot;
+import org.usfirst.frc.team2022.robot.Unit;
 import org.usfirst.frc.team2022.subsystems.ElevatorSubsystem;
+import org.usfirst.frc.team2022.robot.Unit.*;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -13,27 +15,24 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class ElevatorMoveToCommand extends Command {
 	ElevatorSubsystem elevatorSubsystem = Robot.frontElevatorSubsystem;
-	int location;
+	Unit location;
 
 	
-    public ElevatorMoveToCommand(int location) {
+    public ElevatorMoveToCommand(Unit location) {
 //    	if (useFront) elevator = Robot.frontElevatorSubsystem;
 //    	else elevator = Robot.backElevatorSubsystem;
-    	if(location > ConstantsMap.FrontElevatorTravel) {
-    		location = (int) ConstantsMap.FrontElevatorTravel;
-    		
+    	if(location.getValueAs(UnitType.INCHES) > ConstantsMap.FrontElevatorTravel.getValueAs(UnitType.INCHES)) {
+    		location.setValue(ConstantsMap.FrontElevatorTravel.getValueAs(UnitType.INCHES), UnitType.INCHES);
     	}
     	this.location = location;
         requires(elevatorSubsystem);
-       
-       
-       
+        
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
     	elevatorSubsystem.setAbsoluteTolerance(.95);
-    	elevatorSubsystem.setSetpoint(location);
+    	elevatorSubsystem.setSetpoint(location.getValueAs(UnitType.INCHES));
     	elevatorSubsystem.enable();
     }
 
@@ -44,7 +43,7 @@ public class ElevatorMoveToCommand extends Command {
     		elevatorSubsystem.resetEncoderPosition();
     		
     	}
-    	else if(elevatorSubsystem.getEncoderDistance() >= ConstantsMap.FrontElevatorTravel) {
+    	else if(elevatorSubsystem.getEncoderDistance() >= ConstantsMap.FrontElevatorTravel.getValueAs(UnitType.INCHES)) {
     		elevatorSubsystem.stop();
     	}
     	SmartDashboard.putNumber("Elevator Encoder", elevatorSubsystem.getEncoderDistance());

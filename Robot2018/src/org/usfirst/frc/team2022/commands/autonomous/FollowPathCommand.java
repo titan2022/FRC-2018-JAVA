@@ -2,6 +2,7 @@ package org.usfirst.frc.team2022.commands.autonomous;
 
 import org.usfirst.frc.team2022.robot.ConstantsMap;
 import org.usfirst.frc.team2022.robot.Robot;
+import org.usfirst.frc.team2022.robot.Unit.UnitType;
 import org.usfirst.frc.team2022.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj.command.Command;
 import jaci.pathfinder.Pathfinder;
@@ -13,7 +14,7 @@ import jaci.pathfinder.modifiers.TankModifier;
  *
  */
 public class FollowPathCommand extends Command {
-	final double WHEEL_RADIUS_M = ConstantsMap.ROBOT_WHEEL_RADIUS_INCHES * 0.0254 /2;
+	final double WHEEL_RADIUS_M = ConstantsMap.ROBOT_WHEEL_RADIUS.getValueAs(UnitType.INCHES) * 0.0254;
 	// credit where credit is due: half of this is more or less just the Pathfinder library's example code
 	DriveSubsystem driveSubsystem = Robot.driveSubsystem;
 	

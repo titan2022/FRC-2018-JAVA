@@ -3,6 +3,7 @@ package org.usfirst.frc.team2022.subsystems;
 import org.usfirst.frc.team2022.commands.DriveCommand;
 import org.usfirst.frc.team2022.robot.ConstantsMap;
 import org.usfirst.frc.team2022.robot.RobotMap;
+import org.usfirst.frc.team2022.robot.Unit.UnitType;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -54,8 +55,8 @@ public class DriveSubsystem extends Subsystem {
 		
 		
 //		//Set encoder distance per pulse
-		leftEncoder.setDistancePerPulse(ConstantsMap.DRIVE_ENCODER_DIST_PER_TICK);
-		rightEncoder.setDistancePerPulse(ConstantsMap.DRIVE_ENCODER_DIST_PER_TICK);
+		leftEncoder.setDistancePerPulse(ConstantsMap.DRIVE_ENCODER_DIST_PER_TICK.getValueAs(UnitType.INCHES));
+		rightEncoder.setDistancePerPulse(ConstantsMap.DRIVE_ENCODER_DIST_PER_TICK.getValueAs(UnitType.INCHES));
 		SmartDashboard.putData(ahrs);
 		SmartDashboard.putData(leftEncoder);
 		SmartDashboard.putData(rightEncoder);

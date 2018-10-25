@@ -19,30 +19,23 @@ public class ConstantsMap {
 	public static final Unit ElevatorPortalHeightHeight = new Unit((12*3) + 10.0d, UnitType.INCHES);
 	
 	//Robot dimensions
-	public static final double ROBOT_LENGTH_INCHES = 36.5; 
-	public static final double ROBOT_WIDTH_INCHES = 0; 
-	public static final double ROBOT_WHEEL_RADIUS_INCHES = 6; 
-	public static final double FrontElevatorTravel = 34;
+	public static final Unit ROBOT_LENGTH = new Unit(36.5d, UnitType.INCHES); 
+	public static final Unit ROBOT_WIDTH = new Unit(28.0d, UnitType.INCHES); 
+	public static final Unit ROBOT_WHEEL_RADIUS = new Unit(6.0d, UnitType.INCHES);
+	public static final Unit FrontElevatorTravel = new Unit(34.0d, UnitType.INCHES);
 	//public static final double FrontElevatorTravel = 18;
-
-	public static final double SPROCKET= 1.5;
 	//Grabber Speeds
 	public static final double AutoGrabSpeed = 1;
 
 	public static final int DRIVE_TICKS_PER_REV = 128;
 	
 	//Drive encoders
-	public static final double DRIVE_ENCODER_DIST_PER_TICK = ((ROBOT_WHEEL_RADIUS_INCHES * Math.PI)/(DRIVE_TICKS_PER_REV));
-	public static final double DRIVE_SPEED_REDUCER_MULTIPLIER = 0.3;
-
-	//Radius Elevator
-	public static final double FRONTWHEEL_RADIUS_INCHES = 0;
-	public static final double BACKWHEEL_RADIUS_sINCHES = 0;
+	public static final Unit DRIVE_ENCODER_DIST_PER_TICK = new Unit((ROBOT_WHEEL_RADIUS.getValueAs(UnitType.INCHES) * Math.PI)/(DRIVE_TICKS_PER_REV), UnitType.INCHES);
+	public static final Unit DRIVE_SPEED_REDUCER_MULTIPLIER = new Unit(0.3d, UnitType.INCHES);
 	
 	//Elevator encoders
 	public static final double FRONTELEVATOR_ENCODER_DIST_PER_TICK = (30/1963959.0);
 	public static final double GRABBER_ENCODER_ANGLE_PER_TICK = (90/92819.0);
-//	/public static finadl double BACKELEVATOR_ENCODER_DIST_PER_TICK = ((BACKWHEEL_RADIUS_INCHES * Math.PI)/(128));
 	
 	public static final double ElevatorManualSpeed	 = 1;
 	public static final double GrabberManualSpeed	 = 1;

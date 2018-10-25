@@ -12,7 +12,7 @@ public class Auto2CubeLeft extends CommandGroup {
 
 	public Auto2CubeLeft() {
 		
-		addSequential(new AutoDriveStraightCommand(150));
+		/*addSequential(new AutoDriveStraightCommand(150));
 		addSequential(new AutoDelayCommand(1000));
 		//addParallel(new ElevatorMoveToCommand(12),1000);
 		addSequential(new AutoDriveTurnCommand(90));  						
@@ -40,7 +40,7 @@ public class Auto2CubeLeft extends CommandGroup {
 		addSequential(new AutoDriveTurnCommand(90));  						
 		addSequential(new AutoDriveStraightCommand(10));
 		//stuff to out take cube, need to implement the actuate for auto
-		addSequential(new AutoGrabberCommand(false));
+		addSequential(new AutoGrabberCommand(false));*/
 		
 
 
