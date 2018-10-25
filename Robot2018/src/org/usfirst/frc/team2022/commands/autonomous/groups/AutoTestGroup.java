@@ -16,14 +16,10 @@ public class AutoTestGroup extends CommandGroup{
 	public AutoTestGroup(){
 		
 		Waypoint[] points =  new Waypoint[] {
-				new Waypoint(5, 0, Pathfinder.d2r(0)),
+				new Waypoint(4, 0, Pathfinder.d2r(0)),
 				new Waypoint(0, 0, 0)				
 				};
-    	Config config = new Config(
-				Trajectory.FitMethod.HERMITE_CUBIC,
-				Trajectory.Config.SAMPLES_HIGH, 1, 30.0, 20.0, 240.0);
-    	TankModifier profile = new TankModifier(Pathfinder.generate(points, config)).modify(28);
-    	
+ 
     	addSequential(new FollowPathCommand(points));
 		
 	}

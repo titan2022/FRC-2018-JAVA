@@ -13,7 +13,7 @@ import jaci.pathfinder.modifiers.TankModifier;
  *
  */
 public class FollowPathCommand extends Command {
-	final double WHEEL_RADIUS_M = ConstantsMap.ROBOT_WHEEL_RADIUS_INCHES * 0.0254;
+	final double WHEEL_RADIUS_M = ConstantsMap.ROBOT_WHEEL_RADIUS_INCHES * 0.0254 /2;
 	// credit where credit is due: half of this is more or less just the Pathfinder library's example code
 	DriveSubsystem driveSubsystem = Robot.driveSubsystem;
 	
@@ -49,13 +49,16 @@ public class FollowPathCommand extends Command {
         System.out.println("My name is timmieieiei");
        
         System.out.println("created");
-		driveSubsystem.enableBrake();
+		
 
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
     	// current enc distance, ticks/rev, wheel diameter (m)
+    	driveSubsystem.enableBrake();
+    	driveSubsystem.resetEncoders();
+    	driveSubsystem.resetGyro();
     	leftFollower = new EncoderFollower(modifier.getLeftTrajectory());
         rightFollower = new EncoderFollower(modifier.getRightTrajectory());
     	leftFollower.configureEncoder(driveSubsystem.getLeftEncoderCount(),
@@ -63,8 +66,8 @@ public class FollowPathCommand extends Command {
     	rightFollower.configureEncoder((driveSubsystem.getRightEncoderCount()),
     			ConstantsMap.DRIVE_TICKS_PER_REV, WHEEL_RADIUS_M);
     	
-    	leftFollower.configurePIDVA(1.0, 0.1, 0.1, 1 / 5, 0);
-    	rightFollower.configurePIDVA(1.0, 0.1, 0.1, 1 / 5, 0);
+    	leftFollower.configurePIDVA(1.0, 0.1, 0.1, 1 / 1, 0);
+    	rightFollower.configurePIDVA(1.0, 0.1, 0.1, 1 / 1, 0);
     	System.out.println("initialized");
 
     }
@@ -91,11 +94,12 @@ public class FollowPathCommand extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	driveSubsystem.stop();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
     }
-    s
+    
 }
