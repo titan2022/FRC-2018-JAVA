@@ -67,6 +67,13 @@ public class FollowPathCommand extends Command {
     	rightFollower.configureEncoder((driveSubsystem.getRightEncoderCount()),
     			ConstantsMap.DRIVE_TICKS_PER_REV, WHEEL_RADIUS_M);
     	
+    	// From https://github.com/JacisNonsense/Pathfinder/wiki/Pathfinder-for-FRC---Java:
+    	// The first argument is the proportional gain. Usually this will be quite high
+    	// The second argument is the integral gain. This is unused for motion profiling
+    	// The third argument is the derivative gain. Tweak this if you are unhappy with the tracking of the trajectory
+    	// The fourth argument is the velocity ratio. This is 1 over the maximum velocity you provided in the 
+        //     trajectory configuration (it translates m/s to a -1 to 1 scale that your motors can read)
+    	// The fifth argument is your acceleration gain. Tweak this if you want to get to a higher or lower speed quicker
     	leftFollower.configurePIDVA(1.0, 0.1, 0.1, 1 / 1, 0);
     	rightFollower.configurePIDVA(1.0, 0.1, 0.1, 1 / 1, 0);
     	System.out.println("initialized");
