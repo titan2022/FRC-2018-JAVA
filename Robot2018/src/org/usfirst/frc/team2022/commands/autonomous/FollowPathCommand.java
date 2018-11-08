@@ -22,20 +22,14 @@ public class FollowPathCommand extends Command {
 	EncoderFollower rightFollower;
 	Trajectory trajectory;
 	TankModifier modifier;
+	
 	public FollowPathCommand(TankModifier profile) {
         requires(driveSubsystem);
-       /* System.out.println("My name is jeff");
-        // fit method, sample quantity, time step, max vel, max accl, max jerk
-        Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_HIGH,
-        		0.05, 1.0, 1.0, 30.0);
-        System.out.println("My name is jeff2");
-        trajectory = Pathfinder.generate(points, config);
-        System.out.println("My name is jeff3");
-        TankModifier modifier = new TankModifier(trajectory).modify(WHEEL_RADIUS_M); // modify (wheel diameter)
-*/      System.out.println("My name is jeff8");
+        System.out.println("My name is jeff8");
         modifier = profile;
         System.out.println("created");
     }
+	
 	public FollowPathCommand(Waypoint[] points) {
         requires(driveSubsystem);
         System.out.println("My name is tim");
