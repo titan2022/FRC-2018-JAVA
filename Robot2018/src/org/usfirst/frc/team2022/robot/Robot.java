@@ -148,6 +148,7 @@ public class Robot extends IterativeRobot {
 			}
 		}
     	else{
+    		driveSubsystem.disableBrake();
 			autonomousCommand = new AutoTestGroup();
 		}
 		
