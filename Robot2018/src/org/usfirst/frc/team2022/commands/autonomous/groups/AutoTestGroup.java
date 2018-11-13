@@ -16,8 +16,8 @@ public class AutoTestGroup extends CommandGroup{
 	public AutoTestGroup(){
 		
 		Waypoint[] points =  new Waypoint[] {
-				new Waypoint(4, 0, Pathfinder.d2r(0)),
-				new Waypoint(0, 0, 0)				
+				new Waypoint(0, 0, Pathfinder.d2r(0)),
+				new Waypoint(4, 0, 0)		
 				};
  
     	addSequential(new FollowPathCommand(points));
