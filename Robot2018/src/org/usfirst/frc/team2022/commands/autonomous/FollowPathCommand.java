@@ -35,7 +35,7 @@ public class FollowPathCommand extends Command {
         System.out.println("My name is tim");
         // fit method, sample quantity, time step, max vel, max accl, max jerk
         Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_FAST,
-        		0.05, 1.0, 1.0, 30.0);
+        		0.05, ConstantsMap.PATHFINDER_MAX_VEL, ConstantsMap.PATHFINDER_MAX_ACCEL, ConstantsMap.PATHFINDER_MAX_JERK);
         System.out.println("My name is timmy");
         trajectory = Pathfinder.generate(points, config);
         
@@ -68,8 +68,10 @@ public class FollowPathCommand extends Command {
     	// The fourth argument is the velocity ratio. This is 1 over the maximum velocity you provided in the 
         //     trajectory configuration (it translates m/s to a -1 to 1 scale that your motors can read)
     	// The fifth argument is your acceleration gain. Tweak this if you want to get to a higher or lower speed quicker
-    	leftFollower.configurePIDVA(1.0, 0, 0.1, 1 / 1, 0);
-    	rightFollower.configurePIDVA(1.0, 0, 0.1, 1 / 1, 0);
+    	leftFollower.configurePIDVA(ConstantsMap.PATHFINDER_KP, ConstantsMap.PATHFINDER_KI, ConstantsMap.PATHFINDER_KD,
+    			                    1 / ConstantsMap.PATHFINDER_MAX_VEL, 0);
+    	rightFollower.configurePIDVA(ConstantsMap.PATHFINDER_KP, ConstantsMap.PATHFINDER_KI, ConstantsMap.PATHFINDER_KD,
+                                     1 / ConstantsMap.PATHFINDER_MAX_VEL, 0);
     	System.out.println("initialized");
 
     }

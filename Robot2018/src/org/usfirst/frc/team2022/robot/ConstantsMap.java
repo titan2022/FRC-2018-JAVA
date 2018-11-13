@@ -82,4 +82,12 @@ public class ConstantsMap {
 	public static double BASE_WIDTH = 27.75;
 	public static double BASE_LENGTH = 32.75;
 	
+	// Motion Values for Pathfinder
+	// Not currently in the Unit class, as that currently handles only units of length
+	public static final double PATHFINDER_MAX_VEL   = 0.5; // m/s (probably)
+	public static final double PATHFINDER_MAX_ACCEL = 0.5; // m/s2 (probably)
+	public static final double PATHFINDER_MAX_JERK  = 0.5; // m/s3 (probably)
+	public static final double PATHFINDER_KP = 1.0;
+	public static final double PATHFINDER_KI = 0.0;
+	public static final double PATHFINDER_KD = 1.0;
 }
